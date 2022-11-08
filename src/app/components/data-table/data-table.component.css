@@ -1,0 +1,17 @@
+.datatable {
+    /* border: 1px solid grey; */
+    /* margin: 10% 25% 0% 25%; */
+    /* height: 500px; */
+    border-radius: 25px;
+    /* background: #73AD21; */
+    padding: 20px;
+}
+
+.headerOptions {
+    border: 1px solid black;
+    width: 500px;
+    height: 250px;
+    overflow: scroll;
+    padding: 2%;
+    position: relative;
+}

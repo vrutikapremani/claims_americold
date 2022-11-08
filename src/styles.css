@@ -1,4 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.active {
+    background-color: #0058fe !important;
+}
+
+.datatable-header-cell-template-wrap {
+    font-weight: bold;
+    color: black;
+    font-size: 16px;
+}
+
+.ngx-datatable.material {
+    /* overflow: scroll; */
+    box-shadow: none;
+}
+
+.page-count {
+    display: none;
+}
+
+.pager {
+    float: left;
+}
+
+.chartrow {
+    height: 100% !important;
+    max-height: 10px !important;
+}

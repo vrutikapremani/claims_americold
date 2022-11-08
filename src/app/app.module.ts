@@ -16,6 +16,7 @@ import {MatCardModule} from '@angular/material/card';
 import { ChartsModule } from 'ng2-charts';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatCardModule,
     FlexLayoutModule,
     ChartsModule,
-    MatToolbarModule
+    MatToolbarModule,
+   NgxDatatableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

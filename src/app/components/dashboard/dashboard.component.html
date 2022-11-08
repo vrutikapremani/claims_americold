@@ -2,7 +2,7 @@
     <div>
         <app-data-cards></app-data-cards>
     </div>
-    <div fxFlexFill fxLayoutGap="20px" fxLayout="row">
+    <div class="chartrow" fxLayoutGap="20px" fxLayout="row" style="height: 100%; min-height: 35%;">
         <mat-card fxFlex="40%">
             <app-doughnut-chart></app-doughnut-chart>
         </mat-card>
@@ -10,7 +10,7 @@
             <app-bar-chart></app-bar-chart>
         </mat-card>
     </div>
-    <div>
+    <div fxFlexFill fxLayoutGap="100%">
         <mat-card>
             <app-data-table></app-data-table>
         </mat-card>
