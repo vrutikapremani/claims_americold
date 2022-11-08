@@ -8,6 +8,7 @@ import { DataTableComponent } from './components/data-table/data-table.component
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,NgxDatatableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

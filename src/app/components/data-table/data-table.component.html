@@ -1,1 +1,17 @@
-<p>data-table works!</p>
+<div class="datatable" *ngIf="rows.length > 0">
+    <div>
+
+        <h1>Claims</h1>
+        <span>
+        <button (click)="show=!show" (click)="checkFilters(show)">Filters</button>
+        <div class="headerOptions" *ngIf="show">
+            <p  *ngFor="let item of columns"><input type="radio" (click)="item.show = !item.show" [checked]="item.show"/> {{item.name}}{{item.show}}</p>
+</div>
+</span>
+    </div>
+
+    <br/>
+    <ngx-datatable class="material" [scrollbarH]="true" [rows]="rows" [columns]="selectedColumns" [columnMode]="ColumnMode.force" [headerHeight]="75" [footerHeight]="75" [rowHeight]="rowHeight" [limit]="10">
+    </ngx-datatable>
+
+</div>
