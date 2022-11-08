@@ -1,22 +1,19 @@
-<div class="datatable" *ngIf="rows.length > 0">
-    <div>
-
-        <h1>Analytics Traffic Channels & Goals</h1>
-        <span class="menuFilter">
-            <mat-card class="headerOptions" *ngIf="show">
-                <button mat-button (click)="checkFilters(show)" (click)="show=!show" style="float: right;"><mat-icon>close</mat-icon></button>
-                <span style="overflow: scroll;">
-                    <p  *ngFor="let item of columns"><mat-checkbox [(ngModel)]="item.show"> {{item.name}} </mat-checkbox></p>
-
-                </span>
-        </mat-card>
-        <button mat-button *ngIf="!show" (click)="show=!show">Filters</button>
-
-        </span>
+<mat-card-header class="absolute-center text-center">
+    <mat-card-subtitle>Claims Details</mat-card-subtitle>
+</mat-card-header>
+<div *ngIf="rows.length > 0" fxFlexFill fxLayout="column">
+    <div fxFlex fxLayoutAlign="end start">
+        <button mat-stroked-button color="primary" mat-button [matMenuTriggerFor]="menu">Display Fields</button>
+        <mat-menu #menu="matMenu" (click)="$event.stopPropagation()">
+            <li mat-menu-item *ngFor="let item of columns" class="li-column-list" (click)="$event.stopPropagation()">
+                <mat-checkbox [checked]="item.show" (change)="togglecolumnCheckbox(item)" color="primary"> {{item.name}} </mat-checkbox>
+            </li>
+        </mat-menu>
     </div>
-
-    <br/>
-    <ngx-datatable class="material" [scrollbarH]="true" [rows]="rows" [columns]="selectedColumns" [columnMode]="ColumnMode.force" [headerHeight]="75" [footerHeight]="75" [rowHeight]="rowHeight" [limit]="10">
-    </ngx-datatable>
-
+    <div>
+        <ngx-datatable class="material expandable" [scrollbarH]="true" [rows]="rows" [columns]="selectedColumns"
+            [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="40" [rowHeight]="rowHeight" [limit]="10"
+            class="material expandable">
+        </ngx-datatable>
+    </div>
 </div>

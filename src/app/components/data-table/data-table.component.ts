@@ -9,10 +9,10 @@ import { ColumnMode } from '@swimlane/ngx-datatable';
 export class DataTableComponent implements OnInit {
 
   rows: any = [];
-  columns = [{ "name": "Date", props: "date", show: true }, { "name": "Master Acct", props: "masterAcct", show: true }, { "name": "Facility", props: "facility", show: true }, { "name": "Account", props: "account", show: true }, { "name": "Amc Claim", props: "amcClaim", show: false }, { "name": "claimType", show: false }, { "name": "category", show: false }, { "name": "status", show: false }, { "name": "claimedAmount", show: false }, { "name": "paidAmount", show: false }, { "name": "dateClosed", show: false }, { "name": "carrier", show: false }, { "name": "loadNumber", show: false }];
+  columns = [{ "name": "Date", props: "date", show: true }, { "name": "Master Acct", props: "masterAcct", show: true }, { "name": "Facility", props: "facility", show: true }, { "name": "Account", props: "account", show: true }, { "name": "Amc Claim", props: "amcClaim", show: false }, { "name": "claimType", show: true }, { "name": "category", show: true }, { "name": "status", show: true }, { "name": "claimedAmount", show: false }, { "name": "paidAmount", show: false }, { "name": "dateClosed", show: false }, { "name": "carrier", show: false }, { "name": "loadNumber", show: false }];
   ColumnMode = ColumnMode;
   selectedColumns = this.columns.filter(item => item.show);
-  rowHeight = 50;
+  rowHeight = 40;
   show = false;
   constructor() {
     this.rows = [
@@ -9513,6 +9513,11 @@ export class DataTableComponent implements OnInit {
       this.selectedColumns = this.columns.filter(item => item.show);
 
     // }
+  }
+  public togglecolumnCheckbox(column:any) {
+    const isChecked = column.show;
+      column.show = !isChecked;
+      this.selectedColumns = this.columns.filter(item => item.show);
   }
 
 }
