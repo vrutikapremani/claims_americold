@@ -1,1 +1,18 @@
-<p>dashboard works!</p>
+<div fxFlexFill fxLayout="column" fxLayoutGap="20px" fxFlexFill>
+    <div>
+        <app-data-cards></app-data-cards>
+    </div>
+    <div fxFlexFill fxLayoutGap="20px" fxLayout="row">
+        <mat-card fxFlex="40%">
+            <app-doughnut-chart></app-doughnut-chart>
+        </mat-card>
+        <mat-card fxFlex="60%">
+            <app-bar-chart></app-bar-chart>
+        </mat-card>
+    </div>
+    <div>
+        <mat-card>
+            <app-data-table></app-data-table>
+        </mat-card>
+    </div>
+</div>
