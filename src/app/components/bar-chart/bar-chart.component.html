@@ -1,1 +1,7 @@
-<p>bar-chart works!</p>
+<mat-card-header class="absolute-center text-center">
+    <mat-card-subtitle>Completed Claims Breakdown by Month</mat-card-subtitle>
+</mat-card-header>
+<div>
+    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+        [legend]="barChartLegends" [colors]="barChartColor" [chartType]="barChartType" height="70px"></canvas>
+</div>
