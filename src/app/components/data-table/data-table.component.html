@@ -6,7 +6,7 @@
             <mat-card class="headerOptions" *ngIf="show">
                 <button mat-button (click)="checkFilters(show)" (click)="show=!show" style="float: right;"><mat-icon>close</mat-icon></button>
                 <span style="overflow: scroll;">
-                    <p  *ngFor="let item of columns"><mat-checkbox [(ngModel)]="item.show"> {{item.name}}{{item.show}} </mat-checkbox></p>
+                    <p  *ngFor="let item of columns"><mat-checkbox [(ngModel)]="item.show"> {{item.name}} </mat-checkbox></p>
 
                 </span>
         </mat-card>
