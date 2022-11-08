@@ -37,3 +37,8 @@ body {
     height: 100% !important;
     max-height: 10px !important;
 }
+
+.menuFilter {
+    float: right;
+    margin-top: -4%;
+}

@@ -1,8 +1,9 @@
 .datatable {
-    /* border: 1px solid grey; */
+    /* border: 1px solid rgb(216, 216, 216); */
     /* margin: 10% 25% 0% 25%; */
     /* height: 500px; */
     border-radius: 25px;
+    /* box-shadow: 1rem; */
     /* background: #73AD21; */
     padding: 20px;
 }

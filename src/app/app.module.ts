@@ -17,6 +17,11 @@ import { ChartsModule } from 'ng2-charts';
 import {MatToolbarModule} from '@angular/material/toolbar';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { FormsModule } from '@angular/forms';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -36,6 +41,11 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     FlexLayoutModule,
     ChartsModule,
     MatToolbarModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    FormsModule,
+    MatMenuModule,
+    MatIconModule,
    NgxDatatableModule
   ],
   providers: [],

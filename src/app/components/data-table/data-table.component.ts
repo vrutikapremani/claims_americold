@@ -9509,10 +9509,10 @@ export class DataTableComponent implements OnInit {
     console.log(e);
   }
   checkFilters(show:boolean){
-    if(!show){
+    // if(show){
       this.selectedColumns = this.columns.filter(item => item.show);
 
-    }
+    // }
   }
 
 }

@@ -1,13 +1,18 @@
 <div class="datatable" *ngIf="rows.length > 0">
     <div>
 
-        <h1>Claims</h1>
-        <span>
-        <button (click)="show=!show" (click)="checkFilters(show)">Filters</button>
-        <div class="headerOptions" *ngIf="show">
-            <p  *ngFor="let item of columns"><input type="radio" (click)="item.show = !item.show" [checked]="item.show"/> {{item.name}}{{item.show}}</p>
-</div>
-</span>
+        <h1>Analytics Traffic Channels & Goals</h1>
+        <span class="menuFilter">
+            <mat-card class="headerOptions" *ngIf="show">
+                <button mat-button (click)="checkFilters(show)" (click)="show=!show" style="float: right;"><mat-icon>close</mat-icon></button>
+                <span style="overflow: scroll;">
+                    <p  *ngFor="let item of columns"><mat-checkbox [(ngModel)]="item.show"> {{item.name}}{{item.show}} </mat-checkbox></p>
+
+                </span>
+        </mat-card>
+        <button mat-button *ngIf="!show" (click)="show=!show">Filters</button>
+
+        </span>
     </div>
 
     <br/>
