@@ -9,7 +9,10 @@ import { AnimationFrameScheduler } from 'rxjs/internal/scheduler/AnimationFrameS
   styleUrls: ['./bar-chart.component.css']
 })
 export class BarChartComponent implements OnInit {
-  @Input() rowData: any[] = [];
+  @Input() claimData: any[] = [];
+  @Input() barchartColor: any;
+  @Input() barSize: any;
+  public openClaims: any[] = [];
   public barChartOptions: ChartOptions = {
     responsive: true,
     // maintainAspectRatio: false,
@@ -30,19 +33,19 @@ export class BarChartComponent implements OnInit {
           stacked: false,
           ticks: {
             min: 0,
-            stepSize: 2,
-            max: 100
+            stepSize: 100,
+            max: 4000
           }
         }
       ]
     }
   };
 
-  public barChartData = [
-    { data: [10, 30, 40, 50, 20, 30, 20, 10, 40, 30, 60, 70] }
+  public barChartData: any = [
+    { data: [] }
   ];
 
-  public barChartLabels: any = ['Jan', 'Feb', 'Mar', 'Apr', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  public barChartLabels: any = [];
 
   public barChartType: ChartType = 'bar';
 
@@ -54,6 +57,10 @@ export class BarChartComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.claimData.forEach((claim: any) => {
+      this.barChartLabels.push(claim.masterAcct);
+      this.barChartData[0].data.push(claim.claimedAmount);
+    })
   }
 
 }

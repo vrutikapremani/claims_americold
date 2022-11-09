@@ -18,11 +18,22 @@
                 <app-data-cards [rowData]="claims"></app-data-cards>
             </div>
             <div fxLayoutGap="20px" fxLayout="row">
-                <mat-card fxFlex="40%">
-                    <app-doughnut-chart></app-doughnut-chart>
+                <mat-card fxFlex="30%">
+                    <app-doughnut-chart [claimData]="statusData"></app-doughnut-chart>
                 </mat-card>
-                <mat-card fxFlex="60%">
-                    <app-bar-chart></app-bar-chart>
+                <mat-card fxFlex="35%">
+                    <mat-card-header class="absolute-center text-center">
+                        <mat-card-subtitle>Top 5 Open Claims</mat-card-subtitle>
+                    </mat-card-header>
+                    <app-bar-chart [claimData]="openClaims" [barchartColor]="openBarChartColor" [barSize]="openSize">
+                    </app-bar-chart>
+                </mat-card>
+                <mat-card fxFlex="35%">
+                    <mat-card-header class="absolute-center text-center">
+                        <mat-card-subtitle>Top 5 Closed Claims</mat-card-subtitle>
+                    </mat-card-header>
+                    <app-bar-chart [claimData]="closedClaims" [barchartColor]="closedBarChartColor"
+                        [barSize]="closedSize"></app-bar-chart>
                 </mat-card>
             </div>
             <div fxFlexFill fxLayoutGap="100%">

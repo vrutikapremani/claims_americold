@@ -32,7 +32,7 @@
                 <mat-icon class="claim-amount">attach_money</mat-icon>
             </div>
             <mat-card-subtitle>Claim Amount</mat-card-subtitle>
-            <mat-card-title>${{ claimAmount }}</mat-card-title>
+            <mat-card-title>${{ claimAmount | number : '1.2-2'}}</mat-card-title>
         </mat-card-header>
     </mat-card>
     <mat-card fxFlex="20%">
@@ -41,7 +41,7 @@
                 <mat-icon class="paid-amount">paid</mat-icon>
             </div>
             <mat-card-subtitle>Paid Amount</mat-card-subtitle>
-            <mat-card-title>${{ paidAmount }}</mat-card-title>
+            <mat-card-title>${{ paidAmount | number : '1.2-2' }}</mat-card-title>
         </mat-card-header>
     </mat-card>
 </div>

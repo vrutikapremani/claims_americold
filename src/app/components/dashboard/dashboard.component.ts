@@ -8064,11 +8064,35 @@ export class DashboardComponent implements OnInit {
     dateClosed: "11/2/22"
   }
   ];
-
+  public openClaims: any[] = [];
+  public closedClaims: any[] = [];
+  public statusData:any = {};
+  public openBarChartColor = '#36A2EB';
+  public closedBarChartColor = '#FF6484';
+  public openSize = 3000;
+  public closedSize = 50000;
   constructor() { }
 
   ngOnInit(): void {
-
+    this.initFilter();
   }
-
+  public initFilter(): void {
+    this.openClaims = this.claims.filter((claim: any) => claim.status === 'Open');
+    this.openClaims.forEach((elem: any) => {
+      elem.claimedAmount = +elem.claimedAmount.substring(1).replace(',', '');
+    })
+    this.openClaims = this.openClaims.sort((a: any, b: any) => b.claimedAmount - a.claimedAmount).slice(0, 5);
+    this.closedClaims = this.claims.filter((claim: any) => claim.status === 'Closed');
+    this.closedClaims.forEach((elem: any) => {
+      elem.claimedAmount = +elem.claimedAmount.substring(1).replace(',', '');
+    })
+    this.closedClaims = this.closedClaims.sort((a: any, b: any) => b.claimedAmount - a.claimedAmount).slice(0, 5);
+    this.claims.forEach((element:any) => {
+      if(this.statusData.hasOwnProperty(element.status)){
+        this.statusData[element.status] +=1;
+      } else {
+        this.statusData[element.status] = 1;
+      }
+    })
+  }
 }

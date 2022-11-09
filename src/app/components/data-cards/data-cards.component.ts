@@ -22,11 +22,10 @@ export class DataCardsComponent implements OnInit {
     this.facilities = Array.from(new Set(this.rowData.map(({ facility }) => facility)));
     this.customers = Array.from(new Set(this.rowData.map(({ masterAcct }) => masterAcct)));
     this.rowData.forEach(element => {
-      let amount = +element.claimedAmount.substring(1);
+      let amount = typeof element.claimedAmount === 'string' ? +element.claimedAmount.substring(1) : element.claimedAmount;
       let paidAmount = +element.paidAmount.substring(1);
       this.claimAmount += amount ? amount : 0;
       this.paidAmount += paidAmount ? paidAmount : 0;
     });
-    // this.claimAmount = this.rowData.reduce((total:any, current:any) => current.dateClosed+total,0)
   }
 }
