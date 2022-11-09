@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ChartOptions, ChartType } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { AnimationFrameScheduler } from 'rxjs/internal/scheduler/AnimationFrameScheduler';
@@ -9,7 +9,7 @@ import { AnimationFrameScheduler } from 'rxjs/internal/scheduler/AnimationFrameS
   styleUrls: ['./bar-chart.component.css']
 })
 export class BarChartComponent implements OnInit {
-
+  @Input() rowData: any[] = [];
   public barChartOptions: ChartOptions = {
     responsive: true,
     // maintainAspectRatio: false,
@@ -42,7 +42,7 @@ export class BarChartComponent implements OnInit {
     { data: [10, 30, 40, 50, 20, 30, 20, 10, 40, 30, 60, 70] }
   ];
 
-  public barChartLabels: any = ['Jan','Feb','Mar','Apr', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  public barChartLabels: any = ['Jan', 'Feb', 'Mar', 'Apr', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   public barChartType: ChartType = 'bar';
 
