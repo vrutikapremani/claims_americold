@@ -7,9 +7,10 @@ import { MatDrawer } from '@angular/material/sidenav';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  showFiller=true;
-  @ViewChild(MatDrawer) drawer:any;
-  public claims =  [{
+  showFiller = true;
+  @ViewChild(MatDrawer) drawer: any;
+  navOptions = "addClaim";
+  public claims = [{
     date: "10/17/22",
     masterAcct: "Lamb Weston",
     facility: "Taber, Canada (61600)",
@@ -8062,7 +8063,8 @@ export class DashboardComponent implements OnInit {
     paidAmount: "$4,992.85 ",
     dateClosed: "11/2/22"
   }
-];
+  ];
+
   constructor() { }
 
   ngOnInit(): void {
