@@ -1,18 +1,33 @@
-<div fxFlexFill fxLayout="column" fxLayoutGap="20px" fxFlexFill class="dashboard">
-    <div>
-        <app-data-cards></app-data-cards>
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+
+        <mat-list>
+            <mat-list-item class="headerOption">
+                <mat-icon>home</mat-icon> &nbsp; Claims Home </mat-list-item>
+            <mat-list-item class="headerOption">
+                <mat-icon>add</mat-icon> &nbsp; Add Claims </mat-list-item>
+            <!-- <mat-list-item> Paprika </mat-list-item> -->
+        </mat-list>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+        <div fxFlexFill fxLayout="column" fxLayoutGap="20px" fxFlexFill class="dashboard">
+            <div>
+                <app-data-cards></app-data-cards>
+            </div>
+            <div fxLayoutGap="20px" fxLayout="row">
+                <mat-card fxFlex="40%">
+                    <app-doughnut-chart></app-doughnut-chart>
+                </mat-card>
+                <mat-card fxFlex="60%">
+                    <app-bar-chart></app-bar-chart>
+                </mat-card>
+            </div>
+            <div fxFlexFill fxLayoutGap="100%">
+                <mat-card>
+                    <app-data-table></app-data-table>
+                </mat-card>
+            </div>
+        </div>
     </div>
-    <div fxLayoutGap="20px" fxLayout="row">
-        <mat-card fxFlex="40%">
-            <app-doughnut-chart></app-doughnut-chart>
-        </mat-card>
-        <mat-card fxFlex="60%">
-            <app-bar-chart></app-bar-chart>
-        </mat-card>
-    </div>
-    <div fxFlexFill fxLayoutGap="100%">
-        <mat-card>
-            <app-data-table></app-data-table>
-        </mat-card>
-    </div>
-</div>
+</mat-drawer-container>

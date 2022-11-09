@@ -22,6 +22,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import {MatIconModule} from '@angular/material/icon';
     FormsModule,
     MatMenuModule,
     MatIconModule,
+    MatSidenavModule,
+    MatListModule,
    NgxDatatableModule
   ],
   providers: [],
