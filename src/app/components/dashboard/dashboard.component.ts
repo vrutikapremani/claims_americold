@@ -9,7 +9,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 export class DashboardComponent implements OnInit {
   showFiller = true;
   @ViewChild(MatDrawer) drawer: any;
-  navOptions = "addClaim";
+  navOptions = "home";
   public claims = [{
     date: "10/17/22",
     masterAcct: "Lamb Weston",
