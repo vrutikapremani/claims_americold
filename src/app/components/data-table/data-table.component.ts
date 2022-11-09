@@ -7,8 +7,8 @@ import { ColumnMode } from '@swimlane/ngx-datatable';
   styleUrls: ['./data-table.component.css']
 })
 export class DataTableComponent implements OnInit {
-	@Input() rowData: any[] = [];
-  rows: any = [];
+	@Input() rows: any[] = [];
+  // rows: any = [];
   columns = [{
 		name: "Date",
 		props: "date",

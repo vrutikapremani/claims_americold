@@ -16,18 +16,17 @@ export class DataCardsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("row", this.rowData)
     this.initFilter();
   }
   public initFilter(): void {
-this.facilities = Array.from(new Set(this.rowData.map(({ facility }) => facility)));
-this.customers = Array.from(new Set(this.rowData.map(({ masterAcct }) => masterAcct)));
-this.rowData.forEach(element => {
-  let amount =  +element.claimedAmount.substring(1);
-  console.log (amount + this.claimAmount)
-  this.claimAmount+= +amount;
-});
-// this.claimAmount = this.rowData.reduce((total:any, current:any) => current.dateClosed+total,0)
-console.log(this.claimAmount)
+    this.facilities = Array.from(new Set(this.rowData.map(({ facility }) => facility)));
+    this.customers = Array.from(new Set(this.rowData.map(({ masterAcct }) => masterAcct)));
+    this.rowData.forEach(element => {
+      let amount = +element.claimedAmount.substring(1);
+      let paidAmount = +element.paidAmount.substring(1);
+      this.claimAmount += amount ? amount : 0;
+      this.paidAmount += paidAmount ? paidAmount : 0;
+    });
+    // this.claimAmount = this.rowData.reduce((total:any, current:any) => current.dateClosed+total,0)
   }
 }
