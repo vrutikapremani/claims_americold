@@ -7,13 +7,13 @@
             <mat-card-content fxLayout="column wrap">
                 <p>
                     <mat-form-field appearance="outline" fxFlexFill color="primary">
-                        <mat-label>username</mat-label>
+                        <mat-label>Username</mat-label>
                         <input matInput placeholder="xyz@gmail.com" required>
                     </mat-form-field>
                 </p>
                 <p>
                     <mat-form-field appearance="outline" fxFlexFill color="primary" required>
-                        <mat-label>Enter your password</mat-label>
+                        <mat-label>Password</mat-label>
                         <input matInput [type]="hide ? 'password' : 'text'">
                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
                             [attr.aria-pressed]="hide">
