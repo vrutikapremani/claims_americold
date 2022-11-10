@@ -37,4 +37,8 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', Validators.required)
     })
   }
+  public onFormReset() {
+    this.loginForm.controls['username'].setValue('');
+    this.loginForm.controls['password'].setValue('');
+  }
 }

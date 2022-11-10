@@ -37,7 +37,7 @@
             <mat-card-actions fxLayoutAlign="end start">
                 <button mat-button color="primary" (click)="userLogin()" type="button"
                     [disabled]="!(loginForm.valid && loginForm.dirty)">Login</button>
-                <button mat-flat-button>Reset</button>
+                <button mat-flat-button (click)="onFormReset()">Reset</button>
             </mat-card-actions>
         </mat-card>
     </div>
