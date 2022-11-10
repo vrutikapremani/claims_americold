@@ -71,9 +71,6 @@ export class DataTableComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  checkit(e: any) {
-    console.log(e);
-  }
   checkFilters(show:boolean){
     // if(show){
       this.selectedColumns = this.columns.filter(item => item.show);
