@@ -1,18 +1,61 @@
-<div fxFlexFill fxLayout="column" fxLayoutGap="20px" fxFlexFill class="dashboard">
-    <div>
-        <app-data-cards></app-data-cards>
+<app-header [dashboard]="drawer"></app-header>
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+
+        <mat-list>
+            <mat-list-item class="headerOption" (click)="navOptions = 'home'">
+                <mat-icon>home</mat-icon> &nbsp; Claims Home
+            </mat-list-item>
+            <mat-list-item class="headerOption" (click)="navOptions = 'addClaim'">
+                <mat-icon>add</mat-icon> &nbsp; Add Claims
+            </mat-list-item>
+            <!-- <mat-list-item> Paprika </mat-list-item> -->
+        </mat-list>
+    </mat-drawer>
+
+    <div class="example-sidenav-content" *ngIf="navOptions == 'home'" #dashboard>
+        <div fxFlexFill fxLayout="column" fxLayoutGap="20px" fxFlexFill class="dashboard">
+            <div>
+                <app-data-cards [rowData]="claims"></app-data-cards>
+            </div>
+            <div fxLayoutGap="20px" fxLayout="row">
+                <mat-card fxFlex="50%">
+                    <app-doughnut-chart [claimData]="statusData"></app-doughnut-chart>
+                </mat-card>
+                <mat-card fxFlex="50%">
+                    <mat-card-header class="absolute-center text-center">
+
+                        Open Claims &nbsp;
+                        <mat-slide-toggle #slider>Closed Claims</mat-slide-toggle>
+                    </mat-card-header>
+
+                    <mat-card-header class="absolute-center text-center">
+                        <mat-card-subtitle *ngIf="!slider.checked">Top 5 Open Claims</mat-card-subtitle>
+                        <mat-card-subtitle *ngIf="slider.checked">Top 5 Closed Claims</mat-card-subtitle>
+
+                    </mat-card-header>
+                    <app-bar-chart *ngIf="!slider.checked" [claimData]="openClaims" [barchartColor]="openBarChartColor" [barSize]="openSize">
+                    </app-bar-chart>
+
+                    <app-bar-chart *ngIf="slider.checked" [claimData]="closedClaims" [barchartColor]="closedBarChartColor" [barSize]="closedSize"></app-bar-chart>
+
+                </mat-card>
+                <!-- <mat-card fxFlex="35%">
+                    <mat-card-header class="absolute-center text-center">
+                        <mat-card-subtitle>Top 5 Closed Claims</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card> -->
+            </div>
+            <div fxFlexFill fxLayoutGap="100%">
+                <mat-card>
+                    <app-data-table [rows]="claims"></app-data-table>
+                </mat-card>
+            </div>
+        </div>
     </div>
-    <div fxLayoutGap="20px" fxLayout="row">
-        <mat-card fxFlex="40%">
-            <app-doughnut-chart></app-doughnut-chart>
-        </mat-card>
-        <mat-card fxFlex="60%">
-            <app-bar-chart></app-bar-chart>
-        </mat-card>
+    <div class="example-sidenav-content" *ngIf="navOptions == 'addClaim'">
+        <app-add-claims></app-add-claims>
+
+
     </div>
-    <div fxFlexFill fxLayoutGap="100%">
-        <mat-card>
-            <app-data-table></app-data-table>
-        </mat-card>
-    </div>
-</div>
+</mat-drawer-container>
