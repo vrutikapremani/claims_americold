@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   }
 
   toggleMenu(){
-    console.log(this.dashboard.drawer.toggle());
+    console.log(this.dashboard.toggle());
   }
 
 }
