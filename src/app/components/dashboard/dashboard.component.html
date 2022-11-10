@@ -19,22 +19,32 @@
                 <app-data-cards [rowData]="claims"></app-data-cards>
             </div>
             <div fxLayoutGap="20px" fxLayout="row">
-                <mat-card fxFlex="30%">
+                <mat-card fxFlex="50%">
                     <app-doughnut-chart [claimData]="statusData"></app-doughnut-chart>
                 </mat-card>
-                <mat-card fxFlex="35%">
+                <mat-card fxFlex="50%">
                     <mat-card-header class="absolute-center text-center">
-                        <mat-card-subtitle>Top 5 Open Claims</mat-card-subtitle>
+
+                        Open Claims &nbsp;
+                        <mat-slide-toggle #slider>Closed Claims</mat-slide-toggle>
                     </mat-card-header>
-                    <app-bar-chart [claimData]="openClaims" [barchartColor]="openBarChartColor" [barSize]="openSize">
+
+                    <mat-card-header class="absolute-center text-center">
+                        <mat-card-subtitle *ngIf="!slider.checked">Top 5 Open Claims</mat-card-subtitle>
+                        <mat-card-subtitle *ngIf="slider.checked">Top 5 Closed Claims</mat-card-subtitle>
+
+                    </mat-card-header>
+                    <app-bar-chart *ngIf="!slider.checked" [claimData]="openClaims" [barchartColor]="openBarChartColor" [barSize]="openSize">
                     </app-bar-chart>
+
+                    <app-bar-chart *ngIf="slider.checked" [claimData]="closedClaims" [barchartColor]="closedBarChartColor" [barSize]="closedSize"></app-bar-chart>
+
                 </mat-card>
-                <mat-card fxFlex="35%">
+                <!-- <mat-card fxFlex="35%">
                     <mat-card-header class="absolute-center text-center">
                         <mat-card-subtitle>Top 5 Closed Claims</mat-card-subtitle>
                     </mat-card-header>
-                    <app-bar-chart [claimData]="closedClaims" [barchartColor]="closedBarChartColor" [barSize]="closedSize"></app-bar-chart>
-                </mat-card>
+                </mat-card> -->
             </div>
             <div fxFlexFill fxLayoutGap="100%">
                 <mat-card>
