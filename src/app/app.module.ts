@@ -33,6 +33,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { AddClaimComponent } from './components/add-claims/add-claims.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
     BarChartComponent,
     DataCardsComponent,
     HeaderComponent,
-    AddClaimComponent
+    AddClaimComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
     MatNativeDateModule,
     MatInputModule,
     MatDatepickerModule,MatBottomSheetModule,
-   NgxDatatableModule
+   NgxDatatableModule,
+   MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

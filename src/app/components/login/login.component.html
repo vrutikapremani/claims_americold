@@ -1,0 +1,47 @@
+<div class="context">
+    <div class="login">
+        <mat-card>
+            <div class="login-header">
+                <h2>Claims Login</h2>
+            </div>
+            <mat-card-content fxLayout="column wrap">
+                <p>
+                    <mat-form-field appearance="outline" fxFlexFill color="primary">
+                        <mat-label>username</mat-label>
+                        <input matInput placeholder="xyz@gmail.com" required>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline" fxFlexFill color="primary" required>
+                        <mat-label>Enter your password</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </p>
+            </mat-card-content>
+            <mat-card-actions fxLayoutAlign="end start">
+                <button mat-button color="primary">Login</button>
+                <button mat-flat-button>Reset</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+
+
+<div class="area">
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>

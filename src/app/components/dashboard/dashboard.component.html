@@ -1,3 +1,4 @@
+<app-header></app-header>
 <mat-drawer-container class="example-container" autosize>
     <mat-drawer #drawer class="example-sidenav" mode="side">
 
@@ -12,7 +13,7 @@
         </mat-list>
     </mat-drawer>
 
-    <div class="example-sidenav-content" *ngIf="navOptions == 'home'">
+    <div class="example-sidenav-content" *ngIf="navOptions == 'home'" #dashboard>
         <div fxFlexFill fxLayout="column" fxLayoutGap="20px" fxFlexFill class="dashboard">
             <div>
                 <app-data-cards [rowData]="claims"></app-data-cards>
@@ -44,9 +45,6 @@
         </div>
     </div>
     <div class="example-sidenav-content" *ngIf="navOptions == 'addClaim'">
-        <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-            {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-          </button> -->
         <app-add-claims></app-add-claims>
 
 
