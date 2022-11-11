@@ -19,9 +19,22 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
+import {MatNativeDateModule} from '@angular/material/core';
+import {HttpClientModule} from '@angular/common/http';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { AddClaimComponent } from './components/add-claims/add-claims.component';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +45,8 @@ import {MatIconModule} from '@angular/material/icon';
     BarChartComponent,
     DataCardsComponent,
     HeaderComponent,
+    AddClaimComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +61,17 @@ import {MatIconModule} from '@angular/material/icon';
     FormsModule,
     MatMenuModule,
     MatIconModule,
-   NgxDatatableModule
+    MatSidenavModule,
+    MatListModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatDatepickerModule,MatBottomSheetModule,
+   NgxDatatableModule,
+   MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
