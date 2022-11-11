@@ -12,8 +12,7 @@
         <div>
             <button mat-stroked-button color="primary" mat-button [matMenuTriggerFor]="menu"> <mat-icon>check_box</mat-icon>Display Fields</button>
             <mat-menu #menu="matMenu" (click)="$event.stopPropagation()">
-                <li mat-menu-item *ngFor="let item of columns" class="li-column-list"
-                    (click)="$event.stopPropagation()">
+                <li mat-menu-item *ngFor="let item of columns" class="li-column-list" (click)="$event.stopPropagation()">
                     <mat-checkbox [checked]="item.show" (change)="togglecolumnCheckbox(item)" color="primary">
                         {{item.name}} </mat-checkbox>
                 </li>
@@ -21,13 +20,11 @@
         </div>
     </div>
     <div id="print-section">
-        <ngx-datatable class="material expandable" [scrollbarH]="true" [rows]="rows" [columns]="selectedColumns"
-            id="claims-table" [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="40"
-            [rowHeight]="rowHeight" [limit]="10" class="material expandable">
+        <ngx-datatable class="material expandable" [scrollbarH]="true" [rows]="rows" [columns]="selectedColumns" id="claims-table" [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="40" [rowHeight]="rowHeight" [limit]="10" class="material expandable"
+            (select)="onSelect($event)" [selected]="selected" [selectionType]="SelectionType.single">
             <ngx-datatable-column *ngFor="let col of filteredColumns" [name]="col.name" [prop]="col.props">
             </ngx-datatable-column>
-            <ngx-datatable-column [frozenRight]="true" name="Actions" [resizeable]="false" [sortable]="false"
-                [draggable]="false" [canAutoResize]="true">
+            <ngx-datatable-column [frozenRight]="true" name="Actions" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="true">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
                         <mat-icon color="primary">checklist</mat-icon> Actions
@@ -37,7 +34,7 @@
                             <mat-icon>feed</mat-icon>
                             <span>More Information</span>
                         </button>
-                        <button mat-menu-item>
+                        <button mat-menu-item (click)="editItem()">
                             <mat-icon>edit</mat-icon>
                             <span>Edit Information</span>
                         </button>

@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ColumnMode } from '@swimlane/ngx-datatable';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { DetailsModalComponent } from "./details-modal/details-modal.component"
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
+
 @Component({
 	selector: 'app-data-table',
 	templateUrl: './data-table.component.html',
@@ -10,7 +11,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 })
 export class DataTableComponent implements OnInit {
 	@Input() rows: any[] = [];
-
+	@Output() newItemEvent: any = new EventEmitter();
 	public columns = [{
 		name: "Date",
 		props: "date",
@@ -121,6 +122,9 @@ export class DataTableComponent implements OnInit {
 	public selectedColumns = this.columns.filter(item => item.show);
 	public rowHeight = 40;
 	public show = false;
+	selected = [];
+	mySelection = [];
+	SelectionType = SelectionType;
 	constructor(public dialog: MatDialog) {
 	}
 
@@ -148,5 +152,17 @@ export class DataTableComponent implements OnInit {
 		dialogRef.afterClosed().subscribe(result => {
 			console.log(`Dialog result: ${result}`);
 		});
+	}
+	onSelect(e: any) {
+		// if (JSON.stringify(e.selected) == JSON.stringify(this.mySelection)) {
+		// 	this.selected = [];
+		// 	this.mySelection = [];
+		// } else {
+		// 	this.mySelection = this.selected;
+		// }
+
+	}
+	editItem() {
+		this.newItemEvent.emit(this.selected);
 	}
 }
