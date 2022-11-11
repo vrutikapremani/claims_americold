@@ -8066,11 +8066,12 @@ export class DashboardComponent implements OnInit {
   ];
   public openClaims: any[] = [];
   public closedClaims: any[] = [];
-  public statusData:any = {};
+  public statusData: any = {};
   public openBarChartColor = '#36A2EB';
   public closedBarChartColor = '#FF6484';
   public openSize = 3000;
   public closedSize = 50000;
+  selectedDataItems = [];
   constructor() { }
 
   ngOnInit(): void {
@@ -8087,12 +8088,16 @@ export class DashboardComponent implements OnInit {
       elem.claimedAmount = +elem.claimedAmount.substring(1).replace(',', '');
     })
     this.closedClaims = this.closedClaims.sort((a: any, b: any) => b.claimedAmount - a.claimedAmount).slice(0, 5);
-    this.claims.forEach((element:any) => {
-      if(this.statusData.hasOwnProperty(element.status)){
-        this.statusData[element.status] +=1;
+    this.claims.forEach((element: any) => {
+      if (this.statusData.hasOwnProperty(element.status)) {
+        this.statusData[element.status] += 1;
       } else {
         this.statusData[element.status] = 1;
       }
     })
+  }
+  selectedData(e: any) {
+    this.selectedDataItems = e;
+    this.navOptions = 'addClaim';
   }
 }

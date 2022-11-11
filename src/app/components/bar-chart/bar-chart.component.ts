@@ -32,9 +32,7 @@ export class BarChartComponent implements OnInit {
         {
           stacked: false,
           ticks: {
-            min: 0,
-            stepSize: 2000,
-            max: 100000
+            min: 0
           }
         }
       ]
