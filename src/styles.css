@@ -14,7 +14,6 @@ body {
     background-color: #0058fe !important;
 }
 
-
 .ngx-datatable.material {
     /* overflow: scroll; */
     box-shadow: none;
@@ -36,4 +35,8 @@ body {
 .menuFilter {
     float: right;
     margin-top: -4%;
+}
+
+.errorField {
+    color: red;
 }

@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Claim Information</h2>
+<mat-dialog-content class="mat-typography">
+    <mat-list role="list">
+        <mat-list-item role="listitem">Clalim Account : {{data.account}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">Clalim amcClaim : {{data.amcClaim}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">Clalim Category : {{data.category}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">Clalim Type : {{data.claimType}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">Clalim Amount : {{data.claimedAmount}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">Clalim Date : {{data.date}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">Clalim Facility : {{data.facility}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">Clalim MasterAcct : {{data.masterAcct}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">Clalim Paid Amount : {{data.paidAmount}}</mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item role="listitem">Clalim Status : {{data.status}}</mat-list-item>
+        <mat-divider></mat-divider>
+    </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button color="warn" [mat-dialog-close]="true"><mat-icon>close</mat-icon>Cancel</button>
+</mat-dialog-actions>

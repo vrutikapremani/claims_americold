@@ -27,7 +27,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-
+import {NgxPrintModule} from 'ngx-print';
 import {MatNativeDateModule} from '@angular/material/core';
 import {HttpClientModule} from '@angular/common/http';
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -35,7 +35,8 @@ import { AddClaimComponent } from './components/add-claims/add-claims.component'
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { LoginComponent } from './components/login/login.component';
-
+import { DetailsModalComponent } from './components/data-table/details-modal/details-modal.component';
+import {MatDialogModule} from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,8 @@ import { LoginComponent } from './components/login/login.component';
     DataCardsComponent,
     HeaderComponent,
     AddClaimComponent,
-    LoginComponent
+    LoginComponent,
+    DetailsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,9 @@ import { LoginComponent } from './components/login/login.component';
     MatInputModule,
     MatDatepickerModule,MatBottomSheetModule,
    NgxDatatableModule,
-   MatSlideToggleModule
+   MatSlideToggleModule,
+   NgxPrintModule,
+   MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

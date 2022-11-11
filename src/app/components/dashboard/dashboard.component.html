@@ -18,7 +18,7 @@
             <div fxFlexFill fxLayout="column">
                 <app-data-cards [rowData]="claims"></app-data-cards>
             </div>
-            <div  fxFlexFill fxLayoutGap="20px" fxLayout="row">
+            <div fxFlexFill fxLayoutGap="20px" fxLayout="row">
                 <mat-card fxFlex="50%">
                     <app-doughnut-chart [claimData]="statusData"></app-doughnut-chart>
                 </mat-card>
@@ -43,13 +43,14 @@
             </div>
             <div fxFlexFill fxLayoutGap="100%">
                 <mat-card>
-                    <app-data-table [rows]="claims"></app-data-table>
+                    <app-data-table [rows]="claims" (newItemEvent)="selectedData($event)" [showActions]="true">
+                    </app-data-table>
                 </mat-card>
             </div>
         </div>
     </div>
     <div class="example-sidenav-content" *ngIf="navOptions == 'addClaim'">
-        <app-add-claims></app-add-claims>
+        <app-add-claims [selectedDataItems]="selectedDataItems"></app-add-claims>
 
 
     </div>
