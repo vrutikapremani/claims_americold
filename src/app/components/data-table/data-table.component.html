@@ -22,13 +22,11 @@
         </div>
     </div>
     <div id="print-section">
-        <ngx-datatable class="material striped" [scrollbarH]="true" [rows]="rows" [columns]="filteredColumns"
-            id="claims-table" [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="40"
-            [rowHeight]="rowHeight" [limit]="10">
+        <ngx-datatable class="material striped" [scrollbarH]="true" [rows]="rows" [columns]="filteredColumns" id="claims-table" [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="40" [rowHeight]="rowHeight" [limit]="10" [selected]="selected"
+            [selectionType]="SelectionType.single" (select)="onSelect($event)">
             <ngx-datatable-column *ngFor="let col of filteredColumns" [name]="col.name" [prop]="col.props">
             </ngx-datatable-column>
-            <ngx-datatable-column *ngIf="showActions" [frozenRight]="true" name="Actions" [resizeable]="false"
-                [sortable]="false" [draggable]="false" [canAutoResize]="true">
+            <ngx-datatable-column *ngIf="showActions" [frozenRight]="true" name="Actions" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="true">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
                         <mat-icon color="primary">checklist</mat-icon> Actions
