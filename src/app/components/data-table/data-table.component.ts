@@ -12,6 +12,7 @@ import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 export class DataTableComponent implements OnInit {
 	@Input() rows: any[] = [];
 	@Output() newItemEvent: any = new EventEmitter();
+	@Input() showActions: boolean = true;
 	public columns = [{
 		name: "Date",
 		props: "date",
@@ -119,7 +120,6 @@ export class DataTableComponent implements OnInit {
 		show: false
 	}];
 	public ColumnMode = ColumnMode;
-	public selectedColumns = this.columns.filter(item => item.show);
 	public rowHeight = 40;
 	public show = false;
 	selected = [];
@@ -131,13 +131,10 @@ export class DataTableComponent implements OnInit {
 	ngOnInit(): void {
 		this.filteredColumns = this.filteredColumns.filter(column => column.show === true)
 	}
-	checkFilters(show: boolean) {
-		this.selectedColumns = this.columns.filter(item => item.show);
-	}
 	public togglecolumnCheckbox(column: any) {
 		const isChecked = column.show;
 		column.show = !isChecked;
-		this.selectedColumns = this.columns.filter(item => item.show);
+		this.filteredColumns = this.columns.filter(item => item.show);
 	}
 
 	public onExportToExcel() {

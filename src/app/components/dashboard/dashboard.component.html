@@ -32,16 +32,19 @@
                         <mat-card-subtitle *ngIf="slider.checked">Top 5 Closed Claims</mat-card-subtitle>
 
                     </mat-card-header>
-                    <app-bar-chart *ngIf="!slider.checked" [claimData]="openClaims" [barchartColor]="openBarChartColor" [barSize]="openSize">
+                    <app-bar-chart *ngIf="!slider.checked" [claimData]="openClaims" [barchartColor]="openBarChartColor"
+                        [barSize]="openSize">
                     </app-bar-chart>
 
-                    <app-bar-chart *ngIf="slider.checked" [claimData]="closedClaims" [barchartColor]="closedBarChartColor" [barSize]="closedSize"></app-bar-chart>
+                    <app-bar-chart *ngIf="slider.checked" [claimData]="closedClaims"
+                        [barchartColor]="closedBarChartColor" [barSize]="closedSize"></app-bar-chart>
 
                 </mat-card>
             </div>
             <div fxFlexFill fxLayoutGap="100%">
                 <mat-card>
-                    <app-data-table [rows]="claims" (newItemEvent)="selectedData($event)"></app-data-table>
+                    <app-data-table [rows]="claims" (newItemEvent)="selectedData($event)" [showActions]="true">
+                    </app-data-table>
                 </mat-card>
             </div>
         </div>
