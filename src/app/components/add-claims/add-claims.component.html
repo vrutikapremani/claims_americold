@@ -34,27 +34,69 @@
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Claim Type</mat-label>
-                <input matInput placeholder="Claim Type" formControlName="claimType" required>
+                <!-- <input matInput   required> -->
+                <select matNativeControl formControlName="claimType" placeholder="Claim Type" required>
+                    <option value="Warehouse">Warehouse</option>
+                    <option value="Transportation">Transportation</option>
+                  </select>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Claim Category</mat-label>
-                <input matInput placeholder="Claim Category" formControlName="claimCategory" required>
+                <!-- <input matInput placeholder="Claim Category" formControlName="claimCategory" required> -->
+                <select matNativeControl placeholder="Claim Category" formControlName="claimCategory" required>
+                    <option value="Warehouse">Damage</option>
+                    <option value="Transportation">Shortage</option>
+                    <option value="Transportation">Detention</option>
+                    <option value="Transportation">Freight</option>
+                    <option value="Transportation">Demurrage – EUF</option>
+                    <option value="Transportation">Freight Cost</option>
+                    <option value="Transportation">Inventory Adjustment
+                    </option>
+                  </select>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Status</mat-label>
-                <input matInput placeholder="Status" formControlName="status" required>
+                <!-- <input matInput placeholder="Status" formControlName="status" required> -->
+                <select matNativeControl placeholder="Status" formControlName="status" required>
+                    <option value="Approved">Approved</option>
+                    <option value="Cancelled">Cancelled</option>
+                    <option value="Closed">Closed</option>
+                    <option value="Closed - Denied">Closed - Denied</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Invoice Queued">Invoice Queued</option>
+                    <option value="Open">Open</option>
+                    <option value="Paid">Paid</option>
+                    <option value="Pending Addtl. Info">Pending Addtl. Info</option>
+                    <option value="Pending Approval">Pending Approval</option>
+                    <option value="WaRejectedrehouse">Rejected</option>
+                  </select>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Priority Flag</mat-label>
-                <input matInput placeholder="Priority Flag" formControlName="priorityFlag" required>
+                <!-- <input matInput placeholder="Priority Flag" formControlName="priorityFlag" required> -->
+                <select matNativeControl placeholder="Priority Flag" formControlName="priorityFlag" required>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                  </select>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Commodity Type</mat-label>
-                <input matInput placeholder="Commodity Type" formControlName="commonType" required>
+                <!-- <input matInput placeholder="Commodity Type" formControlName="commonType" required> -->
+                <select matNativeControl placeholder="Commodity Type" formControlName="commonType" required>
+                    <!-- <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option> -->
+                  </select>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Issue Type</mat-label>
-                <input matInput placeholder="Issue Type" formControlName="issueType" required>
+                <!-- <input matInput placeholder="Issue Type" formControlName="issueType" required> -->
+                <select matNativeControl placeholder="Issue Type" formControlName="issueType" required>
+                    <!-- <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option> -->
+                  </select>
             </mat-form-field>
             <div>
                 <button mat-button matStepperNext>Next</button>
