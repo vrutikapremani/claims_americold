@@ -18,7 +18,7 @@ export class DoughnutChartComponent implements OnInit {
       text: "280"
     },
     legend: {
-      position: 'bottom'
+      position: 'right'
     }
   };
   public doughnutChartColor: Color[] = [

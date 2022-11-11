@@ -33,8 +33,8 @@ export class BarChartComponent implements OnInit {
           stacked: false,
           ticks: {
             min: 0,
-            stepSize: 100,
-            max: 4000
+            stepSize: 2000,
+            max: 100000
           }
         }
       ]
@@ -52,7 +52,7 @@ export class BarChartComponent implements OnInit {
   public barChartLegends = false;
 
   public barChartColor: Color[] = [
-    { backgroundColor: ['#36A2EB', '#36A2EB', '#36A2EB', '#36A2EB', '#36A2EB', '#36A2EB', '#36A2EB', '#36A2EB', '#36A2EB', '#36A2EB', '#36A2EB', '#36A2EB'] },
+    { backgroundColor: ['#36A2EB', '#4BC0C0', '#FF6484', '#13FFFF', '#64FF16', '#36A2EB', '#36A2EB', '#36A2EB', '#36A2EB', '#36A2EB', '#36A2EB', '#36A2EB'] },
   ];
   constructor() { }
 
