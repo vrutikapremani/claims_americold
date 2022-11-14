@@ -4,9 +4,9 @@
 <div *ngIf="rows.length > 0" fxFlexFill fxLayout="column">
     <div fxFlex fxLayoutAlign="end start" fxLayoutGap="20px">
         <div>
-            <button mat-stroked-button color="primary" mat-button (click)="onExportToExcel()">
-                <mat-icon>upload_file</mat-icon>
-                <span>Export to Excel</span>
+            <button mat-stroked-button color="primary" mat-button (click)="sortingfilters = !sortingfilters">
+                <mat-icon>sorting</mat-icon>
+                <span>Filters</span>
             </button>
         </div>
         <div>
@@ -20,9 +20,90 @@
                 </li>
             </mat-menu>
         </div>
+        <div>
+            <button mat-stroked-button color="primary" mat-button (click)="onExportToExcel()">
+                <mat-icon>upload_file</mat-icon>
+                <span>Export to Excel</span>
+            </button>
+        </div>
     </div>
+    <br/>
+    <mat-card *ngIf="sortingfilters">
+        <span *ngFor="let item of filteredColumns">
+           <span *ngIf="item.show && item.name == 'Category'">
+            <mat-form-field appearance="fill" >
+                <select matNativeControl placeholder="Claim Category" (change)="filteredApplied($event,item.props)">
+                    <option value="Damage">Damage</option>
+                    <option value="Shortage">Shortage</option>
+                    <option value="Detention">Detention</option>
+                    <option value="Freight">Freight</option>
+                    <option value="Demurrage – EUF">Demurrage – EUF</option>
+                    <option value="Freight Cost">Freight Cost</option>
+                    <option value="Inventory Adjustment">Inventory Adjustment
+                    </option>
+                  </select>
+            </mat-form-field> 
+            &nbsp;
+
+           </span>
+
+        <span *ngIf="item.show && item.name == 'Claim Type'">
+            <mat-form-field appearance="fill" >
+                <select matNativeControl placeholder="Claim Type" (change)="filteredApplied($event,item.props)">
+                    <option value="WAREHOUSE">Warehouse</option>
+                    <option value="TRANSPORTATION">Transportation</option>
+                  </select>
+            </mat-form-field> 
+            &nbsp;
+
+          </span>
+        <span *ngIf="item.name != 'Category' && item.name != 'Claim Type' && item.name != 'Date' && item.name != 'Date Closed'">
+    <mat-form-field appearance="fill" >
+        <mat-label>{{item.name}}</mat-label>
+        <input matInput type={{item.type}} placeholder={{item.name}} (keyup)="filteredApplied($event,item.props)"/> 
+    </mat-form-field>
+    &nbsp;
+</span>
+
+
+        </span>
+    </mat-card>
+
+    <mat-card *ngIf="sortingfilters">
+        <span *ngFor="let item of filteredColumns">
+          
+            <mat-form-field appearance="fill" *ngIf="item.show && item.name == 'Date'">
+                <mat-label>Created Date Range</mat-label>
+                <input matInput [matDatepicker]="picker1">
+                <input matInput [matDatepicker]="picker2">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker> 
+            </mat-form-field> 
+            <span *ngIf="item.show && item.name == 'Date'">&nbsp;</span>
+        <mat-form-field appearance="fill" *ngIf="item.show && item.name == 'Date Closed'">
+            <mat-label>Date Closed Range</mat-label>
+            <input matInput [matDatepicker]="picker1">
+            <input matInput [matDatepicker]="picker2">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+            <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+        </span>
+
+
+
+
+    </mat-card>
+    <br/>
     <div id="print-section">
-        <ngx-datatable class="material striped" [scrollbarH]="true" [rows]="rows" [columns]="filteredColumns" id="claims-table" [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="40" [rowHeight]="rowHeight" [limit]="10" [selected]="selected"
+        <ngx-datatable class="material striped" [scrollbarH]="true" [rows]="filteredRows" [columns]="filteredColumns" id="claims-table" [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="40" [rowHeight]="rowHeight" [limit]="10" [selected]="selected"
             [selectionType]="SelectionType.single" (select)="onSelect($event)">
             <ngx-datatable-column *ngFor="let col of filteredColumns" [name]="col.name" [prop]="col.props">
             </ngx-datatable-column>
