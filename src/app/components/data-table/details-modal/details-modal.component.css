@@ -1,4 +1,22 @@
-/* h2 {
+.header {
     background: rgb(23, 23, 50);
     color: white;
-} */
+    padding: 20px 0px 20px 10px;
+}
+
+.modal-info {
+    padding-right: 30px;
+    padding-left: 10px;
+    font-size: 14px;
+}
+
+.mat-list-data {
+    padding: 10px;
+    background-color: rgb(221, 221, 244);
+    border-radius: 10px;
+}
+.mat-list-data:hover {
+    padding: 10px;
+    background-color: rgb(245, 245, 247);
+    border-radius: 10px;
+}
