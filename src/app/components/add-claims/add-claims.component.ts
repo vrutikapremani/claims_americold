@@ -86,5 +86,32 @@ export class AddClaimComponent implements OnInit {
 
   }
 
-
+retrunProgress(){
+  let result =0;
+  if(this.firstFormGroup.status == 'VALID'){
+    result += 12.5;
+  }
+  if(this.secondFormGroup.status == 'VALID'){
+    result += 12.5;
+  }
+  if(this.thirdFormGroup.status == 'VALID'){
+    result += 12.5;
+  }
+  if(this.fourthFormGroup.status == 'VALID'){
+    result += 12.5;
+  }
+  if(this.fifthFormGroup.status == 'VALID'){
+    result += 12.5;
+  }
+  if(this.sixthFormGroup.status == 'VALID'){
+    result += 12.5;
+  }
+  if(this.seventhFormGroup.status == 'VALID'){
+    result += 12.5;
+  }
+  if(this.eightFormGroup.status == 'VALID'){
+    result += 12.5;
+  }
+  return result;
+}
 }
