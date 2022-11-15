@@ -37,6 +37,9 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { LoginComponent } from './components/login/login.component';
 import { DetailsModalComponent } from './components/data-table/details-modal/details-modal.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatTooltipModule} from '@angular/material/tooltip';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +78,9 @@ import {MatDialogModule} from '@angular/material/dialog';
    NgxDatatableModule,
    MatSlideToggleModule,
    NgxPrintModule,
-   MatDialogModule
+   MatDialogModule,
+   MatProgressBarModule,
+   MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

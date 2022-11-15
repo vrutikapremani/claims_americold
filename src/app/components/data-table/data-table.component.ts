@@ -3,8 +3,14 @@ import * as XLSX from 'xlsx';
 import { DetailsModalComponent } from "./details-modal/details-modal.component"
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
+import {ViewEncapsulation} from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
+const today = new Date();
+const month = today.getMonth();
+const year = today.getFullYear();
 @Component({
+	// encapsulation: ViewEncapsulation.None,
 	selector: 'app-data-table',
 	templateUrl: './data-table.component.html',
 	styleUrls: ['./data-table.component.css']
@@ -14,6 +20,14 @@ export class DataTableComponent implements OnInit {
 	@Output() newItemEvent: any = new EventEmitter();
 	@Input() showActions: boolean = true;
 	sortingfilters = false;
+	campaignOne = new FormGroup({
+		start: new FormControl(new Date(year, month, 13)),
+		end: new FormControl(new Date(year, month, 16)),
+	  });
+	  campaignTwo = new FormGroup({
+		start: new FormControl(new Date(year, month, 15)),
+		end: new FormControl(new Date(year, month, 19)),
+	  });
 	public columns = [{
 		name: "Date",
 		props: "date",
@@ -108,20 +122,11 @@ export class DataTableComponent implements OnInit {
 		XLSX.writeFile(wb, 'claims.xlsx');
 	}
 	openDialog(row: any) {
-		const dialogRef = this.dialog.open(DetailsModalComponent, { data: row });
+		const dialogRef = this.dialog.open(DetailsModalComponent, { data: row, autoFocus: false});
 
 		dialogRef.afterClosed().subscribe(result => {
 			console.log(`Dialog result: ${result}`);
 		});
-	}
-	onSelect(e: any) {
-		// if (JSON.stringify(e.selected) == JSON.stringify(this.mySelection)) {
-		// 	this.selected = [];
-		// 	this.mySelection = [];
-		// } else {
-		// 	this.mySelection = this.selected;
-		// }
-
 	}
 	editItem() {
 		this.newItemEvent.emit(this.selected);
