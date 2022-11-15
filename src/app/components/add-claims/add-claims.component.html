@@ -3,7 +3,7 @@
 <mat-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="firstFormGroup">
         <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel><span [ngClass]="firstFormGroup.touched && firstFormGroup.status == 'INVALID' ? 'errorField' : ''">Claim Details for AMC Claim ID:9961</span></ng-template>
+            <ng-template matStepLabel><span [ngClass]="firstFormGroup.touched && firstFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Claim Details for AMC Claim ID:9961">Claim Details for AMC Claim ID:9961</span></ng-template>
             <mat-form-field>
                 <mat-label>Created Date</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="createdDate">
@@ -107,7 +107,7 @@
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
         <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel> <span [ngClass]="secondFormGroup.touched && secondFormGroup.status == 'INVALID' ? 'errorField' : ''">Examiner Information</span></ng-template>
+            <ng-template matStepLabel> <span [ngClass]="secondFormGroup.touched && secondFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Examiner Information">Examiner Information</span></ng-template>
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
                 <input matInput placeholder="Name" formControlName="name" required>
@@ -133,7 +133,7 @@
     </mat-step>
     <mat-step [stepControl]="thirdFormGroup">
         <form [formGroup]="thirdFormGroup">
-            <ng-template matStepLabel><span [ngClass]="thirdFormGroup.touched && thirdFormGroup.status == 'INVALID' ? 'errorField' : ''">Payment Information</span></ng-template>
+            <ng-template matStepLabel><span [ngClass]="thirdFormGroup.touched && thirdFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Payment Information">Payment Information</span></ng-template>
             <mat-form-field appearance="outline">
                 <mat-label>Currency Type</mat-label>
                 <input matInput formControlName="currencyType" placeholder="Ex. 1 Main St, New York, NY" required>
@@ -187,7 +187,7 @@
     </mat-step>
     <mat-step [stepControl]="fourthFormGroup">
         <form [formGroup]="fourthFormGroup">
-            <ng-template matStepLabel><span [ngClass]="fourthFormGroup.touched && fourthFormGroup.status == 'INVALID' ? 'errorField' : ''">Contact Information</span></ng-template>
+            <ng-template matStepLabel><span [ngClass]="fourthFormGroup.touched && fourthFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Contact Information">Contact Information</span></ng-template>
             <mat-form-field appearance="outline">
                 <mat-label>Name</mat-label>
                 <input matInput placeholder="Name" formControlName="name" required>
@@ -208,7 +208,7 @@
     </mat-step>
     <mat-step [stepControl]="fifthFormGroup">
         <form [formGroup]="fifthFormGroup">
-            <ng-template matStepLabel><span [ngClass]="fifthFormGroup.touched && fifthFormGroup.status == 'INVALID' ? 'errorField' : ''">Document Details</span></ng-template>
+            <ng-template matStepLabel><span [ngClass]="fifthFormGroup.touched && fifthFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Document Details">Document Details</span></ng-template>
             <mat-form-field appearance="outline">
                 <mat-label>Document Type</mat-label>
                 <input matInput formControlName="documentType" placeholder="Ex. 1 Main St, New York, NY" required>
@@ -241,7 +241,7 @@
     </mat-step>
     <mat-step [stepControl]="sixthFormGroup">
         <form [formGroup]="sixthFormGroup">
-            <ng-template matStepLabel><span [ngClass]="sixthFormGroup.touched && sixthFormGroup.status == 'INVALID' ? 'errorField' : ''">Cost Details</span></ng-template>
+            <ng-template matStepLabel><span [ngClass]="sixthFormGroup.touched && sixthFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Cost Details">Cost Details</span></ng-template>
             <mat-form-field appearance="outline">
                 <mat-label>Amount Basis</mat-label>
                 <input matInput placeholder="Name" formControlName="name" required>
@@ -262,7 +262,7 @@
     </mat-step>
     <mat-step [stepControl]="seventhFormGroup">
         <form [formGroup]="seventhFormGroup">
-            <ng-template matStepLabel><span [ngClass]="seventhFormGroup.touched && seventhFormGroup.status == 'INVALID' ? 'errorField' : ''">Additional Information</span></ng-template>
+            <ng-template matStepLabel><span [ngClass]="seventhFormGroup.touched && seventhFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Additional Information">Additional Information</span></ng-template>
             <mat-label>Please Provide detailed notes and attach all relevant backup documentation, This information is required for submittal.</mat-label><br/>
             <mat-form-field appearance="outline">
                 <mat-label>Customer Notes</mat-label>
@@ -276,7 +276,7 @@
     </mat-step>
     <mat-step [stepControl]="eightFormGroup">
         <form [formGroup]="eightFormGroup">
-            <ng-template matStepLabel><span [ngClass]="eightFormGroup.touched && eightFormGroup.status == 'INVALID' ? 'errorField' : ''">Documentation</span></ng-template>
+            <ng-template matStepLabel><span [ngClass]="eightFormGroup.touched && eightFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Documentation">Documentation</span></ng-template>
             <mat-form-field appearance="outline">
                 <mat-label>Open File</mat-label>
                 <!-- <button mat-raised-button>Open file</button> -->
