@@ -7,20 +7,22 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./add-claims.component.css']
 })
 export class AddClaimComponent implements OnInit {
-  @Input() set selectedDataItems(item:any){
+  @Input() set selectedDataItems(item: any) {
+    if (item.length > 0) {
+      this.firstFormGroup.setValue({
+        createdDate: item[0].date,
+        closedDate: item[0].dateClosed,
+        customerClaim: item[0].claimedAmount,
+        customer: item[0].date,
+        facility: item[0].facility,
+        wmsAccount: item[0].masterAcct, claimType: item[0].claimType,
+        claimCategory: item[0].category,
+        status: item[0].status, priorityFlag: '',
+        commonType: '',
+        issueType: '',
+      })
+    }
 
-this.firstFormGroup.setValue({
-  createdDate: item[0].date,
-  closedDate: item[0].dateClosed,
-  customerClaim: item[0].claimedAmount,
-  customer: item[0].date,
-  facility: item[0].facility,
-  wmsAccount: item[0].masterAcct, claimType: item[0].claimType, 
-  claimCategory: item[0].category, 
-  status: item[0].status, priorityFlag: '', 
-  commonType: '',
-  issueType: '',
-})
   }
   firstFormGroup = this._formBuilder.group({
     createdDate: ['', Validators.required],
@@ -28,9 +30,9 @@ this.firstFormGroup.setValue({
     customerClaim: [null, Validators.required],
     customer: ['', Validators.required],
     facility: ['', Validators.required],
-    wmsAccount: ['', Validators.required], claimType: ['', Validators.required], 
-    claimCategory: ['', Validators.required], 
-    status: ['', Validators.required], priorityFlag: ['', Validators.required], 
+    wmsAccount: ['', Validators.required], claimType: ['', Validators.required],
+    claimCategory: ['', Validators.required],
+    status: ['', Validators.required], priorityFlag: ['', Validators.required],
     commonType: ['', Validators.required],
     issueType: ['', Validators.required],
   });

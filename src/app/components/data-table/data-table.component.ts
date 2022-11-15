@@ -13,123 +13,87 @@ export class DataTableComponent implements OnInit {
 	@Input() rows: any[] = [];
 	@Output() newItemEvent: any = new EventEmitter();
 	@Input() showActions: boolean = true;
+	sortingfilters = false;
 	public columns = [{
 		name: "Date",
 		props: "date",
+		type: "Date",
 		show: true
 	}, {
 		name: "Master Acct",
 		props: "masterAcct",
+		type: "text",
 		show: true
 	}, {
 		name: "Facility",
 		props: "facility",
+		type: "text",
 		show: true
 	}, {
 		name: "Account",
 		props: "account",
+		type: "text",
 		show: true
 	}, {
 		name: "Amc Claim",
 		props: "amcClaim",
+		type: "text",
 		show: true
 	}, {
 		name: "Claim Type",
 		props: "claimType",
+		type: "text",
 		show: true
 	}, {
 		name: "Category",
 		props: "category",
+		type: "text",
 		show: true
 	}, {
 		name: "Status",
 		props: "status",
+		type: "text",
 		show: true
 	}, {
 		name: "Claimed Amount",
 		props: "claimedAmount",
+		type: "number",
 		show: false
 	}, {
 		name: "Paid Amount",
 		props: "paidAmount",
+		type: "number",
 		show: false
 	}, {
 		name: "Date Closed",
 		props: "dateClosed",
+		type: "Date",
 		show: false
 	}, {
 		name: "Carrier",
 		props: "carrier",
+		type: "text",
 		show: false
 	}, {
 		name: "Load Number",
 		props: "loadNumber",
+		type: "number",
 		show: false
 	}];
-	public filteredColumns = [{
-		name: "Date",
-		props: "date",
-		show: true
-	}, {
-		name: "Master Acct",
-		props: "masterAcct",
-		show: true
-	}, {
-		name: "Facility",
-		props: "facility",
-		show: true
-	}, {
-		name: "Account",
-		props: "account",
-		show: true
-	}, {
-		name: "Amc Claim",
-		props: "amcClaim",
-		show: true
-	}, {
-		name: "Claim Type",
-		props: "claimType",
-		show: true
-	}, {
-		name: "Category",
-		props: "category",
-		show: true
-	}, {
-		name: "Status",
-		props: "status",
-		show: true
-	}, {
-		name: "Claimed Amount",
-		props: "claimedAmount",
-		show: false
-	}, {
-		name: "Paid Amount",
-		props: "paidAmount",
-		show: false
-	}, {
-		name: "Date Closed",
-		props: "dateClosed",
-		show: false
-	}, {
-		name: "Carrier",
-		props: "carrier",
-		show: false
-	}, {
-		name: "Load Number",
-		props: "loadNumber",
-		show: false
-	}];
+	public filteredColumns:any;
 	public ColumnMode = ColumnMode;
 	public rowHeight = 40;
 	public show = false;
 	selected = [];
 	mySelection = [];
 	SelectionType = SelectionType;
+	filteredRows:any[] = [];
 	constructor(public dialog: MatDialog) {
 	}
 
 	ngOnInit(): void {
-		this.filteredColumns = this.filteredColumns.filter(column => column.show === true)
+		this.filteredColumns = this.columns.filter(column => column.show === true);
+		this.filteredRows = this.rows;
 	}
 	public togglecolumnCheckbox(column: any) {
 		const isChecked = column.show;
@@ -138,7 +102,7 @@ export class DataTableComponent implements OnInit {
 	}
 
 	public onExportToExcel() {
-		const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.rows);
+		const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.filteredRows);
 		const wb: XLSX.WorkBook = XLSX.utils.book_new();
 		XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 		XLSX.writeFile(wb, 'claims.xlsx');
@@ -161,5 +125,10 @@ export class DataTableComponent implements OnInit {
 	}
 	editItem() {
 		this.newItemEvent.emit(this.selected);
+	}
+	filteredApplied(event:any,props:string){
+		this.filteredRows = this.rows.filter(row=>{
+			return row[props].indexOf(event.target.value) > -1;
+		})
 	}
 }
