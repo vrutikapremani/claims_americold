@@ -1,4 +1,4 @@
-<mat-progress-bar mode="determinate" [value]="retrunProgress()" color="accent"></mat-progress-bar>
+<!-- <mat-progress-bar mode="determinate" [value]="retrunProgress()" color="accent"></mat-progress-bar> -->
 
 <mat-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="firstFormGroup">
@@ -11,40 +11,46 @@
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-            <mat-form-field>
+            <br/>
+            <!-- <mat-form-field>
                 <mat-label>Closed Date</mat-label>
                 <input matInput [matDatepicker]="picker1" formControlName="closedDate">
                 <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Customer Claim#</mat-label>
-                <input matInput placeholder="Customer Claim#" type="number" formControlName="customerClaim" required>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Customer</mat-label>
-                <input matInput placeholder="Customer" formControlName="customer" required>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
+            </mat-form-field> -->
+
+            <mat-form-field appearance="fill">
                 <mat-label>Facility</mat-label>
-                <input matInput placeholder="Facility" formControlName="facility" required>
+                <select matNativeControl formControlName="facility" placeholder="Facility" required>
+                    <option *ngFor="let item of facilityList" value={{item}}>{{item}}</option>
+                    <!-- <option value="Transportation">Transportation</option> -->
+                  </select>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
+                <mat-label>Customer</mat-label>
+                <!-- <input matInput placeholder="Customer" formControlName="customer" required> -->
+                <select matNativeControl formControlName="customer" placeholder="Customer" required>
+                    <option *ngFor="let item of customerList" value={{item}}>{{item}}</option>
+                  </select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Customer Claim#</mat-label>
+                <input matInput placeholder="Customer Claim#" type="number" formControlName="customerClaim">
+            </mat-form-field>
+            <!-- <mat-form-field appearance="fill">
                 <mat-label>WMS Account</mat-label>
                 <input matInput placeholder="WMS Account" formControlName="wmsAccount" required>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
+            </mat-form-field> -->
+            <!-- <mat-form-field appearance="fill">
                 <mat-label>Claim Type</mat-label>
-                <!-- <input matInput   required> -->
                 <select matNativeControl formControlName="claimType" placeholder="Claim Type" required>
                     <option value="Warehouse">Warehouse</option>
                     <option value="Transportation">Transportation</option>
                   </select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
+            </mat-form-field> -->
+            <!-- <mat-form-field appearance="fill">
                 <mat-label>Claim Category</mat-label>
-                <!-- <input matInput placeholder="Claim Category" formControlName="claimCategory" required> -->
                 <select matNativeControl placeholder="Claim Category" formControlName="claimCategory" required>
                     <option value="Warehouse">Damage</option>
                     <option value="Shortage">Shortage</option>
@@ -55,10 +61,9 @@
                     <option value="Inventory Adjustment">Inventory Adjustment
                     </option>
                   </select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
+            </mat-form-field> -->
+            <!-- <mat-form-field appearance="fill">
                 <mat-label>Status</mat-label>
-                <!-- <input matInput placeholder="Status" formControlName="status" required> -->
                 <select matNativeControl placeholder="Status" formControlName="status" required>
                     <option value="Approved">Approved</option>
                     <option value="Cancelled">Cancelled</option>
@@ -72,56 +77,53 @@
                     <option value="Pending Approval">Pending Approval</option>
                     <option value="WaRejectedrehouse">Rejected</option>
                   </select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
+            </mat-form-field> -->
+            <!-- <mat-form-field appearance="fill">
                 <mat-label>Priority Flag</mat-label>
-                <!-- <input matInput placeholder="Priority Flag" formControlName="priorityFlag" required> -->
                 <select matNativeControl placeholder="Priority Flag" formControlName="priorityFlag" required>
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
                   </select>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Commodity Type</mat-label>
-                <!-- <input matInput placeholder="Commodity Type" formControlName="commonType" required> -->
                 <select matNativeControl placeholder="Commodity Type" formControlName="commonType" required>
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
                   </select>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Issue Type</mat-label>
-                <!-- <input matInput placeholder="Issue Type" formControlName="issueType" required> -->
                 <select matNativeControl placeholder="Issue Type" formControlName="issueType" required>
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
                     <option value="High">High</option>
                   </select>
-            </mat-form-field>
+            </mat-form-field> -->
             <div>
                 <button mat-button matStepperNext>Next</button>
             </div>
         </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
+    <!-- <mat-step [stepControl]="secondFormGroup">
         <form [formGroup]="secondFormGroup">
             <ng-template matStepLabel> <span [ngClass]="secondFormGroup.touched && secondFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Examiner Information">Examiner Information</span></ng-template>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Name</mat-label>
                 <input matInput placeholder="Name" formControlName="name" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Phone</mat-label>
                 <input matInput type="number" placeholder="Phone" formControlName="phone" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Email</mat-label>
                 <input matInput type="email" placeholder="Email" formControlName="email" required>
             </mat-form-field>
             <br/>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Notes</mat-label>
                 <textarea matInput placeholder="Notes" formControlName="notes"></textarea>
             </mat-form-field>
@@ -130,51 +132,51 @@
                 <button mat-button matStepperNext>Next</button>
             </div>
         </form>
-    </mat-step>
-    <mat-step [stepControl]="thirdFormGroup">
+    </mat-step> -->
+    <!-- <mat-step [stepControl]="thirdFormGroup">
         <form [formGroup]="thirdFormGroup">
             <ng-template matStepLabel><span [ngClass]="thirdFormGroup.touched && thirdFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Payment Information">Payment Information</span></ng-template>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Currency Type</mat-label>
                 <input matInput formControlName="currencyType" placeholder="Ex. 1 Main St, New York, NY" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Claimed Amount</mat-label>
                 <input matInput formControlName="claimedAmount" placeholder="Ex. 1 Main St, New York, NY" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Invoice Amount</mat-label>
                 <input matInput formControlName="invoiceAmount" placeholder="Ex. 1 Main St, New York, NY" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Accural Amount</mat-label>
                 <input matInput formControlName="accuralAmount" placeholder="Ex. 1 Main St, New York, NY" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>GL Code</mat-label>
                 <input matInput formControlName="glCode" placeholder="Ex. 1 Main St, New York, NY" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Cost Center</mat-label>
                 <input matInput formControlName="costCenter" placeholder="Ex. 1 Main St, New York, NY" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Invoice Number</mat-label>
                 <input matInput formControlName="invoiceNumber" placeholder="Ex. 1 Main St, New York, NY" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Payment Date</mat-label>
                 <input matInput formControlName="paymentDate" placeholder="Ex. 1 Main St, New York, NY" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Payment Reference</mat-label>
                 <input matInput formControlName="paymentReference" placeholder="Ex. 1 Main St, New York, NY" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Paid Amount</mat-label>
                 <input matInput formControlName="paidAmount" placeholder="Ex. 1 Main St, New York, NY" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>AP Vendor</mat-label>
                 <input matInput formControlName="apVendor" placeholder="Ex. 1 Main St, New York, NY" required>
             </mat-form-field>
@@ -184,19 +186,19 @@
                 <button mat-button matStepperNext>Next</button>
             </div>
         </form>
-    </mat-step>
+    </mat-step> -->
     <mat-step [stepControl]="fourthFormGroup">
         <form [formGroup]="fourthFormGroup">
             <ng-template matStepLabel><span [ngClass]="fourthFormGroup.touched && fourthFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Contact Information">Contact Information</span></ng-template>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Name</mat-label>
                 <input matInput placeholder="Name" formControlName="name" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Phone</mat-label>
                 <input matInput type="number" placeholder="Phone" formControlName="phone" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Email</mat-label>
                 <input matInput type="email" placeholder="Email" formControlName="email" required>
             </mat-form-field>
@@ -209,48 +211,67 @@
     <mat-step [stepControl]="fifthFormGroup">
         <form [formGroup]="fifthFormGroup">
             <ng-template matStepLabel><span [ngClass]="fifthFormGroup.touched && fifthFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Document Details">Document Details</span></ng-template>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Document Type</mat-label>
-                <input matInput formControlName="documentType" placeholder="Ex. 1 Main St, New York, NY" required>
+                <!-- <input matInput formControlName="documentType" placeholder="Ex. 1 Main St, New York, NY" required> -->
+                <select matNativeControl formControlName="documentType" placeholder="Document Type" required>
+                    <option value=""></option>
+
+                    <option value="inboundReceipt">Inbound Receipt</option>
+                    <option value="outboundReceipt">Outbound Receipt</option>
+                    <option value="inventoryAdjustmentSingle">Inventory Adjustment (Single)</option>
+                  </select>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill" *ngIf="this.fifthFormGroup.value.documentType">
+                <!-- <input matInput formControlName="customerReference" placeholder="Ex. 1 Main St, New York, NY" required> -->
                 <mat-label>Customer Reference</mat-label>
-                <input matInput formControlName="customerReference" placeholder="Ex. 1 Main St, New York, NY" required>
+                <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="customerReference" (keyup)="filterData()" [matAutocomplete]="auto">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of customerReference" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill" *ngIf="this.fifthFormGroup.value.documentType">
                 <mat-label>AMC Reference</mat-label>
-                <input matInput formControlName="amcReference" placeholder="Ex. 1 Main St, New York, NY" required>
+                <!-- <input matInput formControlName="amcReference" placeholder="Ex. 1 Main St, New York, NY" required> -->
+                <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="amcReference" (keyup)="filterData()" [matAutocomplete]="auto">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of amcReference" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <!-- <mat-form-field appearance="fill">
                 <mat-label>Received Date</mat-label>
                 <input matInput formControlName="receivedDate" placeholder="Ex. 1 Main St, New York, NY" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>BOL</mat-label>
                 <input matInput formControlName="bol" placeholder="Ex. 1 Main St, New York, NY" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Appointment ID</mat-label>
                 <input matInput formControlName="appointmentID" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
+            </mat-form-field> -->
             <div>
                 <button mat-button matStepperPrevious>Back</button>
                 <button mat-button matStepperNext>Next</button>
             </div>
         </form>
     </mat-step>
-    <mat-step [stepControl]="sixthFormGroup">
+    <!-- <mat-step [stepControl]="sixthFormGroup">
         <form [formGroup]="sixthFormGroup">
             <ng-template matStepLabel><span [ngClass]="sixthFormGroup.touched && sixthFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Cost Details">Cost Details</span></ng-template>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Amount Basis</mat-label>
                 <input matInput placeholder="Name" formControlName="name" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Claimed Amount</mat-label>
                 <input matInput type="number" placeholder="Phone" formControlName="phone" required>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Currency</mat-label>
                 <input matInput type="email" placeholder="Email" formControlName="email" required>
             </mat-form-field>
@@ -264,7 +285,7 @@
         <form [formGroup]="seventhFormGroup">
             <ng-template matStepLabel><span [ngClass]="seventhFormGroup.touched && seventhFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Additional Information">Additional Information</span></ng-template>
             <mat-label>Please Provide detailed notes and attach all relevant backup documentation, This information is required for submittal.</mat-label><br/>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Customer Notes</mat-label>
                 <textarea matInput placeholder="Notes" formControlName="notes"></textarea>
             </mat-form-field>
@@ -277,25 +298,24 @@
     <mat-step [stepControl]="eightFormGroup">
         <form [formGroup]="eightFormGroup">
             <ng-template matStepLabel><span [ngClass]="eightFormGroup.touched && eightFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Documentation">Documentation</span></ng-template>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="fill">
                 <mat-label>Open File</mat-label>
-                <!-- <button mat-raised-button>Open file</button> -->
 
-                <input matInput formControlName="name" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-            </div>
-        </form>
-    </mat-step>
+    <input matInput formControlName="name" placeholder="Ex. 1 Main St, New York, NY" required>
+    </mat-form-field>
+    <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+    </div>
+    </form>
+    </mat-step> -->
     <mat-step>
         <ng-template matStepLabel>Done</ng-template>
         <p>You are now done.</p>
         <div>
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button>Save</button>
-            <button mat-button [disabled]="!checkAllFormsvalid()">Submit</button>
+            <button mat-button (click)="submitData()">Submit</button>
 
             <button mat-button (click)="stepper.reset()">Reset</button>
         </div>

@@ -39,6 +39,10 @@ import { DetailsModalComponent } from './components/data-table/details-modal/det
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { ClaimsApiService } from './claims-api.service';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { ClaimsDetailsComponent } from './components/claims-details/claims-details.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -51,7 +55,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     HeaderComponent,
     AddClaimComponent,
     LoginComponent,
-    DetailsModalComponent
+    DetailsModalComponent,
+    ClaimsDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -80,9 +85,11 @@ import {MatTooltipModule} from '@angular/material/tooltip';
    NgxPrintModule,
    MatDialogModule,
    MatProgressBarModule,
-   MatTooltipModule
+   MatTooltipModule,
+   MatAutocompleteModule,
+   MatSnackBarModule
   ],
-  providers: [],
+  providers: [ClaimsApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -40,3 +40,8 @@ body {
 .errorField {
     color: red;
 }
+
+.cdk-overlay-pane {
+    max-height: 700px;
+    overflow: scroll;
+}
