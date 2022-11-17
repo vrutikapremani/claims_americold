@@ -1,6 +1,11 @@
-<mat-card-header class="absolute-center text-center">
-    <mat-card-subtitle>Claims Details</mat-card-subtitle>
+<mat-card-header class="absolute-center text-center" style="background-color: #ffc235;border-radius:4px;">
+    <mat-card-subtitle style="
+    margin-top: 10%;
+">
+        <h1>Claims Details</h1>
+    </mat-card-subtitle>
 </mat-card-header>
+<br/>
 <div *ngIf="rows.length > 0" fxFlexFill fxLayout="column">
     <div fxFlex fxLayoutAlign="end start" fxLayoutGap="20px">
         <div>
@@ -121,7 +126,7 @@
                             <mat-icon>feed</mat-icon>
                             <span>More Information</span>
                         </button>
-                        <button mat-menu-item (click)="editItem()">
+                        <button mat-menu-item (click)="editItem(row)">
                             <mat-icon>edit</mat-icon>
                             <span>Edit Information</span>
                         </button>

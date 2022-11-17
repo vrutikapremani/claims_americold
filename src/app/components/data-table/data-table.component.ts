@@ -5,6 +5,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import {ViewEncapsulation} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { ClaimsDetailsComponent } from '../claims-details/claims-details.component';
+import { ClaimsApiService } from 'src/app/claims-api.service';
 
 const today = new Date();
 const month = today.getMonth();
@@ -102,7 +104,7 @@ export class DataTableComponent implements OnInit {
 	mySelection = [];
 	SelectionType = SelectionType;
 	filteredRows:any[] = [];
-	constructor(public dialog: MatDialog) {
+	constructor(public dialog: MatDialog, private http: ClaimsApiService) {
 	}
 
 	ngOnInit(): void {
@@ -128,8 +130,12 @@ export class DataTableComponent implements OnInit {
 			console.log(`Dialog result: ${result}`);
 		});
 	}
-	editItem() {
-		this.newItemEvent.emit(this.selected);
+	editItem(row:any) {
+		const dialogRef = this.dialog.open(ClaimsDetailsComponent, { data: {orders:this.http.getOrders()}, autoFocus: false});
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log(`Dialog result: ${result}`);
+		});
 	}
 	filteredApplied(event:any,props:string){
 		this.filteredRows = this.rows.filter(row=>{
