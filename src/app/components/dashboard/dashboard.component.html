@@ -15,7 +15,7 @@
 
     <div class="example-sidenav-content" *ngIf="navOptions == 'home'" #dashboard>
         <div fxFlexFill fxLayout="column" fxLayoutGap="20px" fxFlexFill class="dashboard">
-            <div fxFlexFill fxLayout="column">
+            <div>
                 <app-data-cards [rowData]="claims"></app-data-cards>
             </div>
             <div fxFlexFill fxLayoutGap="20px" fxLayout="row">
