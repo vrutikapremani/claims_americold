@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import {FormGroup, FormControl} from '@angular/forms';
 @Component({
   selector: 'app-data-cards',
   templateUrl: './data-cards.component.html',
@@ -12,7 +12,10 @@ export class DataCardsComponent implements OnInit {
   public claims: any;
   public claimAmount = 0;
   public paidAmount = 0;
-
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
   constructor() { }
 
   ngOnInit(): void {

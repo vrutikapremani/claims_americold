@@ -33,6 +33,11 @@ export class DataTableComponent implements OnInit {
 		props: "date",
 		type: "Date",
 		show: true
+	},{
+		name: "Status",
+		props: "status",
+		type: "text",
+		show: true
 	}, {
 		name: "Master Acct",
 		props: "masterAcct",
@@ -63,12 +68,7 @@ export class DataTableComponent implements OnInit {
 		props: "category",
 		type: "text",
 		show: true
-	}, {
-		name: "Status",
-		props: "status",
-		type: "text",
-		show: true
-	}, {
+	},{
 		name: "Claimed Amount",
 		props: "claimedAmount",
 		type: "number",
