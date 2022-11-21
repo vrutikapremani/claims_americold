@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
@@ -10,7 +10,8 @@ export class DashboardComponent implements OnInit {
   showFiller = true;
   @ViewChild(MatDrawer) drawer: any;
   navOptions = "home";
-  public claims = [{
+  years:any
+  public claims :any= [{
     date: "10/17/22",
     masterAcct: "Lamb Weston",
     facility: "Taber, Canada (61600)",
@@ -8062,6 +8063,58 @@ export class DashboardComponent implements OnInit {
     claimedAmount: "$4,992.85 ",
     paidAmount: "$4,992.85 ",
     dateClosed: "11/2/22"
+  },
+  {
+    date: "10/17/21",
+    masterAcct: "Atkinson Sheep Ranch",
+    facility: "Logan Township, NJ (NJ-LT-LN)",
+    account: "-",
+    amcClaim: "166622",
+    claimType: "WAREHOUSE",
+    category: "Damage",
+    status: "Closed",
+    claimedAmount: "$4,992.85 ",
+    paidAmount: "$4,992.85 ",
+    dateClosed: "11/2/22"
+  },
+  {
+    date: "10/17/20",
+    masterAcct: "Atkinson Sheep Ranch",
+    facility: "Logan Township, NJ (NJ-LT-LN)",
+    account: "-",
+    amcClaim: "166622",
+    claimType: "WAREHOUSE",
+    category: "Damage",
+    status: "Closed",
+    claimedAmount: "$4,992.85 ",
+    paidAmount: "$4,992.85 ",
+    dateClosed: "11/2/22"
+  },
+  {
+    date: "11/25/20",
+    masterAcct: "McDonal's",
+    facility: "Logan Township, NJ (NJ-LT-LN)",
+    account: "-",
+    amcClaim: "166622",
+    claimType: "WAREHOUSE",
+    category: "Damage",
+    status: "Closed",
+    claimedAmount: "$4,992.85 ",
+    paidAmount: "$4,992.85 ",
+    dateClosed: "11/2/22"
+  },
+  {
+    date: "1/17/19",
+    masterAcct: "KFC",
+    facility: "Logan Township, NJ (NJ-LT-LN)",
+    account: "-",
+    amcClaim: "166622",
+    claimType: "WAREHOUSE",
+    category: "Damage",
+    status: "Closed",
+    claimedAmount: "$4,992.85 ",
+    paidAmount: "$4,992.85 ",
+    dateClosed: "11/2/22"
   }
   ];
   public openClaims: any[] = [];
@@ -8072,9 +8125,13 @@ export class DashboardComponent implements OnInit {
   public openSize = 3000;
   public closedSize = 50000;
   selectedDataItems = [];
+  show=true;
+  tempClaimsData: any;
+  tempData: any;
   constructor() { }
 
   ngOnInit(): void {
+    this.tempData = this.claims;
     this.initFilter();
   }
   public initFilter(): void {
@@ -8097,7 +8154,26 @@ export class DashboardComponent implements OnInit {
     })
   }
   selectedData(e: any) {
-    this.selectedDataItems = e;
+    this.selectedDataItems = e;    
     this.navOptions = 'addClaim';
+  }
+  getYear(e:any){
+    this.show=false;
+this.years=Number(e.value);
+let TempData: any[] = [];
+
+this.tempClaimsData = this.tempData;
+this.tempClaimsData.forEach((data:any)=>{
+  let event = new Date(data.date);
+  if(event.getFullYear() == this.years){
+    TempData.push(data);
+  }
+  
+})
+this.claims = TempData;
+console.log(this.claims);
+setTimeout(()=>{
+  this.show=true
+},500)
   }
 }

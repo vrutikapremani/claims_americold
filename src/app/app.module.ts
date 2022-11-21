@@ -15,6 +15,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatCardModule} from '@angular/material/card';
 import { ChartsModule } from 'ng2-charts';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSelectModule} from '@angular/material/select';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {MatButtonModule} from '@angular/material/button';
@@ -87,7 +88,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
    MatProgressBarModule,
    MatTooltipModule,
    MatAutocompleteModule,
-   MatSnackBarModule
+   MatSnackBarModule,
+   MatSelectModule
   ],
   providers: [ClaimsApiService],
   bootstrap: [AppComponent]

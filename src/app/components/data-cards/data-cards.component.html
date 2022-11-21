@@ -1,14 +1,17 @@
 <div fxFlexFill fxLayout="column">
+    <div fxLayout="row" fxLayoutAlign="start center" >
     <mat-form-field appearance="outline">
-        <select matNativeControl placeholder="Year">
-            <option value="2022" selected>2022</option>
-            <option value="2021">2021</option>
-            <option value="2020">2020</option>
-            <option value="2019">2019</option>
-            <option value="2018">2018</option>
-        </select>
+        <mat-select matNativeControl required placeholder="Year" (selectionChange)="yearrange($event)" >
+            <mat-option value="2022" selected>2022</mat-option>
+            <mat-option value="2021">2021</mat-option>
+            <mat-option value="2020">2020</mat-option>
+            <mat-option value="2019">2019</mat-option>
+            <mat-option value="2018">2018</mat-option>
+        </mat-select>
         <mat-label>Claim details for Year</mat-label>
     </mat-form-field>
+    </div>
+
 <div fxFlexFill fxLayoutGap="20px" fxLayout="row">
     <mat-card fxFlex="20%">
         <mat-card-header>
@@ -19,7 +22,7 @@
             <mat-card-title>{{ facilities.length }}</mat-card-title>
         </mat-card-header>
         <button mat-button color="primary">More Insights <mat-icon color="primary">keyboard_double_arrow_right
-            </mat-icon></button>
+        </mat-icon></button>
     </mat-card>
     <mat-card fxFlex="20%">
         <mat-card-header>
@@ -38,8 +41,8 @@
             <mat-card-subtitle>Total Claims</mat-card-subtitle>
             <mat-card-title>{{ rowData.length }}</mat-card-title>
         </mat-card-header>
-        <button mat-button color="primary">More Insights <mat-icon color="primary">keyboard_double_arrow_right
-            </mat-icon></button>
+        <button mat-button color="primary">More Insights <mat-icon color="primary">keyboard_double_arrow_right</mat-icon></button>
+        
     </mat-card>
     <mat-card fxFlex="20%">
         <mat-card-header>

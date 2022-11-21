@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
+// import { MatSelectChange } from "@angular/material/select";
 @Component({
   selector: 'app-data-cards',
   templateUrl: './data-cards.component.html',
@@ -7,16 +8,19 @@ import {FormGroup, FormControl} from '@angular/forms';
 })
 export class DataCardsComponent implements OnInit {
   @Input() rowData: any[] = [];
+  @Output() year:any=new EventEmitter();
   public facilities: any;
   public customers: any;
   public claims: any;
   public claimAmount = 0;
   public paidAmount = 0;
+  number:any=[];
   range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
-  constructor() { }
+  selectedData: any;
+  constructor() {}
 
   ngOnInit(): void {
     this.initFilter();
@@ -30,5 +34,14 @@ export class DataCardsComponent implements OnInit {
       this.claimAmount += amount ? amount : 0;
       this.paidAmount += paidAmount ? paidAmount : 0;
     });
+  }
+
+  yearrange(event:any){
+    this.selectedData = {
+      value: event.value,
+      text: event.source.triggerValue
+    };
+    this.year.emit(this.selectedData)
+    
   }
 }

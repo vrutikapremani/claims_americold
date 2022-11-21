@@ -13,15 +13,15 @@
         </mat-list>
     </mat-drawer>
 
-    <div class="example-sidenav-content" *ngIf="navOptions == 'home'" #dashboard>
-        <!-- <button mat-stroked-button color="primary" mat-button style="float: right;">
+    <div class="example-sidenav-content" *ngIf="navOptions == 'home'"  #dashboard>
+       <!-- <button mat-stroked-button color="primary" mat-button style="float: right;">
             <mat-icon>sorting</mat-icon>
             <span>Filters</span>
         </button>
         <br/> -->
-        <div fxFlexFill fxLayout="column" fxLayoutGap="20px" fxFlexFill class="dashboard">
+        <div fxFlexFill fxLayout="column" fxLayoutGap="20px" fxFlexFill class="dashboard"  *ngIf="show">
             <div>
-                <app-data-cards [rowData]="claims"></app-data-cards>
+                <app-data-cards [rowData]="claims" (year)="getYear($event)"></app-data-cards>
             </div>
             <div fxFlexFill fxLayoutGap="20px" fxLayout="row">
                 <mat-card fxFlex="50%">
