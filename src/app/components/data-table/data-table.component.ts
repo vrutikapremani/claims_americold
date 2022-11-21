@@ -139,6 +139,7 @@ export class DataTableComponent implements OnInit {
 	}
 	filteredApplied(event:any,props:string){
 		this.filteredRows = this.rows.filter(row=>{
+			console.log(event.target.value,props);
 			return row[props].indexOf(event.target.value) > -1;
 		})
 	}
