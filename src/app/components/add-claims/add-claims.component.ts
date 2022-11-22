@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ClaimsApiService } from 'src/app/claims-api.service';
 import { ClaimsDetailsComponent } from '../claims-details/claims-details.component';
 
@@ -65,7 +65,7 @@ export class AddClaimComponent implements OnInit {
     // bol: ['', Validators.required],
     // receivedDate: ['', Validators.required], 
     amcReference: ['', Validators.required],
-    customerReference: ['', Validators.required], 
+    customerReference: ['', Validators.required],
     documentType: ['', Validators.required]
   })
   sixthFormGroup = this._formBuilder.group({
@@ -86,8 +86,8 @@ export class AddClaimComponent implements OnInit {
   customerList: string[] = [];
   customerReference: number[] = [];
   amcReference: number[] = [];
-  
-  constructor(private _formBuilder: FormBuilder, private http: ClaimsApiService,public dialog: MatDialog) { }
+
+  constructor(private _formBuilder: FormBuilder, private http: ClaimsApiService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -135,11 +135,53 @@ export class AddClaimComponent implements OnInit {
     }
     return result;
   }
-  submitData(){
-    const dialogRef = this.dialog.open(ClaimsDetailsComponent, { data: {orders:this.http.getOrders()}, autoFocus: false});
+  submitData() {
+    const confirmDialog = this.dialog.open(DialogBoxComponent, { data: { orders: this.http.getOrders() }, autoFocus: false });
+    confirmDialog.afterClosed().subscribe(result => {
+      // console.log(result);
+      if(result){
+        const dialogRef = this.dialog.open(ClaimsDetailsComponent, { data: { orders: this.http.getOrders() }, autoFocus: false });
 
-		dialogRef.afterClosed().subscribe(result => {
-			console.log(`Dialog result: ${result}`);
-		});
-   }
+        dialogRef.afterClosed().subscribe(result => {
+          console.log(`Dialog result: ${result}`);
+        });
+      }
+      
+    });
+
+    // dialogRef.afterClosed().subscribe(result => {
+    // 	console.log(`Dialog result: ${result}`);
+    // });
+  }
+}
+
+
+@Component({
+  selector: 'app-add-dialogBox',
+  template: `<mat-card>
+  <mat-card-header>
+    <mat-card-title>Dublicates Exists</mat-card-title>
+    <mat-card-subtitle>Claim with same customer reference number and amc reference number is created. Do you wish to proceed?</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-actions align="end">
+  <button mat-button [mat-dialog-close]="true">Yes</button>
+  <button mat-button (click)=show(false)>No</button>
+</mat-card-actions>
+ 
+</mat-card>`,
+  styleUrls: ['./add-claims.component.css']
+
+})
+export class DialogBoxComponent implements OnInit {
+  constructor(public dialogRef: MatDialogRef<DialogBoxComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+  ngOnInit(): void {
+
+  }
+  show(val: boolean) {
+    this.data.result = val;
+
+    this.dialogRef.close();
+  }
+
 }

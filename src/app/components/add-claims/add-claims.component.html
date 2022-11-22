@@ -37,6 +37,7 @@
             <mat-form-field appearance="fill">
                 <mat-label>Customer Claim#</mat-label>
                 <input matInput placeholder="Customer Claim#" type="number" formControlName="customerClaim">
+
             </mat-form-field>
             <!-- <mat-form-field appearance="fill">
                 <mat-label>WMS Account</mat-label>
@@ -193,14 +194,21 @@
             <mat-form-field appearance="fill">
                 <mat-label>Name</mat-label>
                 <input matInput placeholder="Name" formControlName="name" required>
+                <mat-icon matSuffix *ngIf="fourthFormGroup.controls.name.valid" style="color: green;">done</mat-icon>
+
+
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Phone</mat-label>
                 <input matInput type="number" placeholder="Phone" formControlName="phone" required>
+                <mat-icon matSuffix *ngIf="fourthFormGroup.controls.phone.valid" style="color: green;">done</mat-icon>
+
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Email</mat-label>
                 <input matInput type="email" placeholder="Email" formControlName="email" required>
+                <mat-icon matSuffix *ngIf="fourthFormGroup.controls.email.valid" style="color: green;">done</mat-icon>
+
             </mat-form-field>
             <div>
                 <button mat-button matStepperPrevious>Back</button>
@@ -226,6 +234,8 @@
                 <!-- <input matInput formControlName="customerReference" placeholder="Ex. 1 Main St, New York, NY" required> -->
                 <mat-label>Customer Reference</mat-label>
                 <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="customerReference" (keyup)="filterData()" [matAutocomplete]="auto">
+                <mat-icon matSuffix *ngIf="fifthFormGroup.controls.customerReference.valid" style="color: green;">done</mat-icon>
+
                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                     <mat-option *ngFor="let option of customerReference" [value]="option">
                         {{option}}
@@ -236,6 +246,7 @@
                 <mat-label>AMC Reference</mat-label>
                 <!-- <input matInput formControlName="amcReference" placeholder="Ex. 1 Main St, New York, NY" required> -->
                 <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="amcReference" (keyup)="filterData()" [matAutocomplete]="auto">
+                <mat-icon matSuffix *ngIf="fifthFormGroup.controls.amcReference.valid" style="color: green;">done</mat-icon>
                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                     <mat-option *ngFor="let option of amcReference" [value]="option">
                         {{option}}
