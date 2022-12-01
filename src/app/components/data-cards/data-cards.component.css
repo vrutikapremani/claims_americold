@@ -22,3 +22,7 @@
 .date {
     width: 15%;
 }
+
+::ng-deep .cdk-overlay-pane {
+    overflow:visible
+}

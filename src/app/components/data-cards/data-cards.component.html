@@ -2,6 +2,7 @@
     <div fxLayout="row" fxLayoutAlign="start center" >
     <mat-form-field appearance="outline">
         <mat-select matNativeControl required placeholder="Year" (selectionChange)="yearrange($event)" >
+          <mat-option>None</mat-option>
             <mat-option value="2022" selected>2022</mat-option>
             <mat-option value="2021">2021</mat-option>
             <mat-option value="2020">2020</mat-option>
@@ -21,8 +22,16 @@
             <mat-card-subtitle>Total Facilities</mat-card-subtitle>
             <mat-card-title>{{ facilities.length }}</mat-card-title>
         </mat-card-header>
-        <button mat-button color="primary">More Insights <mat-icon color="primary">keyboard_double_arrow_right
-        </mat-icon></button>
+<mat-form-field>
+  <mat-label>Select Facility</mat-label>
+  <mat-select (selectionChange)="changeFacility($event)">
+    <mat-option>None</mat-option>
+    <mat-option *ngFor="let Wearhouse of facilities" [value]="Wearhouse"  >
+      {{Wearhouse}}
+    </mat-option>
+   
+  </mat-select>
+</mat-form-field>
     </mat-card>
     <mat-card fxFlex="20%">
         <mat-card-header>
@@ -30,7 +39,8 @@
                 <mat-icon class="customer main-icon">person</mat-icon>
             </div>
             <mat-card-subtitle>Total Customers</mat-card-subtitle>
-            <mat-card-title>{{ customers.length }}</mat-card-title>
+            <mat-card-title *ngIf="this.customers.length && !(this.uniqueChars.length)">{{customers.length }}</mat-card-title>
+            <mat-card-title *ngIf="this.uniqueChars.length">{{this.uniqueChars.length }}</mat-card-title>
         </mat-card-header>
     </mat-card>
     <mat-card fxFlex="20%">
@@ -39,10 +49,10 @@
                 <mat-icon class="claim main-icon">content_copy</mat-icon>
             </div>
             <mat-card-subtitle>Total Claims</mat-card-subtitle>
-            <mat-card-title>{{ rowData.length }}</mat-card-title>
+             <mat-card-title *ngIf="this.rowData.length && !(this.masterData.length)">{{rowData.length }}</mat-card-title> 
+            <mat-card-title *ngIf="this.masterData.length">{{this.masterData.length }}</mat-card-title>
         </mat-card-header>
-        <button mat-button color="primary">More Insights <mat-icon color="primary">keyboard_double_arrow_right</mat-icon></button>
-        
+
     </mat-card>
     <mat-card fxFlex="20%">
         <mat-card-header>

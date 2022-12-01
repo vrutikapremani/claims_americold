@@ -8080,7 +8080,21 @@ export class DashboardComponent implements OnInit {
     {
       date: "10/17/21",
       masterAcct: "Atkinson Sheep Ranch",
-      facility: "Logan Township, NJ (NJ-LT-LN)",
+      facility: "Atlanta Westgate (75147)",
+      account: "-",
+      amcClaim: "166622",
+      claimType: "WAREHOUSE",
+      category: "Damage",
+      status: "Closed",
+      claimedAmount: "$4,992.85 ",
+      paidAmount: "$4,992.85 ",
+      dateClosed: "11/2/22"
+    },
+    ,
+    {
+      date: "10/17/21",
+      masterAcct: "Atkinson Sheep Ranch",
+      facility: "Lula (JDAWMS2) (GA-LULA-LN)",
       account: "-",
       amcClaim: "166622",
       claimType: "WAREHOUSE",
@@ -8093,7 +8107,7 @@ export class DashboardComponent implements OnInit {
     {
       date: "10/17/20",
       masterAcct: "Atkinson Sheep Ranch",
-      facility: "Logan Township, NJ (NJ-LT-LN)",
+      facility: "Savannah Pooler, GA (GA-SVA-ND)",
       account: "-",
       amcClaim: "166622",
       claimType: "WAREHOUSE",
@@ -8106,7 +8120,7 @@ export class DashboardComponent implements OnInit {
     {
       date: "11/25/20",
       masterAcct: "McDonal's",
-      facility: "Logan Township, NJ (NJ-LT-LN)",
+      facility: "Lula (JDAWMS2) (GA-LULA-LN)",
       account: "-",
       amcClaim: "166622",
       claimType: "WAREHOUSE",
@@ -8119,7 +8133,20 @@ export class DashboardComponent implements OnInit {
     {
       date: "1/17/19",
       masterAcct: "KFC",
-      facility: "Logan Township, NJ (NJ-LT-LN)",
+      facility: "Perryville (JDAWMS2) (MD-PRYVLE)",
+      account: "-",
+      amcClaim: "166622",
+      claimType: "WAREHOUSE",
+      category: "Damage",
+      status: "Closed",
+      claimedAmount: "$4,992.85 ",
+      paidAmount: "$4,992.85 ",
+      dateClosed: "11/2/22"
+    },
+    {
+      date: "1/17/19",
+      masterAcct: "KFC",
+      facility: "Piscataway-5, NJ (HighJump) (NJ-PY-5AR)",
       account: "-",
       amcClaim: "166622",
       claimType: "WAREHOUSE",
@@ -8154,7 +8181,7 @@ export class DashboardComponent implements OnInit {
   }
   selectedData(e: any) {
     this.selectedDataItems = e;
-    this.navOptions = 'addClaim';
+    this.navOptions = 'addClaim';    
   }
   getYear(e: any) {
     this.show = false;
