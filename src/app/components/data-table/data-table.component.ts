@@ -51,7 +51,7 @@ export class DataTableComponent implements OnInit {
 		props: "documentType",
 		type: "text",
 		show: true
-	}, 
+	},
 	{
 		name: "Facility",
 		props: "facilityId",
@@ -78,11 +78,17 @@ export class DataTableComponent implements OnInit {
 		type: "text",
 		show: true
 	}, {
-		name: "Claimed Amount",
+		name: "Pallet Quantity",
 		props: "palletQuantity",
 		type: "number",
 		show: false
 	}, {
+		name: "Claimed Amount",
+		props: "claimedAmount",
+		type: "number",
+		show: false
+	}, 
+	{
 		name: "Paid Amount",
 		props: "paidAmount",
 		type: "number",
@@ -112,9 +118,10 @@ export class DataTableComponent implements OnInit {
 	SelectionType = SelectionType;
 	filteredRows: any[] = [];
 	filteredObject: any;
+	filteredRowsAutoFill: any = {};
+
 	constructor(public dialog: MatDialog, private http: ClaimsApiService) {
 	}
-
 	ngOnInit(): void {
 		this.filteredColumns = this.columns.filter(column => column.show === true);
 		this.http.getClaims().subscribe((data: any) => {
@@ -122,6 +129,8 @@ export class DataTableComponent implements OnInit {
 			this.filteredRows = this.rows;
 
 		})
+		this.filteredRowsAutoFill = this.columns.map((item:any)=> item.props);
+
 	}
 	public togglecolumnCheckbox(column: any) {
 		const isChecked = column.show;
@@ -264,7 +273,7 @@ export class DataTableOrdersComponent implements OnInit {
 		this.filteredRows = this.rows;
 		this.facilityList = this.http.getFacility();
 		this.customerList = this.http.getCustomer();
-		console.log(this.facilityList,this.customerList);
+		console.log(this.facilityList, this.customerList);
 	}
 	public togglecolumnCheckbox(column: any) {
 		const isChecked = column.show;

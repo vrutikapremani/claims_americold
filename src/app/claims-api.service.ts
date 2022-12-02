@@ -104,4 +104,7 @@ export class ClaimsApiService {
   getClaims() {
     return this.http.get(environment.URL + '/claims');
   }
+  getClaimsById(id:string) {
+    return this.http.get(environment.URL + `/claims/${id}`);
+  }
 }

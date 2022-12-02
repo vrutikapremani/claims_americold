@@ -44,6 +44,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { ClaimsDetailsComponent } from './components/claims-details/claims-details.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
    MatAutocompleteModule,
    MatSnackBarModule,
    MatProgressSpinnerModule,
-   HttpClientModule
+   HttpClientModule,
+   MatGridListModule
   ],
   providers: [ClaimsApiService],
   bootstrap: [AppComponent]
