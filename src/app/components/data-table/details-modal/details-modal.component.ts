@@ -8,6 +8,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 })
 export class DetailsModalComponent implements OnInit {
 
+  date= '11/29/2022';
   constructor( public dialogRef: MatDialogRef<DetailsModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 

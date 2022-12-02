@@ -20,6 +20,7 @@
         </button>
         <br/> -->
         <div fxFlexFill fxLayout="column" fxLayoutGap="20px" fxFlexFill class="dashboard">
+
             <div>
                 <app-data-cards [rowData]="claims"></app-data-cards>
             </div>
@@ -52,8 +53,8 @@
             </div>
         </div>
     </div>
-    <div class="example-sidenav-content" *ngIf="navOptions == 'addClaim'">
-        <app-add-claims [selectedDataItems]="selectedDataItems"></app-add-claims>
+    <div class="example-sidenav-content addclaim-background" *ngIf="navOptions == 'addClaim'">
+        <app-add-claims [selectedDataItems]="claims"></app-add-claims>
 
 
     </div>

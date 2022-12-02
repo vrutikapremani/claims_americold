@@ -33,7 +33,7 @@
         </div>
     </div>
     <br />
-    <mat-card *ngIf="sortingfilters">
+    <mat-card *ngIf="sortingfilters && tableType == 'claim'">
         <span *ngFor="let item of filteredColumns">
             <span *ngIf="item.show && item.name == 'Category'">
                 <mat-form-field appearance="outline" color="primary">
@@ -77,6 +77,73 @@
         </span>
     </mat-card>
 
+    <mat-card *ngIf="sortingfilters && tableType == 'order'">
+        <form [formGroup]="filteredObject" fxFlexFill fxLayoutGap="40px" fxLayout="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Date Created Range</mat-label>
+                <mat-date-range-input [formGroup]="campaignTwo" [rangePicker]="campaignTwoPicker" [comparisonStart]="campaignOne.value.start" [comparisonEnd]="campaignOne.value.end">
+                    <input matStartDate placeholder="Start date" formControlName="start">
+                    <input matEndDate placeholder="End date" formControlName="end">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="campaignTwoPicker"></mat-datepicker-toggle>
+                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                <mat-date-range-picker #campaignTwoPicker></mat-date-range-picker>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Facility</mat-label>
+                <input type="text" placeholder="Pick one" formControlName="facility" aria-label="Number" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of facilityList" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Customer</mat-label>
+                <input type="text" placeholder="Pick one" formControlName="customer" aria-label="Number" matInput [matAutocomplete]="auto1">
+                <mat-autocomplete #auto1="matAutocomplete">
+                    <mat-option *ngFor="let option of customerList" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Customer Reference Number</mat-label>
+                <input type="text" placeholder="Pick one" formControlName="customer" aria-label="Number" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of customerList" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>AMC Reference Number</mat-label>
+                <input type="text" placeholder="Pick one" formControlName="customer" aria-label="Number" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of customerList" [value]="option">
+                        {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <br/>
+
+        </form>
+
+        <!-- <span *ngFor="let item of filteredColumns">
+
+        <span>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{item.name}}</mat-label>
+                    <input matInput type={{item.type}} placeholder={{item.name}}
+                        (keyup)="filteredApplied($event,item.props)" />
+                </mat-form-field>
+                &nbsp;
+            </span>
+
+
+        </span> -->
+    </mat-card>
+
     <mat-card *ngIf="sortingfilters">
         <span *ngFor="let item of filteredColumns">
 
@@ -113,7 +180,8 @@
     </mat-card>
     <br />
     <div id="print-section">
-        <ngx-datatable class="material striped" [scrollbarH]="true" [rows]="filteredRows" [columns]="filteredColumns" id="claims-table" [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="40" [rowHeight]="rowHeight" [limit]="10">
+        <ngx-datatable class="material striped" [scrollbarH]="true" [rows]="filteredRows" [columns]="filteredColumns" [selectionType]="SelectionType.checkbox" id="claims-table" [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="40" [rowHeight]="rowHeight"
+            [limit]="10">
             <ngx-datatable-column *ngFor="let col of filteredColumns" [name]="col.name" [prop]="col.props">
             </ngx-datatable-column>
             <ngx-datatable-column *ngIf="showActions" [frozenRight]="true" name="Actions" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="true">
@@ -122,13 +190,17 @@
                         <mat-icon color="primary">checklist</mat-icon> Actions
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="openDialog(row)">
+                        <button mat-menu-item (click)="openDialog(row)" *ngIf="tableType == 'claim'">
                             <mat-icon>feed</mat-icon>
                             <span>More Information</span>
                         </button>
-                        <button mat-menu-item (click)="editItem(row)">
+                        <button mat-menu-item (click)="editItem(row)" *ngIf="tableType == 'claim'">
                             <mat-icon>edit</mat-icon>
                             <span>Edit Information</span>
+                        </button>
+                        <button mat-menu-item (click)="editItem(row)" *ngIf="tableType == 'order'">
+                            <mat-icon>add</mat-icon>
+                            <span>Add to Claim</span>
                         </button>
                     </mat-menu>
                 </ng-template>

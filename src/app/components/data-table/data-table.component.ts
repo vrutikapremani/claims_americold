@@ -3,8 +3,8 @@ import * as XLSX from 'xlsx';
 import { DetailsModalComponent } from "./details-modal/details-modal.component"
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
-import {ViewEncapsulation} from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ClaimsDetailsComponent } from '../claims-details/claims-details.component';
 import { ClaimsApiService } from 'src/app/claims-api.service';
 
@@ -25,19 +25,20 @@ export class DataTableComponent implements OnInit {
 	campaignOne = new FormGroup({
 		start: new FormControl(new Date(year, month, 13)),
 		end: new FormControl(new Date(year, month, 16)),
-	  });
-	  campaignTwo = new FormGroup({
+	});
+	campaignTwo = new FormGroup({
 		start: new FormControl(new Date(year, month, 15)),
 		end: new FormControl(new Date(year, month, 19)),
-	  });
+	});
+	tableType = "claim";
 	public columns = [{
 		name: "Date",
-		props: "date",
+		props: "creationDate",
 		type: "Date",
 		show: true
-	},{
+	}, {
 		name: "Status",
-		props: "status",
+		props: "claimStatus",
 		type: "text",
 		show: true
 	}, {
@@ -46,8 +47,14 @@ export class DataTableComponent implements OnInit {
 		type: "text",
 		show: true
 	}, {
+		name: "Document Type",
+		props: "documentType",
+		type: "text",
+		show: true
+	}, 
+	{
 		name: "Facility",
-		props: "facility",
+		props: "facilityId",
 		type: "text",
 		show: true
 	}, {
@@ -57,7 +64,7 @@ export class DataTableComponent implements OnInit {
 		show: true
 	}, {
 		name: "Amc Claim",
-		props: "amcClaim",
+		props: "serviceProviderClaimId",
 		type: "text",
 		show: true
 	}, {
@@ -70,9 +77,9 @@ export class DataTableComponent implements OnInit {
 		props: "category",
 		type: "text",
 		show: true
-	},{
+	}, {
 		name: "Claimed Amount",
-		props: "claimedAmount",
+		props: "palletQuantity",
 		type: "number",
 		show: false
 	}, {
@@ -96,20 +103,25 @@ export class DataTableComponent implements OnInit {
 		type: "number",
 		show: false
 	}];
-	public filteredColumns:any;
+	public filteredColumns: any;
 	public ColumnMode = ColumnMode;
 	public rowHeight = 40;
 	public show = false;
 	selected = [];
 	mySelection = [];
 	SelectionType = SelectionType;
-	filteredRows:any[] = [];
+	filteredRows: any[] = [];
+	filteredObject: any;
 	constructor(public dialog: MatDialog, private http: ClaimsApiService) {
 	}
 
 	ngOnInit(): void {
 		this.filteredColumns = this.columns.filter(column => column.show === true);
-		this.filteredRows = this.rows;
+		this.http.getClaims().subscribe((data: any) => {
+			this.rows = data;
+			this.filteredRows = this.rows;
+
+		})
 	}
 	public togglecolumnCheckbox(column: any) {
 		const isChecked = column.show;
@@ -124,23 +136,174 @@ export class DataTableComponent implements OnInit {
 		XLSX.writeFile(wb, 'claims.xlsx');
 	}
 	openDialog(row: any) {
-		const dialogRef = this.dialog.open(DetailsModalComponent, { data: row, autoFocus: false});
+		const dialogRef = this.dialog.open(DetailsModalComponent, { data: row, autoFocus: false });
 
 		dialogRef.afterClosed().subscribe(result => {
 			console.log(`Dialog result: ${result}`);
 		});
 	}
-	editItem(row:any) {
-		const dialogRef = this.dialog.open(ClaimsDetailsComponent, { data: {orders:this.http.getOrders()}, autoFocus: false});
+	editItem(row: any) {
+		const dialogRef = this.dialog.open(ClaimsDetailsComponent, { data: { orders: this.http.getOrders() }, autoFocus: false });
 
 		dialogRef.afterClosed().subscribe(result => {
 			console.log(`Dialog result: ${result}`);
 		});
 	}
-	filteredApplied(event:any,props:string){
-		this.filteredRows = this.rows.filter(row=>{
-			console.log(event.target.value,props);
-			return row[props].indexOf(event.target.value) > -1;
-		})
+	facilityList: any = [];
+	customerList: any = [];
+	filtersOption: any = {};
+	filteredApplied(event: any, props: string) {
+		this.filtersOption[props] = event.target.value;
+		this.filteredRows = this.rows;
+		for (let filter of Object.keys(this.filtersOption)) {
+			if (this.filtersOption[filter] != '') {
+				this.filteredRows = this.filteredRows.filter(row => {
+					return row[filter].indexOf(this.filtersOption[filter]) > -1 ? 1 : 0;
+				})
+			}
+		}
+	}
+}
+
+@Component({
+	// encapsulation: ViewEncapsulation.None,
+	selector: 'app-data-order-table',
+	templateUrl: './data-table.component.html',
+	styleUrls: ['./data-table.component.css']
+})
+export class DataTableOrdersComponent implements OnInit {
+	@Input() rows: any[] = [];
+	@Output() newItemEvent: any = new EventEmitter();
+	@Input() showActions: boolean = true;
+	sortingfilters = false;
+	campaignOne = new FormGroup({
+		start: new FormControl(),
+		end: new FormControl(),
+	});
+	campaignTwo = new FormGroup({
+		start: new FormControl(),
+		end: new FormControl(),
+	});
+	tableType = "order";
+	public columns = [{
+		name: "Item",
+		props: "item",
+		type: "number",
+		show: true
+	}, {
+		name: "Description",
+		props: "des",
+		type: "text",
+		show: true
+	}, {
+		name: "Date Code",
+		props: "dateCode",
+		type: "Date",
+		show: true
+	}, {
+		name: "Lot",
+		props: "lot",
+		type: "text",
+		show: true
+	}, {
+		name: "Quantity",
+		props: "quantity",
+		type: "text",
+		show: true
+	}, {
+		name: "LPN",
+		props: "LPN",
+		type: "text",
+		show: true
+	}, {
+		name: "NET",
+		props: "NET",
+		type: "text",
+		show: true
+	}, {
+		name: "Customer Reference",
+		props: "customerReference",
+		type: "text",
+		show: false
+	}, {
+		name: "AMC Refenrence",
+		props: "AMCRefenrence",
+		type: "number",
+		show: false
+	}, {
+		name: "Facility ID",
+		props: "facilityId",
+		type: "number",
+		show: false
+	}, {
+		name: "Customer ID",
+		props: "customerId",
+		type: "number",
+		show: false
+	}];
+	public filteredColumns: any;
+	public ColumnMode = ColumnMode;
+	public rowHeight = 40;
+	public show = false;
+	selected = [];
+	mySelection = [];
+	SelectionType = SelectionType;
+	filteredRows: any[] = [];
+	addedClaims: any = [];
+	facilityList: any = [];
+	customerList: any = [];
+	filteredObject = this._formBuilder.group({
+		facility: [''],
+		customer: ['']
+	})
+	constructor(public dialog: MatDialog, private http: ClaimsApiService, private _formBuilder: FormBuilder) {
+	}
+
+	ngOnInit(): void {
+		this.filteredColumns = this.columns.filter(column => column.show === true);
+		this.filteredRows = this.rows;
+		this.facilityList = this.http.getFacility();
+		this.customerList = this.http.getCustomer();
+		console.log(this.facilityList,this.customerList);
+	}
+	public togglecolumnCheckbox(column: any) {
+		const isChecked = column.show;
+		column.show = !isChecked;
+		this.filteredColumns = this.columns.filter(item => item.show);
+	}
+
+	public onExportToExcel() {
+		const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.filteredRows);
+		const wb: XLSX.WorkBook = XLSX.utils.book_new();
+		XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+		XLSX.writeFile(wb, 'claims.xlsx');
+	}
+	openDialog(row: any) {
+		const dialogRef = this.dialog.open(DetailsModalComponent, { data: row, autoFocus: false });
+
+		dialogRef.afterClosed().subscribe(result => {
+			console.log(`Dialog result: ${result}`);
+		});
+	}
+	editItem(row: any) {
+		this.addedClaims.push(row);
+		this.newItemEvent.emit(this.addedClaims);
+		// const dialogRef = this.dialog.open(ClaimsDetailsComponent, { data: { orders: this.http.getOrders() }, autoFocus: false });
+
+		// dialogRef.afterClosed().subscribe(result => {
+		// 	console.log(`Dialog result: ${result}`);
+		// });
+	}
+	filtersOption: any = {};
+	filteredApplied(event: any, props: string) {
+		this.filtersOption[props] = event.target.value;
+		this.filteredRows = this.rows;
+		for (let filter of Object.keys(this.filtersOption)) {
+			if (this.filtersOption[filter] != '') {
+				this.filteredRows = this.filteredRows.filter(row => {
+					return row[filter].toString().indexOf(this.filtersOption[filter]) > -1 ? 1 : 0;
+				})
+			}
+		}
 	}
 }

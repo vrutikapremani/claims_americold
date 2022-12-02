@@ -10,9 +10,10 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.active {
+
+/* .active {
     background-color: #0058fe !important;
-}
+} */
 
 .ngx-datatable.material {
     /* overflow: scroll; */

@@ -1,227 +1,63 @@
 <!-- <mat-progress-bar mode="determinate" [value]="retrunProgress()" color="accent"></mat-progress-bar> -->
+<div class="spinner" *ngIf="!spinner">
+    <mat-spinner></mat-spinner>
 
-<mat-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
+</div>
+
+<!-- <mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <img style="    width: 60%;
+            margin-left: 25%;" src="https://s29.q4cdn.com/867481375/files/design/americold_logo.png" />
+
+        </mat-card-title>
+        <br/>
+        <mat-card-title>Claim Details for AMC</mat-card-title>
+
+    </mat-card-header>
+    <mat-card-content>
         <form [formGroup]="firstFormGroup">
-            <ng-template matStepLabel><span [ngClass]="firstFormGroup.touched && firstFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Claim Details for AMC Claim ID:9961">Claim Details for AMC Claim ID:9961</span></ng-template>
-            <mat-form-field>
-                <mat-label>Created Date</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="createdDate">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <br/>
-            <!-- <mat-form-field>
-                <mat-label>Closed Date</mat-label>
-                <input matInput [matDatepicker]="picker1" formControlName="closedDate">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
-            </mat-form-field> -->
 
             <mat-form-field appearance="fill">
                 <mat-label>Facility</mat-label>
                 <select matNativeControl formControlName="facility" placeholder="Facility" required>
                     <option *ngFor="let item of facilityList" value={{item}}>{{item}}</option>
-                    <!-- <option value="Transportation">Transportation</option> -->
                   </select>
+                <mat-icon matSuffix *ngIf="firstFormGroup.controls.facility.value" style="color: green;">done</mat-icon>
+
             </mat-form-field>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" *ngIf="firstFormGroup.value.facility">
                 <mat-label>Customer</mat-label>
-                <!-- <input matInput placeholder="Customer" formControlName="customer" required> -->
                 <select matNativeControl formControlName="customer" placeholder="Customer" required>
                     <option *ngFor="let item of customerList" value={{item}}>{{item}}</option>
                   </select>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Customer Claim#</mat-label>
-                <input matInput placeholder="Customer Claim#" type="number" formControlName="customerClaim">
+                <mat-icon matSuffix *ngIf="firstFormGroup.controls.customer.value" style="color: green;">done</mat-icon>
 
-            </mat-form-field>
-            <!-- <mat-form-field appearance="fill">
-                <mat-label>WMS Account</mat-label>
-                <input matInput placeholder="WMS Account" formControlName="wmsAccount" required>
-            </mat-form-field> -->
-            <!-- <mat-form-field appearance="fill">
-                <mat-label>Claim Type</mat-label>
-                <select matNativeControl formControlName="claimType" placeholder="Claim Type" required>
-                    <option value="Warehouse">Warehouse</option>
-                    <option value="Transportation">Transportation</option>
-                  </select>
-            </mat-form-field> -->
-            <!-- <mat-form-field appearance="fill">
-                <mat-label>Claim Category</mat-label>
-                <select matNativeControl placeholder="Claim Category" formControlName="claimCategory" required>
-                    <option value="Warehouse">Damage</option>
-                    <option value="Shortage">Shortage</option>
-                    <option value="Detention">Detention</option>
-                    <option value="Freight">Freight</option>
-                    <option value="Demurrage – EUF">Demurrage – EUF</option>
-                    <option value="Freight Cost">Freight Cost</option>
-                    <option value="Inventory Adjustment">Inventory Adjustment
-                    </option>
-                  </select>
-            </mat-form-field> -->
-            <!-- <mat-form-field appearance="fill">
-                <mat-label>Status</mat-label>
-                <select matNativeControl placeholder="Status" formControlName="status" required>
-                    <option value="Approved">Approved</option>
-                    <option value="Cancelled">Cancelled</option>
-                    <option value="Closed">Closed</option>
-                    <option value="Closed - Denied">Closed - Denied</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Invoice Queued">Invoice Queued</option>
-                    <option value="Open">Open</option>
-                    <option value="Paid">Paid</option>
-                    <option value="Pending Addtl. Info">Pending Addtl. Info</option>
-                    <option value="Pending Approval">Pending Approval</option>
-                    <option value="WaRejectedrehouse">Rejected</option>
-                  </select>
-            </mat-form-field> -->
-            <!-- <mat-form-field appearance="fill">
-                <mat-label>Priority Flag</mat-label>
-                <select matNativeControl placeholder="Priority Flag" formControlName="priorityFlag" required>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                  </select>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Commodity Type</mat-label>
-                <select matNativeControl placeholder="Commodity Type" formControlName="commonType" required>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                  </select>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Issue Type</mat-label>
-                <select matNativeControl placeholder="Issue Type" formControlName="issueType" required>
-                    <option value="Low">Low</option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                  </select>
-            </mat-form-field> -->
-            <div>
-                <button mat-button matStepperNext>Next</button>
-            </div>
-        </form>
-    </mat-step>
-    <!-- <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup">
-            <ng-template matStepLabel> <span [ngClass]="secondFormGroup.touched && secondFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Examiner Information">Examiner Information</span></ng-template>
-            <mat-form-field appearance="fill">
-                <mat-label>Name</mat-label>
-                <input matInput placeholder="Name" formControlName="name" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Phone</mat-label>
-                <input matInput type="number" placeholder="Phone" formControlName="phone" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Email</mat-label>
-                <input matInput type="email" placeholder="Email" formControlName="email" required>
             </mat-form-field>
             <br/>
-            <mat-form-field appearance="fill">
-                <mat-label>Notes</mat-label>
-                <textarea matInput placeholder="Notes" formControlName="notes"></textarea>
-            </mat-form-field>
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-            </div>
-        </form>
-    </mat-step> -->
-    <!-- <mat-step [stepControl]="thirdFormGroup">
-        <form [formGroup]="thirdFormGroup">
-            <ng-template matStepLabel><span [ngClass]="thirdFormGroup.touched && thirdFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Payment Information">Payment Information</span></ng-template>
-            <mat-form-field appearance="fill">
-                <mat-label>Currency Type</mat-label>
-                <input matInput formControlName="currencyType" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Claimed Amount</mat-label>
-                <input matInput formControlName="claimedAmount" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Invoice Amount</mat-label>
-                <input matInput formControlName="invoiceAmount" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Accural Amount</mat-label>
-                <input matInput formControlName="accuralAmount" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>GL Code</mat-label>
-                <input matInput formControlName="glCode" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Cost Center</mat-label>
-                <input matInput formControlName="costCenter" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Invoice Number</mat-label>
-                <input matInput formControlName="invoiceNumber" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Payment Date</mat-label>
-                <input matInput formControlName="paymentDate" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Payment Reference</mat-label>
-                <input matInput formControlName="paymentReference" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Paid Amount</mat-label>
-                <input matInput formControlName="paidAmount" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>AP Vendor</mat-label>
-                <input matInput formControlName="apVendor" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
-
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-            </div>
-        </form>
-    </mat-step> -->
-    <mat-step [stepControl]="fourthFormGroup">
-        <form [formGroup]="fourthFormGroup">
-            <ng-template matStepLabel><span [ngClass]="fourthFormGroup.touched && fourthFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Contact Information">Contact Information</span></ng-template>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" *ngIf="firstFormGroup.value.customer">
                 <mat-label>Name</mat-label>
                 <input matInput placeholder="Name" formControlName="name" required>
-                <mat-icon matSuffix *ngIf="fourthFormGroup.controls.name.valid" style="color: green;">done</mat-icon>
+                <mat-icon matSuffix *ngIf="firstFormGroup.controls.customer.value" style="color: green;">done</mat-icon>
 
 
             </mat-form-field>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" *ngIf="firstFormGroup.value.customer">
                 <mat-label>Phone</mat-label>
                 <input matInput type="number" placeholder="Phone" formControlName="phone" required>
-                <mat-icon matSuffix *ngIf="fourthFormGroup.controls.phone.valid" style="color: green;">done</mat-icon>
+                <mat-icon matSuffix *ngIf="firstFormGroup.controls.customer.value" style="color: green;">done</mat-icon>
 
             </mat-form-field>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="fill" *ngIf="firstFormGroup.value.customer">
                 <mat-label>Email</mat-label>
                 <input matInput type="email" placeholder="Email" formControlName="email" required>
-                <mat-icon matSuffix *ngIf="fourthFormGroup.controls.email.valid" style="color: green;">done</mat-icon>
+                <mat-icon matSuffix *ngIf="firstFormGroup.controls.customer.value" style="color: green;">done</mat-icon>
 
             </mat-form-field>
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-            </div>
-        </form>
-    </mat-step>
-    <mat-step [stepControl]="fifthFormGroup">
-        <form [formGroup]="fifthFormGroup">
-            <ng-template matStepLabel><span [ngClass]="fifthFormGroup.touched && fifthFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Document Details">Document Details</span></ng-template>
-            <mat-form-field appearance="fill">
+
+
+            <mat-form-field appearance="fill" *ngIf="firstFormGroup.value.customer">
                 <mat-label>Document Type</mat-label>
-                <!-- <input matInput formControlName="documentType" placeholder="Ex. 1 Main St, New York, NY" required> -->
                 <select matNativeControl formControlName="documentType" placeholder="Document Type" required>
                     <option value=""></option>
 
@@ -230,11 +66,10 @@
                     <option value="inventoryAdjustmentSingle">Inventory Adjustment (Single)</option>
                   </select>
             </mat-form-field>
-            <mat-form-field appearance="fill" *ngIf="this.fifthFormGroup.value.documentType">
-                <!-- <input matInput formControlName="customerReference" placeholder="Ex. 1 Main St, New York, NY" required> -->
+            <mat-form-field appearance="fill" *ngIf="this.firstFormGroup.value.documentType">
                 <mat-label>Customer Reference</mat-label>
                 <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="customerReference" (keyup)="filterData()" [matAutocomplete]="auto">
-                <mat-icon matSuffix *ngIf="fifthFormGroup.controls.customerReference.valid" style="color: green;">done</mat-icon>
+                <mat-icon matSuffix *ngIf="firstFormGroup.controls.customerReference.valid" style="color: green;">done</mat-icon>
 
                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                     <mat-option *ngFor="let option of customerReference" [value]="option">
@@ -242,93 +77,152 @@
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
-            <mat-form-field appearance="fill" *ngIf="this.fifthFormGroup.value.documentType">
+            <mat-form-field appearance="fill" *ngIf="this.firstFormGroup.value.documentType">
                 <mat-label>AMC Reference</mat-label>
-                <!-- <input matInput formControlName="amcReference" placeholder="Ex. 1 Main St, New York, NY" required> -->
                 <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="amcReference" (keyup)="filterData()" [matAutocomplete]="auto">
-                <mat-icon matSuffix *ngIf="fifthFormGroup.controls.amcReference.valid" style="color: green;">done</mat-icon>
+                <mat-icon matSuffix *ngIf="firstFormGroup.controls.amcReference.valid" style="color: green;">done</mat-icon>
                 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                     <mat-option *ngFor="let option of amcReference" [value]="option">
                         {{option}}
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
-            <!-- <mat-form-field appearance="fill">
-                <mat-label>Received Date</mat-label>
-                <input matInput formControlName="receivedDate" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>BOL</mat-label>
-                <input matInput formControlName="bol" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field>
-            <mat-form-field appearance="fill">
-                <mat-label>Appointment ID</mat-label>
-                <input matInput formControlName="appointmentID" placeholder="Ex. 1 Main St, New York, NY" required>
-            </mat-form-field> -->
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-            </div>
+
         </form>
-    </mat-step>
-    <!-- <mat-step [stepControl]="sixthFormGroup">
-        <form [formGroup]="sixthFormGroup">
-            <ng-template matStepLabel><span [ngClass]="sixthFormGroup.touched && sixthFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Cost Details">Cost Details</span></ng-template>
+        <div>
+
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button>Cancel</button>
+        <button mat-button>Save</button>
+    </mat-card-actions>
+</mat-card> -->
+<mat-card>
+
+    <app-data-order-table [rows]="ordersDataItems" (newItemEvent)="listItems($event)" [showActions]="true">
+    </app-data-order-table>
+    <mat-card *ngIf="ordersList.length > 0">
+        <mat-card-header style="background-color: #ffc235;border-radius:4px;">
+
+            <mat-card-subtitle style="
+    margin-top: 6%;
+">
+                <h1>Selected Claim Orders </h1>
+            </mat-card-subtitle>
+        </mat-card-header>
+        <form [formGroup]="costDetails" fxFlexFill fxLayout="row" fxLayoutGap="10%">
             <mat-form-field appearance="fill">
                 <mat-label>Amount Basis</mat-label>
-                <input matInput placeholder="Name" formControlName="name" required>
+                <!-- <input matInput placeholder="Name" formControlName="amountBasis" required> -->
+                <select matNativeControl placeholder="Amount Basis" formControlName="amountBasis" required>
+                <option value="Product">Product</option>
+                <option value="Shipping">Shipping</option>
+              </select>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Claimed Amount</mat-label>
-                <input matInput type="number" placeholder="Phone" formControlName="phone" required>
+                <input matInput type="number" placeholder="cost" formControlName="cost" [disabled]="true" />
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <mat-label>Currency</mat-label>
-                <input matInput type="email" placeholder="Email" formControlName="email" required>
+                <select matNativeControl placeholder="currency" formControlName="currency" required>
+                <option value="USD">USD</option>
+                <option value="EURO">EURO</option>
+              </select>
             </mat-form-field>
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-            </div>
         </form>
-    </mat-step>
-    <mat-step [stepControl]="seventhFormGroup">
-        <form [formGroup]="seventhFormGroup">
-            <ng-template matStepLabel><span [ngClass]="seventhFormGroup.touched && seventhFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Additional Information">Additional Information</span></ng-template>
-            <mat-label>Please Provide detailed notes and attach all relevant backup documentation, This information is required for submittal.</mat-label><br/>
-            <mat-form-field appearance="fill">
-                <mat-label>Customer Notes</mat-label>
-                <textarea matInput placeholder="Notes" formControlName="notes"></textarea>
-            </mat-form-field>
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-            </div>
-        </form>
-    </mat-step>
-    <mat-step [stepControl]="eightFormGroup">
-        <form [formGroup]="eightFormGroup">
-            <ng-template matStepLabel><span [ngClass]="eightFormGroup.touched && eightFormGroup.status == 'INVALID' ? 'errorField' : ''" matTooltip="Documentation">Documentation</span></ng-template>
-            <mat-form-field appearance="fill">
-                <mat-label>Open File</mat-label>
-
-    <input matInput formControlName="name" placeholder="Ex. 1 Main St, New York, NY" required>
-    </mat-form-field>
-    <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-    </div>
-    </form>
-    </mat-step> -->
-    <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
         <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button>Save</button>
-            <button mat-button (click)="submitData()">Submit</button>
-
-            <button mat-button (click)="stepper.reset()">Reset</button>
+            <ngx-datatable class="material" [scrollbarH]="true" [rows]="ordersList" [columnMode]="ColumnMode.force" [headerHeight]="40" [footerHeight]="40" [rowHeight]="40" [limit]="10">
+                <ngx-datatable-column *ngFor="let col of filteredColumns" [name]="col.name" [prop]="col.props">
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Claim QTY" [width]="90" [frozenRight]="true" style="background-color: grey;">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <input matInput placeholder="Claim QTY" [(ngModel)]="totalAmount[row.item]" type="number" value="0" />
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Category">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <select matNativeControl placeholder="currency" required>
+                            <option value="Overage">Overage</option>
+                            <option value="Underrage">Underrage</option>
+                            <!-- <option value="EURO">EURO</option> -->
+              </select>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Unit Cost">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        ${{5}}
+                        <!-- <option value="EURO">EURO</option> -->
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="UOM">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <select matNativeControl placeholder="currency" required>
+                <option value="LB">LB</option>
+                <option value="KG">KG</option>
+                <!-- <option value="EURO">EURO</option> -->
+              </select>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Total" [frozenRight]="true">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        ${{ totalAmount[row.item] ? totalAmount[row.item] : 0 }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="EST.Unit Cost">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        ${{0.50}}
+                        <!-- <option value="EURO">EURO</option> -->
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="EST Total Cost" [frozenRight]="true" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="true">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        ${{ totalAmount[row.item] ? totalAmount[row.item] : 0 }}
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
         </div>
-    </mat-step>
-</mat-stepper>
+
+
+
+
+    </mat-card>
+    <mat-card *ngIf="ordersList.length > 0">
+        <mat-card-header style="background-color: #ffc235;border-radius:4px;">
+
+            <mat-card-subtitle style="
+        margin-top: 6%;
+    ">
+                <h1>Additional Information</h1>
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-label>Please Provide detailed notes and attach all relevant backup documentation, This information is required for submittal.</mat-label><br/>
+        <mat-card-content>
+
+            <form [formGroup]="additionalInfo" fxFlexFill fxLayout="row" fxLayoutGap="10%">
+                <mat-form-field appearance="fill">
+                    <mat-label>Customer Notes</mat-label>
+                    <textarea matInput placeholder="Notes" formControlName="notes"></textarea>
+                </mat-form-field>
+
+
+
+            </form>
+            <span>
+                <mat-label>Documents</mat-label><br/>
+
+                <button mat-raised-button (click)="openBottomSheet()">
+                    Open
+                </button>
+            </span>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button mat-button>Cancel</button>
+            <button mat-button (click)="submitData()">Create Claim</button>
+        </mat-card-actions>
+    </mat-card>
+
+</mat-card>

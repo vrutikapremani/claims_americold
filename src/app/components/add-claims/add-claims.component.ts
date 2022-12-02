@@ -1,43 +1,51 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, DoCheck, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ColumnMode } from '@swimlane/ngx-datatable';
 import { ClaimsApiService } from 'src/app/claims-api.service';
 import { ClaimsDetailsComponent } from '../claims-details/claims-details.component';
+import { DetailsModalComponent } from '../data-table/details-modal/details-modal.component';
 
 @Component({
   selector: 'app-add-claims',
   templateUrl: './add-claims.component.html',
   styleUrls: ['./add-claims.component.css']
 })
-export class AddClaimComponent implements OnInit {
+export class AddClaimComponent implements OnInit,DoCheck {
   @Input() set selectedDataItems(item: any) {
-    if (item.length > 0) {
-      this.firstFormGroup.setValue({
-        createdDate: item[0].date,
-        // closedDate: item[0].dateClosed,
-        customerClaim: item[0].claimedAmount,
-        customer: item[0].date,
-        facility: item[0].facility,
-        // wmsAccount: item[0].masterAcct, claimType: item[0].claimType,
-        // claimCategory: item[0].category,
-        // status: item[0].status, priorityFlag: '',
-        // commonType: '',
-        // issueType: '',
-      })
-    }
+    this.ordersDataItems = item;
+    // if (item.length > 0) {
+    //   this.firstFormGroup.setValue({
+    //     createdDate: item[0].date,
+    //     // closedDate: item[0].dateClosed,
+    //     customerClaim: item[0].claimedAmount,
+    //     customer: item[0].date,
+    //     facility: item[0].facility,
+    //     // wmsAccount: item[0].masterAcct, claimType: item[0].claimType,
+    //     // claimCategory: item[0].category,
+    //     // status: item[0].status, priorityFlag: '',
+    //     // commonType: '',
+    //     // issueType: '',
+    //   })
+    // }
 
   }
+  ordersDataItems:any=[];
+  spinner = false;
+
   firstFormGroup = this._formBuilder.group({
     createdDate: [new Date(), Validators.required],
     // closedDate: ['', Validators.required],
     customerClaim: [null],
     customer: ['', Validators.required],
     facility: ['', Validators.required],
-    // wmsAccount: ['', Validators.required], claimType: ['', Validators.required],
-    // claimCategory: ['', Validators.required],
-    // status: ['', Validators.required], priorityFlag: ['', Validators.required],
-    // commonType: ['', Validators.required],
-    // issueType: ['', Validators.required],
+    name: ['admin', Validators.required],
+    phone: ['1111111111', Validators.required],
+    email: ['admin@miracle', Validators.required],
+    amcReference: ['', Validators.required],
+    customerReference: ['', Validators.required],
+    documentType: ['', Validators.required]
   });
   secondFormGroup = this._formBuilder.group({
     name: ['', Validators.required],
@@ -52,12 +60,6 @@ export class AddClaimComponent implements OnInit {
     glCode: ['', Validators.required], accuralAmount: ['', Validators.required],
     invoiceAmount: ['', Validators.required], claimedAmount: ['', Validators.required],
     currencyType: ['', Validators.required],
-
-  });
-  fourthFormGroup = this._formBuilder.group({
-    name: ['admin', Validators.required],
-    phone: ['1111111111', Validators.required],
-    email: ['admin@miracle', Validators.required],
 
   });
   fifthFormGroup = this._formBuilder.group({
@@ -86,72 +88,87 @@ export class AddClaimComponent implements OnInit {
   customerList: string[] = [];
   customerReference: number[] = [];
   amcReference: number[] = [];
+  costDetails = this._formBuilder.group({
+    amountBasis: ['Product', Validators.required],
+    cost: [0, Validators.required],
+    currency: ['USD', Validators.required],
 
-  constructor(private _formBuilder: FormBuilder, private http: ClaimsApiService, public dialog: MatDialog) { }
+  });
+  additionalInfo = this._formBuilder.group({
+    notes: [''], document: ['']
 
+  });
+  totalAmount:any = {};
+  constructor(private _formBuilder: FormBuilder, private http: ClaimsApiService, public dialog: MatDialog,private _bottomSheet: MatBottomSheet) { }
+
+  ngDoCheck(): void {
+    let temp=0;
+    Object.keys(this.totalAmount).forEach(item=>{
+      temp += this.totalAmount[item];
+    })
+      this.costDetails.controls.cost.setValue(temp);
+  }
   ngOnInit(): void {
+    this.spinner = false;
+    this.ordersDataItems = this.http.getOrders();
+    setTimeout(() => {
+      this.facilityList = this.http.getFacility().splice(0,1);
+      if(this.facilityList.length==1){
+        this.firstFormGroup.controls.facility.setValue(this.facilityList[0]);
+      }
+      this.customerList = this.http.getCustomer().splice(0,1);
+      if(this.customerList.length==1){
+        this.firstFormGroup.controls.customer.setValue(this.customerList[0]);
+      }
+      this.customerReference = this.http.getCustomerReference();
+      this.customerReference = this.http.getCustomerReference();
+      this.amcReference = this.http.getAMCReference();
+      this.spinner = true;
+    }, 2000);
 
-    this.facilityList = this.http.getFacility();
-    this.customerList = this.http.getCustomer();
-    this.customerReference = this.http.getCustomerReference();
-    this.customerReference = this.http.getCustomerReference();
-    this.amcReference = this.http.getAMCReference();
   }
   filterData() {
     this.customerReference = this.http.getCustomerReference().filter(item => item.toString().indexOf(this.fifthFormGroup.value.customerReference ? this.fifthFormGroup.value.customerReference : '') > -1)
     this.amcReference = this.http.getAMCReference().filter(item => item.toString().indexOf(this.fifthFormGroup.value.amcReference ? this.fifthFormGroup.value.amcReference : '') > -1)
   }
   checkAllFormsvalid() {
-    let result = this.fifthFormGroup.status === 'VALID' && this.fourthFormGroup.status === 'VALID' && this.fifthFormGroup.status === 'VALID';
+    let result = this.fifthFormGroup.status === 'VALID' && this.fifthFormGroup.status === 'VALID';
     return result;
 
-  }
-
-  retrunProgress() {
-    let result = 0;
-    if (this.firstFormGroup.status == 'VALID') {
-      result += 12.5;
-    }
-    if (this.secondFormGroup.status == 'VALID') {
-      result += 12.5;
-    }
-    if (this.thirdFormGroup.status == 'VALID') {
-      result += 12.5;
-    }
-    if (this.fourthFormGroup.status == 'VALID') {
-      result += 12.5;
-    }
-    if (this.fifthFormGroup.status == 'VALID') {
-      result += 12.5;
-    }
-    if (this.sixthFormGroup.status == 'VALID') {
-      result += 12.5;
-    }
-    if (this.seventhFormGroup.status == 'VALID') {
-      result += 12.5;
-    }
-    if (this.eightFormGroup.status == 'VALID') {
-      result += 12.5;
-    }
-    return result;
   }
   submitData() {
+    console.log(this.ordersList);
     const confirmDialog = this.dialog.open(DialogBoxComponent, { data: { orders: this.http.getOrders() }, autoFocus: false });
     confirmDialog.afterClosed().subscribe(result => {
       // console.log(result);
-      if(result){
-        const dialogRef = this.dialog.open(ClaimsDetailsComponent, { data: { orders: this.http.getOrders() }, autoFocus: false });
+      if (result) {
+        const dialogRef = this.dialog.open(DetailsModalComponent, { data: { orders: this.http.getOrders() }, autoFocus: false });
 
         dialogRef.afterClosed().subscribe(result => {
           console.log(`Dialog result: ${result}`);
         });
       }
-      
+
     });
 
     // dialogRef.afterClosed().subscribe(result => {
     // 	console.log(`Dialog result: ${result}`);
     // });
+  }
+  ColumnMode = ColumnMode;
+
+  filteredColumns = [{ "name": "Item", "props": "item", width: 60 }, { "name": "Description", props: "des" }, { "name": "Date Code", props: "dateCode" }, { "name": "LOT", props: "lot" }, { "name": "Quantity", props: "quantity" }, { "name": "LPN", props: "LPN" }, { "name": "NET", props: "NET" }];
+  ordersList:any = [];
+  listItems(items:any){
+    this.ordersList = [];
+    setTimeout(()=>{
+    this.ordersList = items;
+
+    },500)
+    // this.ordersList = items;
+  };
+  openBottomSheet(): void {
+    this._bottomSheet.open(BottomSheetOverviewExampleSheet);
   }
 }
 
@@ -159,11 +176,11 @@ export class AddClaimComponent implements OnInit {
 @Component({
   selector: 'app-add-dialogBox',
   template: `<mat-card>
-  <mat-card-header>
-    <mat-card-title>Dublicates Exists</mat-card-title>
+  <mat-card-header style="background-color: #36a2eb;border-radius:4px;">
+    <mat-card-title style="margin-top: 2%;">Dublicates Exists</mat-card-title>
     <mat-card-subtitle>Claim with same customer reference number and amc reference number is created. Do you wish to proceed?</mat-card-subtitle>
   </mat-card-header>
-  <mat-card-actions align="end">
+  <mat-card-actions>
   <button mat-button [mat-dialog-close]="true">Yes</button>
   <button mat-button (click)=show(false)>No</button>
 </mat-card-actions>
@@ -184,4 +201,37 @@ export class DialogBoxComponent implements OnInit {
     this.dialogRef.close();
   }
 
+}
+
+@Component({
+  selector: 'bottom-sheet-overview-example-sheet',
+  template: `<mat-nav-list>
+  <a href="https://keep.google.com/" mat-list-item (click)="openLink($event)">
+    <span matListItemTitle>Google Keep</span>
+    <span matLine>Add to a note</span>
+  </a>
+
+  <a href="https://docs.google.com/" mat-list-item (click)="openLink($event)">
+    <span matListItemTitle>Google Docs</span>
+    <span matLine>Embed in a document</span>
+  </a>
+
+  <a href="https://plus.google.com/" mat-list-item (click)="openLink($event)">
+    <span matListItemTitle>Google Plus</span>
+    <span matLine>Share with your friends</span>
+  </a>
+
+  <a href="https://hangouts.google.com/" mat-list-item (click)="openLink($event)">
+    <span matListItemTitle>Google Hangouts</span>
+    <span matLine>Show to your coworkers</span>
+  </a>
+</mat-nav-list>`,
+})
+export class BottomSheetOverviewExampleSheet {
+  constructor(private _bottomSheetRef: MatBottomSheetRef<BottomSheetOverviewExampleSheet>) {}
+
+  openLink(event: MouseEvent): void {
+    this._bottomSheetRef.dismiss();
+    event.preventDefault();
+  }
 }

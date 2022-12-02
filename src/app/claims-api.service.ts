@@ -1,11 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClaimsApiService {
 
-  ordersList=[
+  ordersList = [
     {
       "item": 43021,
       "des": "Laborum laboris quis non quis ut tempor. Aliquip voluptate sit nostrud minim dolor non nisi. Irure ea eu voluptate Lorem adipisicing elit magna tempor pariatur ullamco velit id Lorem veniam. Nostrud veniam nisi fugiat enim. Deserunt amet sint aliqua tempor amet irure elit ex do ullamco consequat.\r\n",
@@ -73,30 +75,33 @@ export class ClaimsApiService {
     }
   ]
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getFacility(){
-    return this.ordersList.map(item=>{
+  getFacility() {
+    return this.ordersList.map(item => {
       return item.facilityId;
     })
   }
 
-  getCustomer(){
-    return this.ordersList.map(item=>{
+  getCustomer() {
+    return this.ordersList.map(item => {
       return item.customerId;
     })
   }
-  getCustomerReference(){
-    return this.ordersList.map(item=>{
+  getCustomerReference() {
+    return this.ordersList.map(item => {
       return item.customerReference;
     })
   }
-  getAMCReference(){
-    return this.ordersList.map(item=>{
+  getAMCReference() {
+    return this.ordersList.map(item => {
       return item.AMCRefenrence;
     })
   }
-  getOrders(){
+  getOrders() {
     return this.ordersList;
+  }
+  getClaims() {
+    return this.http.get(environment.URL + '/claims');
   }
 }
