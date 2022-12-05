@@ -23,12 +23,12 @@ export class DataTableComponent implements OnInit {
 	@Input() showActions: boolean = true;
 	sortingfilters = false;
 	campaignOne = new FormGroup({
-		start: new FormControl(new Date(year, month, 13)),
-		end: new FormControl(new Date(year, month, 16)),
+		start: new FormControl(),
+		end: new FormControl(),
 	});
 	campaignTwo = new FormGroup({
-		start: new FormControl(new Date(year, month, 15)),
-		end: new FormControl(new Date(year, month, 19)),
+		start: new FormControl(),
+		end: new FormControl(),
 	});
 	tableType = "claim";
 	public columns = [{
@@ -87,7 +87,7 @@ export class DataTableComponent implements OnInit {
 		props: "claimedAmount",
 		type: "number",
 		show: false
-	}, 
+	},
 	{
 		name: "Paid Amount",
 		props: "paidAmount",
@@ -119,18 +119,48 @@ export class DataTableComponent implements OnInit {
 	filteredRows: any[] = [];
 	filteredObject: any;
 	filteredRowsAutoFill: any = {};
-
+	storedRows:any=[];
 	constructor(public dialog: MatDialog, private http: ClaimsApiService) {
 	}
 	ngOnInit(): void {
 		this.filteredColumns = this.columns.filter(column => column.show === true);
 		this.http.getClaims().subscribe((data: any) => {
-			this.rows = data;
-			this.filteredRows = this.rows;
+			// this.rows = data;
+			this.storedRows = data.map((item: any, index: number) => {
+				if (!item.creationDate) {
+					item.creationDate = this.rows[index].date
+				}
+				item.claimedAmount = Number(item.claimedAmount ? item.claimedAmount : 0);
+
+				return { ...item, ...this.rows[index] }
+			});
+			this.filteredRows = data.map((item: any, index: number) => {
+				if (!item.creationDate) {
+					item.creationDate = this.rows[index].date
+				}
+				item.claimedAmount = Number(item.claimedAmount ? item.claimedAmount : 0);
+
+				return { ...item, ...this.rows[index] }
+			});
 
 		})
-		this.filteredRowsAutoFill = this.columns.map((item:any)=> item.props);
+		this.filteredRowsAutoFill = this.columns.map((item: any) => item.props);
+		this.campaignOne.valueChanges.subscribe(data => {
+			if (data.start && data.end) {
+				this.filteredRows = this.storedRows.filter((item:any) => {
 
+					let dateCheck = new Date(item.creationDate);
+
+					let lowDate = new Date(data.start);
+					let highDate = new Date(data.end);
+					console.log(highDate.getTime());
+
+					if(dateCheck.getTime() <= highDate.getTime() && dateCheck.getTime() >= lowDate.getTime()){
+						return true;
+					} else return false;
+				})
+			}
+		})
 	}
 	public togglecolumnCheckbox(column: any) {
 		const isChecked = column.show;
@@ -163,7 +193,7 @@ export class DataTableComponent implements OnInit {
 	filtersOption: any = {};
 	filteredApplied(event: any, props: string) {
 		this.filtersOption[props] = event.target.value;
-		this.filteredRows = this.rows;
+		this.filteredRows = this.storedRows;
 		for (let filter of Object.keys(this.filtersOption)) {
 			if (this.filtersOption[filter] != '') {
 				this.filteredRows = this.filteredRows.filter(row => {
