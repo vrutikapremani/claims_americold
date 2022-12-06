@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Color, Label, SingleDataSet, PluginServiceGlobalRegistrationAndOptions } from 'ng2-charts';
+import { ClaimsApiService } from 'src/app/claims-api.service';
 @Component({
   selector: 'app-doughnut-chart',
   templateUrl: './doughnut-chart.component.html',
@@ -24,13 +25,23 @@ export class DoughnutChartComponent implements OnInit {
   public doughnutChartColor: Color[] = [
     { backgroundColor: ['#FF9021', '#4BC0C0', '#36A2EB', '#FF6484', '#13FFFF', '#64FF16', '#FFA3B5', '#FFC898', '#FFE0A1', '#A0D0F5', '#9966FF'] },
   ];
-  constructor() { }
+  constructor(private http: ClaimsApiService) { }
 
   ngOnInit(): void {
-    let values = Object.entries(this.claimData);
-    values.forEach((status: any) => {
-      this.doughnutChartLabels.push(status[0] + ' - ' + status[1]);
-      this.doughnutChartData.push(status[1]);
+    this.http.getClaims().subscribe((data: any) => {
+      let ele: any = {};
+      data.map((item: any) => {
+        if (ele[item.claimStatus]) {
+          ele[item.claimStatus] += 1;
+        } else {
+          ele[item.claimStatus] = 1;
+        }
+      })
+      let values = Object.entries(ele);
+      values.forEach((status: any) => {
+        this.doughnutChartLabels.push(status[0] + ' - ' + status[1]);
+        this.doughnutChartData.push(status[1]);
+      })
     })
   }
 
