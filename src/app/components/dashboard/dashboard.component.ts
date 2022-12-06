@@ -20,7 +20,10 @@ export class DashboardComponent implements OnInit {
   public openSize = 3000;
   public closedSize = 50000;
   selectedDataItems = [];
+  tempData :any=[]
   show = true;
+  selectedDay: any;
+  notifyObj = new Notifier();
   constructor() { }
 
   ngOnInit(): void {
@@ -33,8 +36,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$878.15 ",
-      paidAmount: "$878.15 ",
+      claimedAmount: "878.15 ",
+      paidAmount: "878.15",
       dateClosed: "10/28/22"
     },
     {
@@ -46,8 +49,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$359,100.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "359,100.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/3/22"
     },
     {
@@ -59,8 +62,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Approved",
-      claimedAmount: "$1,025.28 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,025.28 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/1/22",
@@ -71,8 +74,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Pending Approval",
-      claimedAmount: "$561.78 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "561.78 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/18/22",
@@ -83,8 +86,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed - Denied",
-      claimedAmount: "$25.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "25.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -96,8 +99,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed - Denied",
-      claimedAmount: "$50.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "50.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -109,8 +112,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$1,393.05 ",
-      paidAmount: "$1,393.06 ",
+      claimedAmount: "1,393.05 ",
+      paidAmount: "1,393.06 ",
       dateClosed: "11/2/22",
       carrier: "ALBERTVILLE QUALITY PALL."
     },
@@ -123,8 +126,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$400.16 ",
-      paidAmount: "$32.80 ",
+      claimedAmount: "400.16 ",
+      paidAmount: "32.80 ",
       dateClosed: "10/30/22",
       carrier: "SASEI EXPRESS",
       loadNumber: "21000091"
@@ -138,8 +141,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "Paid",
-      claimedAmount: "$905.04 ",
-      paidAmount: "$905.04 ",
+      claimedAmount: "905.04 ",
+      paidAmount: "905.04 ",
       carrier: "CHOPTANK TRANSPO/428/CKTH",
       loadNumber: "20900486"
     },
@@ -152,8 +155,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "Closed - Denied",
-      claimedAmount: "$804.48 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "804.48 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/31/22",
       carrier: "SHUTTLES",
       loadNumber: "20803999"
@@ -167,8 +170,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Addt’l. Info.",
-      claimedAmount: "$198.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "198.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -179,8 +182,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$25.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "25.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "CDT_USA_INC_____/115/CUST",
       loadNumber: "20504367"
@@ -194,8 +197,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$25.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "25.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "TRIPLE T TRANSPORT",
       loadNumber: "20503791"
@@ -209,8 +212,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$25.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "25.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "GILTNER LOGISTIC/156/GLQV",
       loadNumber: "20802115"
@@ -224,8 +227,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "In Progress",
-      claimedAmount: "$353.16 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "353.16 ",
+      paidAmount: "0.00 ",
       carrier: "USE CARRIER CODE 049",
       loadNumber: "20802920"
     },
@@ -238,8 +241,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight Cost",
       status: "Closed",
-      claimedAmount: "$4,004.60 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "4,004.60 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/25/22",
       carrier: "COYOTE LOGISTICS"
     },
@@ -252,8 +255,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$563.11 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "563.11 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/3/22",
       carrier: "PTI"
     },
@@ -266,8 +269,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$75.00 ",
-      paidAmount: "$75.00 ",
+      claimedAmount: "75.00 ",
+      paidAmount: "75.00 ",
       dateClosed: "10/21/22"
     },
     {
@@ -279,8 +282,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$1,167.15 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,167.15 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/31/22"
     },
     {
@@ -292,8 +295,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$737.40 ",
-      paidAmount: "$132.50 ",
+      claimedAmount: "737.40 ",
+      paidAmount: "132.50 ",
       dateClosed: "11/2/22"
     },
     {
@@ -305,8 +308,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "In Progress",
-      claimedAmount: "$315.60 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "315.60 ",
+      paidAmount: "0.00 ",
       carrier: "CHOPTANK TRANSPORT",
       loadNumber: "20400137"
     },
@@ -319,8 +322,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$1,364.88 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,364.88 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/13/22",
       carrier: "HICKORY TRANSPORTATION",
       loadNumber: "20900434"
@@ -334,8 +337,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$75.36 ",
-      paidAmount: "$13.69 ",
+      claimedAmount: "75.36 ",
+      paidAmount: "13.69 ",
       dateClosed: "10/21/22",
       carrier: "MISC CARRIER"
     },
@@ -348,8 +351,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$300.00 ",
-      paidAmount: "$300.00 ",
+      claimedAmount: "300.00 ",
+      paidAmount: "300.00 ",
       dateClosed: "10/21/22",
       carrier: "ATG TRANSPORTATION LLC"
     },
@@ -362,8 +365,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Paid",
-      claimedAmount: "$50.00 ",
-      paidAmount: "$50.00 "
+      claimedAmount: "50.00 ",
+      paidAmount: "50.00 "
     },
     {
       date: "10/20/22",
@@ -374,8 +377,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Closed - Denied",
-      claimedAmount: "$1,386.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,386.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/20/22"
     },
     {
@@ -387,8 +390,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Approved",
-      claimedAmount: "$6,578.13 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "6,578.13 ",
+      paidAmount: "0.00 ",
       carrier: "CH ROBINSON"
     },
     {
@@ -400,8 +403,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Pending Approval",
-      claimedAmount: "$2,632.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "2,632.00 ",
+      paidAmount: "0.00 ",
       carrier: "CH ROBINSON"
     },
     {
@@ -413,8 +416,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$730.88 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "730.88 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -425,8 +428,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$159.60 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "159.60 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -437,8 +440,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$87.08 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "87.08 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/1/22",
@@ -449,8 +452,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "Closed",
-      claimedAmount: "$195.48 ",
-      paidAmount: "$195.48 ",
+      claimedAmount: "195.48 ",
+      paidAmount: "195.48 ",
       dateClosed: "11/4/22",
       carrier: "MJD Trucking Inc"
     },
@@ -463,8 +466,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$390.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "390.00 ",
+      paidAmount: "0.00 ",
       carrier: "V&S MIDWEST"
     },
     {
@@ -476,8 +479,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Open",
-      claimedAmount: "$190.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "190.00 ",
+      paidAmount: "0.00 ",
       carrier: "ONS+"
     },
     {
@@ -489,8 +492,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$10,483.86 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "10,483.86 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/18/22",
@@ -501,8 +504,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Closed",
-      claimedAmount: "$784.46 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "784.46 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/20/22"
     },
     {
@@ -514,8 +517,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$5,301.86 ",
-      paidAmount: "$3,126.62 ",
+      claimedAmount: "5,301.86 ",
+      paidAmount: "3,126.62 ",
       dateClosed: "10/27/22"
     },
     {
@@ -527,8 +530,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Paid",
-      claimedAmount: "$75.00 ",
-      paidAmount: "$75.00 ",
+      claimedAmount: "75.00 ",
+      paidAmount: "75.00 ",
       carrier: "Howard Family Transport"
     },
     {
@@ -540,8 +543,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed - Denied",
-      claimedAmount: "$500.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "500.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/14/22",
       carrier: "APEX LOGISTICS"
     },
@@ -554,8 +557,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$23,634.08 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "23,634.08 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/25/22"
     },
     {
@@ -567,8 +570,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$2,138.59 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,138.59 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -579,8 +582,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$2,828.70 ",
-      paidAmount: "$2,828.70 ",
+      claimedAmount: "2,828.70 ",
+      paidAmount: "2,828.70 ",
       dateClosed: "10/21/22"
     },
     {
@@ -592,8 +595,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Approved",
-      claimedAmount: "$2,080.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "2,080.00 ",
+      paidAmount: "0.00 ",
       carrier: "KH Generic SCAC"
     },
     {
@@ -605,8 +608,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$825.84 ",
-      paidAmount: "$216.00 ",
+      claimedAmount: "825.84 ",
+      paidAmount: "216.00 ",
       dateClosed: "11/4/22",
       carrier: "CONTAINERS - AMERICOLD"
     },
@@ -619,8 +622,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "In Progress",
-      claimedAmount: "$626.70 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "626.70 ",
+      paidAmount: "0.00 ",
       carrier: "DYNAMIC"
     },
     {
@@ -632,8 +635,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$790.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "790.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/3/22",
       carrier: "TD EXPRESS, INC"
     },
@@ -646,8 +649,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Addt’l. Info.",
-      claimedAmount: "$2,160.58 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "2,160.58 ",
+      paidAmount: "0.00 ",
       carrier: "CUSTOMER PICK UP"
     },
     {
@@ -659,8 +662,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$9,490.00 ",
-      paidAmount: "$9,490.00 ",
+      claimedAmount: "9,490.00 ",
+      paidAmount: "9,490.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -672,8 +675,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$27.48 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "27.48 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/19/22",
@@ -684,8 +687,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$74.48 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "74.48 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/21/22",
@@ -696,8 +699,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$30.96 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "30.96 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/14/22",
@@ -708,8 +711,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$272.65 ",
-      paidAmount: "$154.00 ",
+      claimedAmount: "272.65 ",
+      paidAmount: "154.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -721,8 +724,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,680.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,680.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/21/22",
@@ -733,8 +736,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$2,320.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,320.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -745,8 +748,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$420.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "420.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/21/22",
@@ -757,8 +760,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$210.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "210.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/25/22",
@@ -769,8 +772,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage – EUF",
       status: "In Progress",
-      claimedAmount: "$200.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "200.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/25/22",
@@ -781,8 +784,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$12,642.49 ",
-      paidAmount: "$12,642.49 ",
+      claimedAmount: "12,642.49 ",
+      paidAmount: "12,642.49 ",
       dateClosed: "10/30/22"
     },
     {
@@ -794,8 +797,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$1,260.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,260.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -806,8 +809,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage – EUF",
       status: "Closed",
-      claimedAmount: "$6,300.00 ",
-      paidAmount: "$6,300.00 ",
+      claimedAmount: "6,300.00 ",
+      paidAmount: "6,300.00 ",
       dateClosed: "10/19/22"
     },
     {
@@ -819,8 +822,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$1,395.24 ",
-      paidAmount: "$210.00 ",
+      claimedAmount: "1,395.24 ",
+      paidAmount: "210.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -832,8 +835,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$186.48 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "186.48 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -844,8 +847,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,741.23 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,741.23 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -856,8 +859,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$749.61 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "749.61 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -868,8 +871,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$396.00 ",
-      paidAmount: "$60.00 ",
+      claimedAmount: "396.00 ",
+      paidAmount: "60.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -881,8 +884,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$920.70 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "920.70 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -893,8 +896,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$894.30 ",
-      paidAmount: "$150.00 ",
+      claimedAmount: "894.30 ",
+      paidAmount: "150.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -906,8 +909,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$3,875.00 ",
-      paidAmount: "$3,875.00 ",
+      claimedAmount: "3,875.00 ",
+      paidAmount: "3,875.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -919,8 +922,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Approved",
-      claimedAmount: "$12,625.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "12,625.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -931,8 +934,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "In Progress",
-      claimedAmount: "$6,750.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "6,750.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/25/22",
@@ -943,8 +946,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "In Progress",
-      claimedAmount: "$310.41 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "310.41 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -955,8 +958,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$1,950.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,950.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -967,8 +970,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Pending Approval",
-      claimedAmount: "$1,700.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,700.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -979,8 +982,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$5,700.00 ",
-      paidAmount: "$5,700.00 ",
+      claimedAmount: "5,700.00 ",
+      paidAmount: "5,700.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -992,8 +995,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$30,850.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "30,850.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/28/22",
@@ -1004,8 +1007,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$600.00 ",
-      paidAmount: "$600.00 ",
+      claimedAmount: "600.00 ",
+      paidAmount: "600.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -1017,8 +1020,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$160.00 ",
-      paidAmount: "$160.00 ",
+      claimedAmount: "160.00 ",
+      paidAmount: "160.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -1030,8 +1033,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage – EUF",
       status: "Closed",
-      claimedAmount: "$2,250.00 ",
-      paidAmount: "$2,250.00 ",
+      claimedAmount: "2,250.00 ",
+      paidAmount: "2,250.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -1043,8 +1046,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$411.38 ",
-      paidAmount: "$411.38 ",
+      claimedAmount: "411.38 ",
+      paidAmount: "411.38 ",
       dateClosed: "10/30/22"
     },
     {
@@ -1056,8 +1059,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$8,127.60 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "8,127.60 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -1068,8 +1071,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$287.64 ",
-      paidAmount: "$51.00 ",
+      claimedAmount: "287.64 ",
+      paidAmount: "51.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -1081,8 +1084,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$660.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "660.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -1093,8 +1096,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$5,537.60 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "5,537.60 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -1105,8 +1108,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$7,950.00 ",
-      paidAmount: "$5,700.00 ",
+      claimedAmount: "7,950.00 ",
+      paidAmount: "5,700.00 ",
       dateClosed: "10/26/22"
     },
     {
@@ -1118,8 +1121,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$2,100.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "2,100.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/20/22"
     },
     {
@@ -1131,8 +1134,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$40.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "40.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/4/22",
@@ -1143,8 +1146,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Damage",
       status: "Open",
-      claimedAmount: "$220.38 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "220.38 ",
+      paidAmount: "0.00 ",
       carrier: "SHUTTLES",
       loadNumber: "21005474"
     },
@@ -1157,8 +1160,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$25.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "25.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "CDT_USA_INC_____/115/CUST",
       loadNumber: "20500414"
@@ -1172,8 +1175,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$25.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "25.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "CDT_USA_INC_____/115/CUST",
       loadNumber: "20501882"
@@ -1187,8 +1190,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$25.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "25.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "CDT_USA_INC_____/115/CUST",
       loadNumber: "20503426"
@@ -1202,8 +1205,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "In Progress",
-      claimedAmount: "$9,772.35 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "9,772.35 ",
+      paidAmount: "0.00 ",
       carrier: "VANTAGE LOGISTICS LLC",
       loadNumber: "20305268"
     },
@@ -1216,8 +1219,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$9,126.13 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "9,126.13 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/11/22",
@@ -1228,8 +1231,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$27.50 ",
-      paidAmount: "$13.75 ",
+      claimedAmount: "27.50 ",
+      paidAmount: "13.75 ",
       dateClosed: "10/14/22"
     },
     {
@@ -1241,8 +1244,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$946.44 ",
-      paidAmount: "$821.00 ",
+      claimedAmount: "946.44 ",
+      paidAmount: "821.00 ",
       dateClosed: "10/27/22"
     },
     {
@@ -1254,8 +1257,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$545.58 ",
-      paidAmount: "$545.58 ",
+      claimedAmount: "545.58 ",
+      paidAmount: "545.58 ",
       dateClosed: "10/27/22"
     },
     {
@@ -1267,11 +1270,11 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$273.54 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "273.54 ",
+      paidAmount: "0.00 "
     },
     {
-      date: "10/31/22",
+      date: "10/31/18",
       masterAcct: "Superior Foods Intl.",
       facility: "Allentown PA (80502)",
       account: "SUPERIOR FOODS INTERNATNL (20150)",
@@ -1279,12 +1282,12 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$251.31 ",
-      paidAmount: "$251.31 ",
+      claimedAmount: "251.31 ",
+      paidAmount: "251.31 ",
       dateClosed: "11/4/22"
     },
     {
-      date: "10/14/22",
+      date: "10/14/17",
       masterAcct: "Sinco, Inc",
       facility: "Allentown PA (80502)",
       account: "SINCO INC (10692)",
@@ -1292,8 +1295,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$269.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "269.00 ",
+      paidAmount: "0.00 ",
       carrier: "HICKORY TRANSPORTATION",
       loadNumber: "21000800"
     },
@@ -1306,8 +1309,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$1,242.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,242.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -1318,8 +1321,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$115.56 ",
-      paidAmount: "$13.50 ",
+      claimedAmount: "115.56 ",
+      paidAmount: "13.50 ",
       dateClosed: "10/12/22",
       carrier: "MISC CARRIER"
     },
@@ -1332,8 +1335,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "In Progress",
-      claimedAmount: "$1,287.90 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,287.90 ",
+      paidAmount: "0.00 ",
       carrier: "SHUTTLES",
       loadNumber: "21002766"
     },
@@ -1346,8 +1349,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Pending Approval",
-      claimedAmount: "$710.95 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "710.95 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -1358,8 +1361,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed - Denied",
-      claimedAmount: "$175.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "175.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/28/22"
     },
     {
@@ -1371,8 +1374,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$94.18 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "94.18 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "HEARTLAND 116",
       loadNumber: "20803518"
@@ -1386,8 +1389,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$149.18 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "149.18 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "HEARTLAND 116",
       loadNumber: "20504505"
@@ -1401,8 +1404,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$49.61 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "49.61 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -1413,8 +1416,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$980.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "980.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -1425,8 +1428,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed - Denied",
-      claimedAmount: "$4,236.60 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "4,236.60 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/20/22"
     },
     {
@@ -1438,8 +1441,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$606.00 ",
-      paidAmount: "$46.80 ",
+      claimedAmount: "606.00 ",
+      paidAmount: "46.80 ",
       dateClosed: "11/2/22",
       carrier: "CH ROBINSON"
     },
@@ -1452,8 +1455,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$1,289.80 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,289.80 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -1464,8 +1467,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$146.38 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "146.38 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -1476,8 +1479,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$109.23 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "109.23 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/1/22",
@@ -1488,8 +1491,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "In Progress",
-      claimedAmount: "$10,531.62 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "10,531.62 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/1/22",
@@ -1500,8 +1503,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "Closed",
-      claimedAmount: "$108.72 ",
-      paidAmount: "$108.63 ",
+      claimedAmount: "108.72 ",
+      paidAmount: "108.63 ",
       dateClosed: "11/4/22",
       carrier: "GRIFFITH"
     },
@@ -1514,8 +1517,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$300.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "300.00 ",
+      paidAmount: "0.00 ",
       carrier: "TVFM"
     },
     {
@@ -1527,8 +1530,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$300.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "300.00 ",
+      paidAmount: "0.00 ",
       carrier: "GIX LOGISTICS"
     },
     {
@@ -1540,8 +1543,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$127.20 ",
-      paidAmount: "$60.00 ",
+      claimedAmount: "127.20 ",
+      paidAmount: "60.00 ",
       dateClosed: "10/27/22",
       carrier: "FZPL"
     },
@@ -1554,8 +1557,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$127.20 ",
-      paidAmount: "$60.00 ",
+      claimedAmount: "127.20 ",
+      paidAmount: "60.00 ",
       dateClosed: "10/27/22",
       carrier: "FZPL"
     },
@@ -1568,8 +1571,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$2,885.00 ",
-      paidAmount: "$2,885.00 ",
+      claimedAmount: "2,885.00 ",
+      paidAmount: "2,885.00 ",
       dateClosed: "10/27/22"
     },
     {
@@ -1581,8 +1584,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Closed",
-      claimedAmount: "$7,273.50 ",
-      paidAmount: "$7,273.50 ",
+      claimedAmount: "7,273.50 ",
+      paidAmount: "7,273.50 ",
       dateClosed: "10/27/22"
     },
     {
@@ -1594,8 +1597,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Paid",
-      claimedAmount: "$23.44 ",
-      paidAmount: "$5.00 "
+      claimedAmount: "23.44 ",
+      paidAmount: "5.00 "
     },
     {
       date: "10/22/22",
@@ -1606,8 +1609,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Paid",
-      claimedAmount: "$2,818.80 ",
-      paidAmount: "$1,620.00 "
+      claimedAmount: "2,818.80 ",
+      paidAmount: "1,620.00 "
     },
     {
       date: "10/25/22",
@@ -1618,8 +1621,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Approved",
-      claimedAmount: "$282.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "282.00 ",
+      paidAmount: "0.00 ",
       carrier: "Armstrong Transport Group Inc"
     },
     {
@@ -1631,8 +1634,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight Cost",
       status: "Pending Approval",
-      claimedAmount: "$1,400.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,400.00 ",
+      paidAmount: "0.00 ",
       carrier: "Not Applicable On Site"
     },
     {
@@ -1644,8 +1647,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$139.00 ",
-      paidAmount: "$25.00 ",
+      claimedAmount: "139.00 ",
+      paidAmount: "25.00 ",
       dateClosed: "11/4/22"
     },
     {
@@ -1657,8 +1660,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$78.84 ",
-      paidAmount: "$25.00 ",
+      claimedAmount: "78.84 ",
+      paidAmount: "25.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -1670,8 +1673,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$255.00 ",
-      paidAmount: "$255.00 ",
+      claimedAmount: "255.00 ",
+      paidAmount: "255.00 ",
       dateClosed: "11/4/22",
       carrier: "MARTEN TRANSPORT SERVICES LTD TRUCK"
     },
@@ -1684,8 +1687,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Invoice Queued",
-      claimedAmount: "$628.33 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "628.33 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/30/22",
@@ -1696,8 +1699,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$504.16 ",
-      paidAmount: "$184.00 ",
+      claimedAmount: "504.16 ",
+      paidAmount: "184.00 ",
       dateClosed: "11/2/22",
       carrier: "KH Generic SCAC"
     },
@@ -1710,8 +1713,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Invoice Queued",
-      claimedAmount: "$60.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "60.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -1722,8 +1725,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$132.30 ",
-      paidAmount: "$15.00 ",
+      claimedAmount: "132.30 ",
+      paidAmount: "15.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -1735,8 +1738,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Paid",
-      claimedAmount: "$335.68 ",
-      paidAmount: "$335.68 "
+      claimedAmount: "335.68 ",
+      paidAmount: "335.68 "
     },
     {
       date: "10/25/22",
@@ -1747,8 +1750,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Pending Approval",
-      claimedAmount: "$581.57 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "581.57 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/13/22",
@@ -1759,8 +1762,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Pending Addt’l. Info.",
-      claimedAmount: "$1,500.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,500.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -1771,8 +1774,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$1,873.20 ",
-      paidAmount: "$1,873.20 ",
+      claimedAmount: "1,873.20 ",
+      paidAmount: "1,873.20 ",
       dateClosed: "10/14/22"
     },
     {
@@ -1784,8 +1787,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$4,468.48 ",
-      paidAmount: "$4,468.48 ",
+      claimedAmount: "4,468.48 ",
+      paidAmount: "4,468.48 ",
       dateClosed: "10/14/22"
     },
     {
@@ -1797,8 +1800,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage – EUF",
       status: "Closed",
-      claimedAmount: "$7,800.00 ",
-      paidAmount: "$7,800.00 ",
+      claimedAmount: "7,800.00 ",
+      paidAmount: "7,800.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -1810,8 +1813,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$2,250.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,250.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/18/22",
@@ -1822,8 +1825,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$770.95 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "770.95 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -1834,8 +1837,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$216.48 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "216.48 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -1846,8 +1849,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$112.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "112.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -1858,8 +1861,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,638.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,638.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/21/22",
@@ -1870,8 +1873,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$672.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "672.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -1882,8 +1885,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$1,200.00 ",
-      paidAmount: "$1,200.00 ",
+      claimedAmount: "1,200.00 ",
+      paidAmount: "1,200.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -1895,8 +1898,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$1,000.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,000.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -1907,8 +1910,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$646.80 ",
-      paidAmount: "$120.00 ",
+      claimedAmount: "646.80 ",
+      paidAmount: "120.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -1920,8 +1923,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$2,076.36 ",
-      paidAmount: "$390.00 ",
+      claimedAmount: "2,076.36 ",
+      paidAmount: "390.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -1933,8 +1936,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$1,376.76 ",
-      paidAmount: "$210.00 ",
+      claimedAmount: "1,376.76 ",
+      paidAmount: "210.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -1946,8 +1949,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$12,214.76 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "12,214.76 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -1958,8 +1961,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$6,458.06 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "6,458.06 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -1970,8 +1973,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$741.84 ",
-      paidAmount: "$120.00 ",
+      claimedAmount: "741.84 ",
+      paidAmount: "120.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -1983,8 +1986,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$536.58 ",
-      paidAmount: "$90.00 ",
+      claimedAmount: "536.58 ",
+      paidAmount: "90.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -1996,8 +1999,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$5.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "5.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/27/22",
@@ -2008,8 +2011,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$828.96 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "828.96 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -2020,8 +2023,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$638.88 ",
-      paidAmount: "$120.00 ",
+      claimedAmount: "638.88 ",
+      paidAmount: "120.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -2033,8 +2036,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$574.20 ",
-      paidAmount: "$90.00 ",
+      claimedAmount: "574.20 ",
+      paidAmount: "90.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -2046,8 +2049,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$500.00 ",
-      paidAmount: "$500.00 ",
+      claimedAmount: "500.00 ",
+      paidAmount: "500.00 ",
       dateClosed: "10/26/22"
     },
     {
@@ -2059,8 +2062,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$480.00 ",
-      paidAmount: "$480.00 ",
+      claimedAmount: "480.00 ",
+      paidAmount: "480.00 ",
       dateClosed: "10/28/22"
     },
     {
@@ -2072,8 +2075,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$300.00 ",
-      paidAmount: "$300.00 ",
+      claimedAmount: "300.00 ",
+      paidAmount: "300.00 ",
       dateClosed: "10/26/22"
     },
     {
@@ -2085,8 +2088,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,646.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,646.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/13/22",
@@ -2097,8 +2100,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,102.50 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,102.50 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/27/22",
@@ -2109,8 +2112,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$66.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "66.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -2121,8 +2124,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$6,199.95 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "6,199.95 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -2133,8 +2136,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$5,840.35 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "5,840.35 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/14/22",
@@ -2145,8 +2148,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Cancelled",
-      claimedAmount: "$11,405.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "11,405.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -2157,8 +2160,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,994.55 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,994.55 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -2169,8 +2172,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$37,200.00 ",
-      paidAmount: "$18,600.00 ",
+      claimedAmount: "37,200.00 ",
+      paidAmount: "18,600.00 ",
       dateClosed: "10/26/22"
     },
     {
@@ -2182,8 +2185,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$744.08 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "744.08 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/31/22",
@@ -2194,8 +2197,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$362.80 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "362.80 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/28/22",
@@ -2206,8 +2209,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "Closed - Denied",
-      claimedAmount: "$560.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "560.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/31/22",
       carrier: "GILTNER LOGISTIC/156/GLQV",
       loadNumber: "20806182"
@@ -2221,8 +2224,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$354.58 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "354.58 ",
+      paidAmount: "0.00 ",
       carrier: "SHUTTLES",
       loadNumber: "20704241"
     },
@@ -2235,8 +2238,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Closed",
-      claimedAmount: "$752.16 ",
-      paidAmount: "$752.16 ",
+      claimedAmount: "752.16 ",
+      paidAmount: "752.16 ",
       dateClosed: "10/27/22"
     },
     {
@@ -2248,8 +2251,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$244.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "244.00 ",
+      paidAmount: "0.00 ",
       carrier: "ARRIVE LOGISTICS"
     },
     {
@@ -2261,8 +2264,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Paid",
-      claimedAmount: "$3,438.00 ",
-      paidAmount: "$573.00 "
+      claimedAmount: "3,438.00 ",
+      paidAmount: "573.00 "
     },
     {
       date: "10/28/22",
@@ -2273,8 +2276,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "Closed",
-      claimedAmount: "$270.00 ",
-      paidAmount: "$270.00 ",
+      claimedAmount: "270.00 ",
+      paidAmount: "270.00 ",
       dateClosed: "11/2/22",
       carrier: "GOBEN EXPRESS"
     },
@@ -2287,8 +2290,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$386.44 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "386.44 ",
+      paidAmount: "0.00 ",
       carrier: "ATLANTIC COLD",
       loadNumber: "20805640"
     },
@@ -2301,8 +2304,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "In Progress",
-      claimedAmount: "$130.80 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "130.80 ",
+      paidAmount: "0.00 ",
       carrier: "TRIPLE T TRANSPORT",
       loadNumber: "21000926"
     },
@@ -2315,8 +2318,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Addt’l. Info.",
-      claimedAmount: "$20,409.90 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "20,409.90 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/11/22",
@@ -2327,8 +2330,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Approved",
-      claimedAmount: "$395.95 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "395.95 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -2339,8 +2342,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Invoice Queued",
-      claimedAmount: "$538.65 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "538.65 ",
+      paidAmount: "0.00 ",
       carrier: "VIRTUAL"
     },
     {
@@ -2352,8 +2355,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$1,695.99 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,695.99 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -2364,8 +2367,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Rejected",
-      claimedAmount: "$1,025.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,025.00 ",
+      paidAmount: "0.00 ",
       carrier: "VIRTUAL"
     },
     {
@@ -2377,8 +2380,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$32.16 ",
-      paidAmount: "$3.00 ",
+      claimedAmount: "32.16 ",
+      paidAmount: "3.00 ",
       dateClosed: "10/30/22",
       carrier: "VIRTUAL"
     },
@@ -2391,8 +2394,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Pending Approval",
-      claimedAmount: "$1,706.41 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,706.41 ",
+      paidAmount: "0.00 ",
       carrier: "CH ROBINSON (CORP)"
     },
     {
@@ -2404,8 +2407,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed - Denied",
-      claimedAmount: "$600.60 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "600.60 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/7/22",
       carrier: "CH ROBINSON (CORP)"
     },
@@ -2418,8 +2421,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "Closed",
-      claimedAmount: "$7.88 ",
-      paidAmount: "$7.88 ",
+      claimedAmount: "7.88 ",
+      paidAmount: "7.88 ",
       dateClosed: "11/4/22",
       carrier: "MJD Trucking Inc"
     },
@@ -2432,8 +2435,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$90.00 ",
-      paidAmount: "$90.00 ",
+      claimedAmount: "90.00 ",
+      paidAmount: "90.00 ",
       dateClosed: "11/4/22",
       carrier: "CR ENGLAND"
     },
@@ -2446,8 +2449,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Paid",
-      claimedAmount: "$120.00 ",
-      paidAmount: "$30.00 ",
+      claimedAmount: "120.00 ",
+      paidAmount: "30.00 ",
       carrier: "M C Transportation LLC"
     },
     {
@@ -2459,8 +2462,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight Cost",
       status: "Closed",
-      claimedAmount: "$1,472.00 ",
-      paidAmount: "$1,472.00 ",
+      claimedAmount: "1,472.00 ",
+      paidAmount: "1,472.00 ",
       dateClosed: "10/26/22",
       carrier: "D and L Transport LLC"
     },
@@ -2473,8 +2476,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$135.00 ",
-      paidAmount: "$135.00 ",
+      claimedAmount: "135.00 ",
+      paidAmount: "135.00 ",
       dateClosed: "10/21/22",
       carrier: "Styer Transportation Co"
     },
@@ -2487,8 +2490,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Closed",
-      claimedAmount: "$364.35 ",
-      paidAmount: "$176.37 ",
+      claimedAmount: "364.35 ",
+      paidAmount: "176.37 ",
       dateClosed: "10/30/22"
     },
     {
@@ -2500,8 +2503,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$706.01 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "706.01 ",
+      paidAmount: "0.00 ",
       carrier: "Customer Pick Up"
     },
     {
@@ -2513,8 +2516,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Closed",
-      claimedAmount: "$314.16 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "314.16 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/24/22"
     },
     {
@@ -2526,8 +2529,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$120.00 ",
-      paidAmount: "$120.00 ",
+      claimedAmount: "120.00 ",
+      paidAmount: "120.00 ",
       dateClosed: "10/20/22",
       carrier: "J&H Trucking (Albany)"
     },
@@ -2540,8 +2543,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Pending Approval",
-      claimedAmount: "$791.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "791.00 ",
+      paidAmount: "0.00 ",
       carrier: "Not yet assigned"
     },
     {
@@ -2553,8 +2556,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$32.13 ",
-      paidAmount: "$17.50 ",
+      claimedAmount: "32.13 ",
+      paidAmount: "17.50 ",
       dateClosed: "11/2/22"
     },
     {
@@ -2566,8 +2569,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Invoice Queued",
-      claimedAmount: "$799.24 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "799.24 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/3/22",
@@ -2578,8 +2581,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$677.94 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "677.94 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/4/22",
@@ -2590,8 +2593,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "In Progress",
-      claimedAmount: "$10,157.54 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "10,157.54 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/18/22",
@@ -2602,8 +2605,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$1,416.30 ",
-      paidAmount: "$1,416.30 ",
+      claimedAmount: "1,416.30 ",
+      paidAmount: "1,416.30 ",
       dateClosed: "10/21/22"
     },
     {
@@ -2615,8 +2618,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$2,346.00 ",
-      paidAmount: "$1,020.00 ",
+      claimedAmount: "2,346.00 ",
+      paidAmount: "1,020.00 ",
       dateClosed: "10/26/22",
       carrier: "KH Generic SCAC"
     },
@@ -2629,8 +2632,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$183.31 ",
-      paidAmount: "$30.05 ",
+      claimedAmount: "183.31 ",
+      paidAmount: "30.05 ",
       dateClosed: "10/26/22"
     },
     {
@@ -2642,8 +2645,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$1,000.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,000.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/19/22",
       carrier: "BAGGETT TRANSPORTATION CO"
     },
@@ -2656,8 +2659,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Approved",
-      claimedAmount: "$202.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "202.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/13/22",
@@ -2668,8 +2671,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$158.00 ",
-      paidAmount: "$158.00 ",
+      claimedAmount: "158.00 ",
+      paidAmount: "158.00 ",
       dateClosed: "10/27/22"
     },
     {
@@ -2681,8 +2684,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$770.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "770.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/1/22",
       carrier: "CUSTOMER PICKUP"
     },
@@ -2695,8 +2698,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Paid",
-      claimedAmount: "$6,097.40 ",
-      paidAmount: "$645.00 "
+      claimedAmount: "6,097.40 ",
+      paidAmount: "645.00 "
     },
     {
       date: "10/25/22",
@@ -2707,8 +2710,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Pending Approval",
-      claimedAmount: "$320.97 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "320.97 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/3/22",
@@ -2719,8 +2722,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$244.44 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "244.44 ",
+      paidAmount: "0.00 ",
       carrier: "CUSTOMER PICK-UP"
     },
     {
@@ -2732,8 +2735,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$2,256.42 ",
-      paidAmount: "$2,256.42 ",
+      claimedAmount: "2,256.42 ",
+      paidAmount: "2,256.42 ",
       dateClosed: "10/14/22"
     },
     {
@@ -2745,8 +2748,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$36,040.00 ",
-      paidAmount: "$36,040.00 ",
+      claimedAmount: "36,040.00 ",
+      paidAmount: "36,040.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -2758,8 +2761,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$850.00 ",
-      paidAmount: "$850.00 ",
+      claimedAmount: "850.00 ",
+      paidAmount: "850.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -2771,8 +2774,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$231.53 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "231.53 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/18/22",
@@ -2783,8 +2786,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "In Progress",
-      claimedAmount: "$120.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "120.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/25/22",
@@ -2795,8 +2798,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$9,142.50 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "9,142.50 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -2807,8 +2810,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$65.14 ",
-      paidAmount: "$65.14 ",
+      claimedAmount: "65.14 ",
+      paidAmount: "65.14 ",
       dateClosed: "10/14/22"
     },
     {
@@ -2820,8 +2823,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$188.10 ",
-      paidAmount: "$30.00 ",
+      claimedAmount: "188.10 ",
+      paidAmount: "30.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -2833,8 +2836,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$733.92 ",
-      paidAmount: "$120.00 ",
+      claimedAmount: "733.92 ",
+      paidAmount: "120.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -2846,8 +2849,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$2,076.36 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,076.36 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -2858,8 +2861,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$5,590.20 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "5,590.20 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -2870,8 +2873,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$1,750.00 ",
-      paidAmount: "$1,750.00 ",
+      claimedAmount: "1,750.00 ",
+      paidAmount: "1,750.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -2883,8 +2886,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$880.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "880.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/13/22",
@@ -2895,8 +2898,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$880.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "880.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/25/22",
@@ -2907,8 +2910,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "In Progress",
-      claimedAmount: "$103.58 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "103.58 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/11/22",
@@ -2919,8 +2922,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "In Progress",
-      claimedAmount: "$300.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "300.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -2931,8 +2934,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$834.12 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "834.12 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -2943,8 +2946,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$80.00 ",
-      paidAmount: "$80.00 ",
+      claimedAmount: "80.00 ",
+      paidAmount: "80.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -2956,8 +2959,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "In Progress",
-      claimedAmount: "$2,530.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,530.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/18/22",
@@ -2968,8 +2971,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$200.00 ",
-      paidAmount: "$200.00 ",
+      claimedAmount: "200.00 ",
+      paidAmount: "200.00 ",
       dateClosed: "10/21/22"
     },
     {
@@ -2981,8 +2984,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$6,300.00 ",
-      paidAmount: "$6,300.00 ",
+      claimedAmount: "6,300.00 ",
+      paidAmount: "6,300.00 ",
       dateClosed: "10/19/22"
     },
     {
@@ -2994,8 +2997,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$654.72 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "654.72 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -3006,8 +3009,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,639.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,639.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/27/22",
@@ -3018,8 +3021,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$330.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "330.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/1/22",
@@ -3030,8 +3033,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$505.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "505.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/1/22",
@@ -3042,8 +3045,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$720.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "720.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -3054,8 +3057,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$3,672.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "3,672.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -3066,8 +3069,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$9,109.43 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "9,109.43 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -3078,8 +3081,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$12,445.44 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "12,445.44 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -3090,8 +3093,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$705.00 ",
-      paidAmount: "$705.00 ",
+      claimedAmount: "705.00 ",
+      paidAmount: "705.00 ",
       dateClosed: "10/21/22"
     },
     {
@@ -3103,8 +3106,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$20.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "20.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/27/22",
@@ -3115,8 +3118,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$900.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "900.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/18/22",
@@ -3127,8 +3130,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed - Denied",
-      claimedAmount: "$75.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "75.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -3140,8 +3143,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "Closed - Denied",
-      claimedAmount: "$4,802.88 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "4,802.88 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/26/22",
       carrier: "SHUTTLES",
       loadNumber: "21001325"
@@ -3155,8 +3158,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$204.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "204.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "CAROLS TRANSPORTATION INC",
       loadNumber: "20501697"
@@ -3170,8 +3173,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$3,402.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "3,402.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/1/22"
     },
     {
@@ -3183,8 +3186,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Invoice Queued",
-      claimedAmount: "$1,518.44 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,518.44 ",
+      paidAmount: "0.00 ",
       carrier: "VAN WYK"
     },
     {
@@ -3196,8 +3199,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$1,876.80 ",
-      paidAmount: "$397.00 ",
+      claimedAmount: "1,876.80 ",
+      paidAmount: "397.00 ",
       dateClosed: "10/26/22"
     },
     {
@@ -3209,8 +3212,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$303.52 ",
-      paidAmount: "$43.38 ",
+      claimedAmount: "303.52 ",
+      paidAmount: "43.38 ",
       dateClosed: "10/19/22",
       carrier: "MISC CARRIER"
     },
@@ -3223,8 +3226,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$7,075.43 ",
-      paidAmount: "$1,287.00 ",
+      claimedAmount: "7,075.43 ",
+      paidAmount: "1,287.00 ",
       dateClosed: "10/19/22"
     },
     {
@@ -3236,8 +3239,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Rejected",
-      claimedAmount: "$1,225.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,225.00 ",
+      paidAmount: "0.00 ",
       carrier: "VIRTUAL"
     },
     {
@@ -3249,8 +3252,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$672.30 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "672.30 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -3261,8 +3264,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$1,374.94 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,374.94 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -3273,8 +3276,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$517.04 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "517.04 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/1/22",
@@ -3285,8 +3288,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "Closed",
-      claimedAmount: "$394.08 ",
-      paidAmount: "$394.08 ",
+      claimedAmount: "394.08 ",
+      paidAmount: "394.08 ",
       dateClosed: "11/4/22",
       carrier: "GAMPAC EXPRESS"
     },
@@ -3299,8 +3302,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "Closed",
-      claimedAmount: "$19.44 ",
-      paidAmount: "$18.00 ",
+      claimedAmount: "19.44 ",
+      paidAmount: "18.00 ",
       dateClosed: "11/4/22",
       carrier: "FFE LOGISTICS"
     },
@@ -3313,8 +3316,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "Closed",
-      claimedAmount: "$259.72 ",
-      paidAmount: "$259.51 ",
+      claimedAmount: "259.72 ",
+      paidAmount: "259.51 ",
       dateClosed: "11/4/22",
       carrier: "ELOI"
     },
@@ -3327,8 +3330,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$510.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "510.00 ",
+      paidAmount: "0.00 ",
       carrier: "HOMIAK"
     },
     {
@@ -3340,8 +3343,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "Pending Approval",
-      claimedAmount: "$79.71 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "79.71 ",
+      paidAmount: "0.00 ",
       carrier: "MJD Trucking Inc"
     },
     {
@@ -3353,8 +3356,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$92.36 ",
-      paidAmount: "$20.00 ",
+      claimedAmount: "92.36 ",
+      paidAmount: "20.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -3366,8 +3369,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Paid",
-      claimedAmount: "$1,113.68 ",
-      paidAmount: "$1,113.68 "
+      claimedAmount: "1,113.68 ",
+      paidAmount: "1,113.68 "
     },
     {
       date: "10/25/22",
@@ -3378,8 +3381,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$162.16 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "162.16 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/13/22",
@@ -3390,8 +3393,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed - Denied",
-      claimedAmount: "$6,660.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "6,660.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/17/22"
     },
     {
@@ -3403,8 +3406,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$4,494.25 ",
-      paidAmount: "$1,789.42 ",
+      claimedAmount: "4,494.25 ",
+      paidAmount: "1,789.42 ",
       dateClosed: "10/27/22"
     },
     {
@@ -3416,8 +3419,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Approved",
-      claimedAmount: "$2,391.20 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "2,391.20 ",
+      paidAmount: "0.00 ",
       carrier: "Protran"
     },
     {
@@ -3429,8 +3432,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$210.00 ",
-      paidAmount: "$100.00 ",
+      claimedAmount: "210.00 ",
+      paidAmount: "100.00 ",
       dateClosed: "10/21/22",
       carrier: "Century Express"
     },
@@ -3443,8 +3446,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$518.40 ",
-      paidAmount: "$96.00 ",
+      claimedAmount: "518.40 ",
+      paidAmount: "96.00 ",
       dateClosed: "11/4/22",
       carrier: "Traffic Tech Inc"
     },
@@ -3457,8 +3460,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$2,860.00 ",
-      paidAmount: "$2,860.00 ",
+      claimedAmount: "2,860.00 ",
+      paidAmount: "2,860.00 ",
       dateClosed: "11/4/22",
       carrier: "Customer Pickup"
     },
@@ -3471,8 +3474,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Pending Approval",
-      claimedAmount: "$4,556.73 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "4,556.73 ",
+      paidAmount: "0.00 ",
       carrier: "Not yet assigned"
     },
     {
@@ -3484,8 +3487,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$90.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "90.00 ",
+      paidAmount: "0.00 ",
       carrier: "Customer Pickup Delivery"
     },
     {
@@ -3497,8 +3500,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Pending Approval",
-      claimedAmount: "$30.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "30.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -3509,8 +3512,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$182.82 ",
-      paidAmount: "$30.00 ",
+      claimedAmount: "182.82 ",
+      paidAmount: "30.00 ",
       dateClosed: "10/26/22"
     },
     {
@@ -3522,8 +3525,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$46,290.75 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "46,290.75 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/19/22",
@@ -3534,8 +3537,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Pending Approval",
-      claimedAmount: "$1,002.72 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,002.72 ",
+      paidAmount: "0.00 ",
       carrier: "H&M"
     },
     {
@@ -3547,8 +3550,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$101.73 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "101.73 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/18/22",
@@ -3559,8 +3562,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$22.92 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "22.92 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/18/22",
@@ -3571,8 +3574,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$18.37 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "18.37 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/21/22",
@@ -3583,8 +3586,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$964.77 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "964.77 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -3595,8 +3598,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$5.29 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "5.29 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/21/22",
@@ -3607,8 +3610,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$2,596.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,596.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -3619,8 +3622,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$638.88 ",
-      paidAmount: "$120.00 ",
+      claimedAmount: "638.88 ",
+      paidAmount: "120.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -3632,8 +3635,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$590.04 ",
-      paidAmount: "$90.00 ",
+      claimedAmount: "590.04 ",
+      paidAmount: "90.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -3645,8 +3648,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$860.70 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "860.70 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -3657,8 +3660,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$2,076.36 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,076.36 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -3669,8 +3672,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$574.20 ",
-      paidAmount: "$90.00 ",
+      claimedAmount: "574.20 ",
+      paidAmount: "90.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -3682,8 +3685,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$319.44 ",
-      paidAmount: "$60.00 ",
+      claimedAmount: "319.44 ",
+      paidAmount: "60.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -3695,8 +3698,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Approved",
-      claimedAmount: "$12,740.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "12,740.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/31/22",
@@ -3707,8 +3710,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$33,547.48 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "33,547.48 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/25/22",
@@ -3719,8 +3722,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "In Progress",
-      claimedAmount: "$31.08 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "31.08 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/25/22",
@@ -3731,8 +3734,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "In Progress",
-      claimedAmount: "$77.69 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "77.69 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/25/22",
@@ -3743,8 +3746,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "In Progress",
-      claimedAmount: "$155.38 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "155.38 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -3755,8 +3758,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$3,300.00 ",
-      paidAmount: "$3,300.00 ",
+      claimedAmount: "3,300.00 ",
+      paidAmount: "3,300.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -3768,8 +3771,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$960.00 ",
-      paidAmount: "$960.00 ",
+      claimedAmount: "960.00 ",
+      paidAmount: "960.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -3781,8 +3784,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,540.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,540.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -3793,8 +3796,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$4,558.80 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "4,558.80 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -3805,8 +3808,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "In Progress",
-      claimedAmount: "$6,150.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "6,150.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -3817,8 +3820,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$2,342.00 ",
-      paidAmount: "$2,342.00 ",
+      claimedAmount: "2,342.00 ",
+      paidAmount: "2,342.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -3830,8 +3833,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$17.50 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "17.50 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/26/22",
@@ -3842,8 +3845,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Paid",
-      claimedAmount: "$104.60 ",
-      paidAmount: "$21.50 "
+      claimedAmount: "104.60 ",
+      paidAmount: "21.50 "
     },
     {
       date: "10/19/22",
@@ -3854,8 +3857,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed - Denied",
-      claimedAmount: "$17,096.23 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "17,096.23 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/2/22",
       carrier: "EMERGE"
     },
@@ -3868,8 +3871,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed - Denied",
-      claimedAmount: "$25.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "25.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -3881,8 +3884,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed - Denied",
-      claimedAmount: "$250.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "250.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -3894,8 +3897,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed - Denied",
-      claimedAmount: "$50.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "50.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -3907,8 +3910,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$200.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "200.00 ",
+      paidAmount: "0.00 ",
       carrier: "TOTE MARITIME ALASKA"
     },
     {
@@ -3920,8 +3923,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$310.80 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "310.80 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "WHITEHORSE FREIG/585/WHFH",
       loadNumber: "11101604"
@@ -3935,8 +3938,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$25.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "25.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "CDT_USA_INC_____/115/CUST",
       loadNumber: "20404895"
@@ -3950,8 +3953,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$25.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "25.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "CDT_USA_INC_____/115/CUST",
       loadNumber: "20500909"
@@ -3965,8 +3968,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$10,360.91 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "10,360.91 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -3977,8 +3980,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$9,837.32 ",
-      paidAmount: "$9,837.32 ",
+      claimedAmount: "9,837.32 ",
+      paidAmount: "9,837.32 ",
       dateClosed: "10/26/22"
     },
     {
@@ -3990,8 +3993,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$15,706.52 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "15,706.52 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -4002,8 +4005,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$160.65 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "160.65 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/3/22",
       carrier: "PTI"
     },
@@ -4016,8 +4019,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "In Progress",
-      claimedAmount: "$1,451.52 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,451.52 ",
+      paidAmount: "0.00 ",
       carrier: "INTEGRITY",
       loadNumber: "20802130"
     },
@@ -4030,8 +4033,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight Cost",
       status: "Closed - Denied",
-      claimedAmount: "$1,200.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,200.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/21/22"
     },
     {
@@ -4043,8 +4046,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$406.92 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "406.92 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -4055,8 +4058,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "In Progress",
-      claimedAmount: "$2,054.40 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "2,054.40 ",
+      paidAmount: "0.00 ",
       carrier: "ARMSTRONG TRANSPORT GROUP",
       loadNumber: "20301703"
     },
@@ -4069,8 +4072,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "In Progress",
-      claimedAmount: "$513.60 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "513.60 ",
+      paidAmount: "0.00 ",
       carrier: "HICKORY TRANSPORTATION",
       loadNumber: "20700191"
     },
@@ -4083,8 +4086,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "In Progress",
-      claimedAmount: "$471.24 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "471.24 ",
+      paidAmount: "0.00 ",
       carrier: "COYOTE LOGISTICS",
       loadNumber: "20504303"
     },
@@ -4097,8 +4100,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Paid",
-      claimedAmount: "$92.40 ",
-      paidAmount: "$12.00 "
+      claimedAmount: "92.40 ",
+      paidAmount: "12.00 "
     },
     {
       date: "10/26/22",
@@ -4109,8 +4112,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$1,807.39 ",
-      paidAmount: "$1,807.39 ",
+      claimedAmount: "1,807.39 ",
+      paidAmount: "1,807.39 ",
       dateClosed: "11/2/22"
     },
     {
@@ -4122,8 +4125,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed - Denied",
-      claimedAmount: "$225.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "225.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -4135,8 +4138,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Invoice Queued",
-      claimedAmount: "$189.60 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "189.60 ",
+      paidAmount: "0.00 ",
       carrier: "D&L TRANSPORT",
       loadNumber: "20704692"
     },
@@ -4149,8 +4152,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$14,733.18 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "14,733.18 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/24/22",
@@ -4161,8 +4164,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Addt’l. Info.",
-      claimedAmount: "$15,228.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "15,228.00 ",
+      paidAmount: "0.00 ",
       carrier: "VIRTUAL"
     },
     {
@@ -4174,8 +4177,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$1,858.24 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,858.24 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -4186,8 +4189,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Rejected",
-      claimedAmount: "$1,050.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,050.00 ",
+      paidAmount: "0.00 ",
       carrier: "VIRTUAL"
     },
     {
@@ -4199,8 +4202,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$2,572.67 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,572.67 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -4211,8 +4214,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$1,879.20 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,879.20 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -4223,8 +4226,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$1,710.72 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,710.72 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -4235,8 +4238,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$100.80 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "100.80 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/1/22",
@@ -4247,8 +4250,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$480.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "480.00 ",
+      paidAmount: "0.00 ",
       carrier: "SUNSTATE CARRIERS"
     },
     {
@@ -4260,8 +4263,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "Closed",
-      claimedAmount: "$87.75 ",
-      paidAmount: "$87.75 ",
+      claimedAmount: "87.75 ",
+      paidAmount: "87.75 ",
       dateClosed: "11/4/22",
       carrier: "NORCO"
     },
@@ -4274,8 +4277,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$423.17 ",
-      paidAmount: "$96.00 ",
+      claimedAmount: "423.17 ",
+      paidAmount: "96.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -4287,8 +4290,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Paid",
-      claimedAmount: "$954.41 ",
-      paidAmount: "$954.41 "
+      claimedAmount: "954.41 ",
+      paidAmount: "954.41 "
     },
     {
       date: "10/31/22",
@@ -4299,8 +4302,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Paid",
-      claimedAmount: "$126.00 ",
-      paidAmount: "$30.00 ",
+      claimedAmount: "126.00 ",
+      paidAmount: "30.00 ",
       carrier: "Logical Transport"
     },
     {
@@ -4312,8 +4315,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$30.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "30.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/19/22",
@@ -4324,8 +4327,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$169.00 ",
-      paidAmount: "$169.00 ",
+      claimedAmount: "169.00 ",
+      paidAmount: "169.00 ",
       dateClosed: "10/26/22",
       carrier: "C H Robinson Worldwide"
     },
@@ -4338,8 +4341,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Open",
-      claimedAmount: "$1,251.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,251.00 ",
+      paidAmount: "0.00 ",
       carrier: "Traffic Tech Inc"
     },
     {
@@ -4351,8 +4354,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Closed",
-      claimedAmount: "$2,219.50 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "2,219.50 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/24/22"
     },
     {
@@ -4364,8 +4367,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Closed",
-      claimedAmount: "$4,935.60 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "4,935.60 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/28/22"
     },
     {
@@ -4377,8 +4380,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Invoice Queued",
-      claimedAmount: "$1,370.12 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,370.12 ",
+      paidAmount: "0.00 ",
       carrier: "Not yet assigned"
     },
     {
@@ -4390,8 +4393,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Pending Approval",
-      claimedAmount: "$13,835.50 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "13,835.50 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -4402,8 +4405,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed - Denied",
-      claimedAmount: "$114,920.82 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "114,920.82 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22"
     },
     {
@@ -4415,8 +4418,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$4,684.00 ",
-      paidAmount: "$4,684.00 ",
+      claimedAmount: "4,684.00 ",
+      paidAmount: "4,684.00 ",
       dateClosed: "10/27/22"
     },
     {
@@ -4428,8 +4431,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Closed",
-      claimedAmount: "$120,070.53 ",
-      paidAmount: "$120,070.53 ",
+      claimedAmount: "120,070.53 ",
+      paidAmount: "120,070.53 ",
       dateClosed: "10/27/22"
     },
     {
@@ -4441,8 +4444,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$602.00 ",
-      paidAmount: "$602.00 ",
+      claimedAmount: "602.00 ",
+      paidAmount: "602.00 ",
       dateClosed: "10/27/22"
     },
     {
@@ -4454,8 +4457,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Paid",
-      claimedAmount: "$180.10 ",
-      paidAmount: "$137.88 ",
+      claimedAmount: "180.10 ",
+      paidAmount: "137.88 ",
       carrier: "TOTAL QUALITY LOGISTICS"
     },
     {
@@ -4467,8 +4470,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Paid",
-      claimedAmount: "$200.00 ",
-      paidAmount: "$200.00 ",
+      claimedAmount: "200.00 ",
+      paidAmount: "200.00 ",
       carrier: "DEPENDABLE TRANSPORT"
     },
     {
@@ -4480,8 +4483,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Pending Approval",
-      claimedAmount: "$208.04 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "208.04 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/25/22",
@@ -4492,8 +4495,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Pending Approval",
-      claimedAmount: "$84.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "84.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/19/22",
@@ -4504,8 +4507,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$506.39 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "506.39 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -4516,8 +4519,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed - Denied",
-      claimedAmount: "$191.94 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "191.94 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/1/22",
@@ -4528,8 +4531,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "In Progress",
-      claimedAmount: "$3,200.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "3,200.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -4540,8 +4543,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$50.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "50.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/14/22",
@@ -4552,8 +4555,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$389.50 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "389.50 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -4564,8 +4567,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$105.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "105.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/11/22",
@@ -4576,8 +4579,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$16,350.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "16,350.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -4588,8 +4591,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "In Progress",
-      claimedAmount: "$90.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "90.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/11/22",
@@ -4600,8 +4603,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "In Progress",
-      claimedAmount: "$4,060.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "4,060.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -4612,8 +4615,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$6,910.00 ",
-      paidAmount: "$6,910.00 ",
+      claimedAmount: "6,910.00 ",
+      paidAmount: "6,910.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -4625,8 +4628,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$3,965.00 ",
-      paidAmount: "$3,965.00 ",
+      claimedAmount: "3,965.00 ",
+      paidAmount: "3,965.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -4638,8 +4641,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$485.10 ",
-      paidAmount: "$90.00 ",
+      claimedAmount: "485.10 ",
+      paidAmount: "90.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -4651,8 +4654,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$1,316.70 ",
-      paidAmount: "$210.00 ",
+      claimedAmount: "1,316.70 ",
+      paidAmount: "210.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -4664,8 +4667,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$741.84 ",
-      paidAmount: "$120.00 ",
+      claimedAmount: "741.84 ",
+      paidAmount: "120.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -4677,8 +4680,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$195.36 ",
-      paidAmount: "$30.00 ",
+      claimedAmount: "195.36 ",
+      paidAmount: "30.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -4690,8 +4693,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$201.30 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "201.30 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -4702,8 +4705,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$2,076.36 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,076.36 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/27/22",
@@ -4714,8 +4717,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$1,875.00 ",
-      paidAmount: "$1,875.00 ",
+      claimedAmount: "1,875.00 ",
+      paidAmount: "1,875.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -4727,8 +4730,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$1,640.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,640.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -4739,8 +4742,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$300.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "300.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/27/22",
@@ -4751,8 +4754,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$152.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "152.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -4763,8 +4766,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,127.50 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,127.50 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -4775,8 +4778,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$222.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "222.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -4787,8 +4790,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$228.12 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "228.12 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -4799,8 +4802,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$255.00 ",
-      paidAmount: "$255.00 ",
+      claimedAmount: "255.00 ",
+      paidAmount: "255.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -4812,8 +4815,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,468.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,468.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -4824,8 +4827,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$10,701.22 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "10,701.22 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -4836,8 +4839,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$4,416.97 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "4,416.97 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/11/22",
@@ -4848,8 +4851,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$250.00 ",
-      paidAmount: "$250.00 ",
+      claimedAmount: "250.00 ",
+      paidAmount: "250.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -4861,8 +4864,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$252.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "252.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -4873,8 +4876,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$144.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "144.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -4885,8 +4888,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$162.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "162.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/25/22",
@@ -4897,8 +4900,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Approved",
-      claimedAmount: "$2,880.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,880.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -4909,8 +4912,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight Cost",
       status: "Pending Approval",
-      claimedAmount: "$3,451.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "3,451.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/13/22",
@@ -4921,8 +4924,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$831.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "831.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/13/22",
@@ -4933,8 +4936,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Paid",
-      claimedAmount: "$153.54 ",
-      paidAmount: "$153.54 "
+      claimedAmount: "153.54 ",
+      paidAmount: "153.54 "
     },
     {
       date: "10/10/22",
@@ -4945,8 +4948,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$295.00 ",
-      paidAmount: "$295.00 ",
+      claimedAmount: "295.00 ",
+      paidAmount: "295.00 ",
       dateClosed: "10/30/22",
       carrier: "LEONARDS EXPRESS"
     },
@@ -4959,8 +4962,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Closed",
-      claimedAmount: "$2,666.82 ",
-      paidAmount: "$2,666.82 ",
+      claimedAmount: "2,666.82 ",
+      paidAmount: "2,666.82 ",
       dateClosed: "10/27/22"
     },
     {
@@ -4972,8 +4975,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed - Denied",
-      claimedAmount: "$862.50 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "862.50 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/7/22",
       carrier: "SEAFRIGO USA INC"
     },
@@ -4986,8 +4989,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$387.40 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "387.40 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/25/22",
@@ -4998,8 +5001,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Addt’l. Info.",
-      claimedAmount: "$836.44 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "836.44 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -5010,8 +5013,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$969.00 ",
-      paidAmount: "$969.00 ",
+      claimedAmount: "969.00 ",
+      paidAmount: "969.00 ",
       dateClosed: "10/21/22"
     },
     {
@@ -5023,8 +5026,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$311.04 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "311.04 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -5035,8 +5038,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$125.00 ",
-      paidAmount: "$0.50 ",
+      claimedAmount: "125.00 ",
+      paidAmount: "0.50 ",
       dateClosed: "10/20/22"
     },
     {
@@ -5048,8 +5051,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Invoice Queued",
-      claimedAmount: "$1,490.85 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,490.85 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/3/22",
@@ -5060,8 +5063,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Invoice Queued",
-      claimedAmount: "$16.54 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "16.54 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -5072,8 +5075,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$1,364.21 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,364.21 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -5084,8 +5087,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$1,386.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,386.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -5096,8 +5099,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Pending Approval",
-      claimedAmount: "$1,860.88 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,860.88 ",
+      paidAmount: "0.00 ",
       carrier: "MTEL"
     },
     {
@@ -5109,8 +5112,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$408.28 ",
-      paidAmount: "$408.28 ",
+      claimedAmount: "408.28 ",
+      paidAmount: "408.28 ",
       dateClosed: "10/21/22"
     },
     {
@@ -5122,8 +5125,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Paid",
-      claimedAmount: "$1,673.28 ",
-      paidAmount: "$289.80 "
+      claimedAmount: "1,673.28 ",
+      paidAmount: "289.80 "
     },
     {
       date: "10/20/22",
@@ -5134,8 +5137,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$15,666.34 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "15,666.34 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -5146,8 +5149,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Rejected",
-      claimedAmount: "$1,025.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,025.00 ",
+      paidAmount: "0.00 ",
       carrier: "VIRTUAL"
     },
     {
@@ -5159,8 +5162,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$868.21 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "868.21 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -5171,8 +5174,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$120.84 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "120.84 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/1/22",
@@ -5183,8 +5186,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "Closed",
-      claimedAmount: "$141.12 ",
-      paidAmount: "$141.00 ",
+      claimedAmount: "141.12 ",
+      paidAmount: "141.00 ",
       dateClosed: "11/4/22",
       carrier: "FFE LOGISTICS"
     },
@@ -5197,8 +5200,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "Closed",
-      claimedAmount: "$9.72 ",
-      paidAmount: "$9.00 ",
+      claimedAmount: "9.72 ",
+      paidAmount: "9.00 ",
       dateClosed: "11/4/22",
       carrier: "H & M BAY"
     },
@@ -5211,8 +5214,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "Closed",
-      claimedAmount: "$166.04 ",
-      paidAmount: "$166.04 ",
+      claimedAmount: "166.04 ",
+      paidAmount: "166.04 ",
       dateClosed: "11/4/22",
       carrier: "SCOTLYNN"
     },
@@ -5225,8 +5228,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$1,000.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,000.00 ",
+      paidAmount: "0.00 ",
       carrier: "GISP"
     },
     {
@@ -5238,8 +5241,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$318.00 ",
-      paidAmount: "$150.00 ",
+      claimedAmount: "318.00 ",
+      paidAmount: "150.00 ",
       dateClosed: "10/27/22",
       carrier: "FZPL"
     },
@@ -5252,8 +5255,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Paid",
-      claimedAmount: "$13,944.00 ",
-      paidAmount: "$13,944.00 "
+      claimedAmount: "13,944.00 ",
+      paidAmount: "13,944.00 "
     },
     {
       date: "10/22/22",
@@ -5264,8 +5267,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$55.71 ",
-      paidAmount: "$12.50 ",
+      claimedAmount: "55.71 ",
+      paidAmount: "12.50 ",
       dateClosed: "10/30/22"
     },
     {
@@ -5277,8 +5280,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$46.20 ",
-      paidAmount: "$30.00 ",
+      claimedAmount: "46.20 ",
+      paidAmount: "30.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -5290,8 +5293,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Paid",
-      claimedAmount: "$222.17 ",
-      paidAmount: "$222.17 "
+      claimedAmount: "222.17 ",
+      paidAmount: "222.17 "
     },
     {
       date: "10/28/22",
@@ -5302,8 +5305,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$80.86 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "80.86 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -5314,8 +5317,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$35.00 ",
-      paidAmount: "$35.00 ",
+      claimedAmount: "35.00 ",
+      paidAmount: "35.00 ",
       dateClosed: "10/20/22"
     },
     {
@@ -5327,8 +5330,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$316.80 ",
-      paidAmount: "$44.00 ",
+      claimedAmount: "316.80 ",
+      paidAmount: "44.00 ",
       dateClosed: "10/27/22"
     },
     {
@@ -5340,8 +5343,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$3,305.25 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "3,305.25 ",
+      paidAmount: "0.00 ",
       carrier: "Not yet assigned"
     },
     {
@@ -5353,8 +5356,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$1,479.00 ",
-      paidAmount: "$1,479.00 ",
+      claimedAmount: "1,479.00 ",
+      paidAmount: "1,479.00 ",
       dateClosed: "10/27/22"
     },
     {
@@ -5366,8 +5369,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$32.13 ",
-      paidAmount: "$17.50 ",
+      claimedAmount: "32.13 ",
+      paidAmount: "17.50 ",
       dateClosed: "11/2/22"
     },
     {
@@ -5379,8 +5382,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$255.90 ",
-      paidAmount: "$65.00 ",
+      claimedAmount: "255.90 ",
+      paidAmount: "65.00 ",
       dateClosed: "10/19/22",
       carrier: "Customer Pickup Delivery"
     },
@@ -5393,8 +5396,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$1,406.14 ",
-      paidAmount: "$1,294.70 ",
+      claimedAmount: "1,406.14 ",
+      paidAmount: "1,294.70 ",
       dateClosed: "11/2/22",
       carrier: "KH Generic SCAC"
     },
@@ -5407,8 +5410,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$1,630.00 ",
-      paidAmount: "$1,630.00 ",
+      claimedAmount: "1,630.00 ",
+      paidAmount: "1,630.00 ",
       dateClosed: "11/4/22",
       carrier: "BLUE GRACE LOGISITICS"
     },
@@ -5421,8 +5424,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$1,000.00 ",
-      paidAmount: "$1,000.00 ",
+      claimedAmount: "1,000.00 ",
+      paidAmount: "1,000.00 ",
       dateClosed: "10/30/22",
       carrier: "BAGGETT TRANSPORTATION CO"
     },
@@ -5435,8 +5438,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Paid",
-      claimedAmount: "$2,252.65 ",
-      paidAmount: "$2,252.65 "
+      claimedAmount: "2,252.65 ",
+      paidAmount: "2,252.65 "
     },
     {
       date: "10/25/22",
@@ -5447,8 +5450,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Paid",
-      claimedAmount: "$4,823.52 ",
-      paidAmount: "$4,823.52 "
+      claimedAmount: "4,823.52 ",
+      paidAmount: "4,823.52 "
     },
     {
       date: "10/19/22",
@@ -5459,8 +5462,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed - Denied",
-      claimedAmount: "$75.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "75.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/26/22"
     },
     {
@@ -5472,8 +5475,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$252.80 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "252.80 ",
+      paidAmount: "0.00 ",
       carrier: "CUSTOMER PICK-UP"
     },
     {
@@ -5485,8 +5488,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$830.00 ",
-      paidAmount: "$830.00 ",
+      claimedAmount: "830.00 ",
+      paidAmount: "830.00 ",
       dateClosed: "10/28/22",
       carrier: "LANG, BYRON"
     },
@@ -5499,8 +5502,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Invoice Queued",
-      claimedAmount: "$594.86 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "594.86 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -5511,8 +5514,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$625.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "625.00 ",
+      paidAmount: "0.00 ",
       carrier: "DEPENDABLE TRANSPORT"
     },
     {
@@ -5524,8 +5527,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Pending Approval",
-      claimedAmount: "$129.86 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "129.86 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -5536,8 +5539,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$5,642.68 ",
-      paidAmount: "$5,642.68 ",
+      claimedAmount: "5,642.68 ",
+      paidAmount: "5,642.68 ",
       dateClosed: "10/14/22"
     },
     {
@@ -5549,8 +5552,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$1,910.87 ",
-      paidAmount: "$1,910.87 ",
+      claimedAmount: "1,910.87 ",
+      paidAmount: "1,910.87 ",
       dateClosed: "10/14/22"
     },
     {
@@ -5562,8 +5565,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$270.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "270.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/18/22",
@@ -5574,8 +5577,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$5,129.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "5,129.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/18/22",
@@ -5586,8 +5589,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$726.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "726.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -5598,8 +5601,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$20.04 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "20.04 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -5610,8 +5613,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$85.50 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "85.50 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/21/22",
@@ -5622,8 +5625,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "In Progress",
-      claimedAmount: "$210.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "210.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/21/22",
@@ -5634,8 +5637,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "In Progress",
-      claimedAmount: "$200.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "200.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/1/22",
@@ -5646,8 +5649,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$1,125.00 ",
-      paidAmount: "$1,125.00 ",
+      claimedAmount: "1,125.00 ",
+      paidAmount: "1,125.00 ",
       dateClosed: "11/4/22"
     },
     {
@@ -5659,8 +5662,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$8,750.00 ",
-      paidAmount: "$8,750.00 ",
+      claimedAmount: "8,750.00 ",
+      paidAmount: "8,750.00 ",
       dateClosed: "10/19/22"
     },
     {
@@ -5672,8 +5675,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$198.00 ",
-      paidAmount: "$30.00 ",
+      claimedAmount: "198.00 ",
+      paidAmount: "30.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -5685,8 +5688,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$715.44 ",
-      paidAmount: "$120.00 ",
+      claimedAmount: "715.44 ",
+      paidAmount: "120.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -5698,8 +5701,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$1,180.08 ",
-      paidAmount: "$180.00 ",
+      claimedAmount: "1,180.08 ",
+      paidAmount: "180.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -5711,8 +5714,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$159.72 ",
-      paidAmount: "$30.00 ",
+      claimedAmount: "159.72 ",
+      paidAmount: "30.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -5724,8 +5727,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$741.40 ",
-      paidAmount: "$120.00 ",
+      claimedAmount: "741.40 ",
+      paidAmount: "120.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -5737,8 +5740,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage – EUF",
       status: "Closed",
-      claimedAmount: "$2,250.00 ",
-      paidAmount: "$2,250.00 ",
+      claimedAmount: "2,250.00 ",
+      paidAmount: "2,250.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -5750,8 +5753,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Pending Approval",
-      claimedAmount: "$10,084.19 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "10,084.19 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -5762,8 +5765,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$1,950.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,950.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/25/22",
@@ -5774,8 +5777,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "In Progress",
-      claimedAmount: "$155.38 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "155.38 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -5786,8 +5789,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage – EUF",
       status: "Closed",
-      claimedAmount: "$2,100.00 ",
-      paidAmount: "$2,100.00 ",
+      claimedAmount: "2,100.00 ",
+      paidAmount: "2,100.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -5799,8 +5802,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Paid",
-      claimedAmount: "$50.00 ",
-      paidAmount: "$50.00 "
+      claimedAmount: "50.00 ",
+      paidAmount: "50.00 "
     },
     {
       date: "11/1/22",
@@ -5811,8 +5814,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$675.00 ",
-      paidAmount: "$675.00 ",
+      claimedAmount: "675.00 ",
+      paidAmount: "675.00 ",
       dateClosed: "11/4/22"
     },
     {
@@ -5824,8 +5827,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage – EUF",
       status: "Closed",
-      claimedAmount: "$450.00 ",
-      paidAmount: "$450.00 ",
+      claimedAmount: "450.00 ",
+      paidAmount: "450.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -5837,8 +5840,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$1,346.17 ",
-      paidAmount: "$1,346.17 ",
+      claimedAmount: "1,346.17 ",
+      paidAmount: "1,346.17 ",
       dateClosed: "11/4/22"
     },
     {
@@ -5850,8 +5853,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$965.15 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "965.15 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/24/22",
@@ -5862,8 +5865,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$300.00 ",
-      paidAmount: "$300.00 ",
+      claimedAmount: "300.00 ",
+      paidAmount: "300.00 ",
       dateClosed: "10/28/22"
     },
     {
@@ -5875,8 +5878,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$200.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "200.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -5887,8 +5890,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$2,900.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,900.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -5899,8 +5902,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$1,920.00 ",
-      paidAmount: "$1,920.00 ",
+      claimedAmount: "1,920.00 ",
+      paidAmount: "1,920.00 ",
       dateClosed: "10/19/22"
     },
     {
@@ -5912,8 +5915,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Approved",
-      claimedAmount: "$200.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "200.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/27/22",
@@ -5924,8 +5927,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$9,408.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "9,408.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/4/22",
@@ -5936,8 +5939,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$90.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "90.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/4/22",
@@ -5948,8 +5951,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Cancelled",
-      claimedAmount: "$195.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "195.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/4/22",
@@ -5960,8 +5963,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Cancelled",
-      claimedAmount: "$235.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "235.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -5972,8 +5975,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$837.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "837.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/13/22",
@@ -5984,8 +5987,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$470.00 ",
-      paidAmount: "$470.00 ",
+      claimedAmount: "470.00 ",
+      paidAmount: "470.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -5997,8 +6000,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$500.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "500.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/13/22",
@@ -6009,8 +6012,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$2,451.28 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,451.28 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -6021,8 +6024,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "In Progress",
-      claimedAmount: "$24,200.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "24,200.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -6033,8 +6036,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$1,800.00 ",
-      paidAmount: "$1,800.00 ",
+      claimedAmount: "1,800.00 ",
+      paidAmount: "1,800.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -6046,8 +6049,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,440.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,440.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -6058,8 +6061,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$475.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "475.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/25/22",
@@ -6070,8 +6073,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$64,728.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "64,728.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/27/22"
     },
     {
@@ -6083,8 +6086,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$6,072.00 ",
-      paidAmount: "$6,072.00 ",
+      claimedAmount: "6,072.00 ",
+      paidAmount: "6,072.00 ",
       dateClosed: "10/21/22"
     },
     {
@@ -6096,8 +6099,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,728.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,728.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/28/22",
@@ -6108,8 +6111,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Paid",
-      claimedAmount: "$434.25 ",
-      paidAmount: "$148.18 "
+      claimedAmount: "434.25 ",
+      paidAmount: "148.18 "
     },
     {
       date: "10/17/22",
@@ -6120,8 +6123,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$70.63 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "70.63 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "USE CARRIER CODE 049",
       loadNumber: "20802112"
@@ -6135,8 +6138,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$204.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "204.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "WHITEHORSE FREIG/585/WHFH",
       loadNumber: "20501598"
@@ -6150,8 +6153,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "In Progress",
-      claimedAmount: "$40,228.84 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "40,228.84 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/28/22",
@@ -6162,8 +6165,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$500.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "500.00 ",
+      paidAmount: "0.00 ",
       carrier: "REDBONE TRUCKING INCORPOR"
     },
     {
@@ -6175,8 +6178,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Closed - Denied",
-      claimedAmount: "$1,785.53 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,785.53 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -6188,8 +6191,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$273.67 ",
-      paidAmount: "$273.67 ",
+      claimedAmount: "273.67 ",
+      paidAmount: "273.67 ",
       dateClosed: "10/20/22"
     },
     {
@@ -6201,8 +6204,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "In Progress",
-      claimedAmount: "$457.60 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "457.60 ",
+      paidAmount: "0.00 ",
       carrier: "CHOPTANK TRANSPORT",
       loadNumber: "20602805"
     },
@@ -6215,8 +6218,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$471.00 ",
-      paidAmount: "$471.00 ",
+      claimedAmount: "471.00 ",
+      paidAmount: "471.00 ",
       dateClosed: "10/21/22"
     },
     {
@@ -6228,8 +6231,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed - Denied",
-      claimedAmount: "$25.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "25.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -6241,8 +6244,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$149.18 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "149.18 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "FLEENOR BROTHERS",
       loadNumber: "20504418"
@@ -6256,8 +6259,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$907.20 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "907.20 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "ZERO MOUNTAIN LOGISTICS",
       loadNumber: "10200083"
@@ -6271,8 +6274,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$4,900.80 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "4,900.80 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -6283,8 +6286,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Closed - Denied",
-      claimedAmount: "$1,386.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,386.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/20/22"
     },
     {
@@ -6296,8 +6299,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$586.76 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "586.76 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -6308,8 +6311,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$18,350.76 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "18,350.76 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -6320,8 +6323,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$912.28 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "912.28 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -6332,8 +6335,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$23,914.28 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "23,914.28 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -6344,8 +6347,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$5,282.94 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "5,282.94 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/4/22",
@@ -6356,8 +6359,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Addt’l. Info.",
-      claimedAmount: "$15,913.50 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "15,913.50 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -6368,8 +6371,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight Cost",
       status: "Pending Approval",
-      claimedAmount: "$1,184.70 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,184.70 ",
+      paidAmount: "0.00 ",
       carrier: "CH ROBINSON"
     },
     {
@@ -6381,8 +6384,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Approved",
-      claimedAmount: "$1,658.16 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,658.16 ",
+      paidAmount: "0.00 ",
       carrier: "CH ROBINSON"
     },
     {
@@ -6394,8 +6397,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$425.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "425.00 ",
+      paidAmount: "0.00 ",
       carrier: "CUSTOMER PICK UP"
     },
     {
@@ -6407,8 +6410,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Paid",
-      claimedAmount: "$1,122.66 ",
-      paidAmount: "$517.19 "
+      claimedAmount: "1,122.66 ",
+      paidAmount: "517.19 "
     },
     {
       date: "10/27/22",
@@ -6419,8 +6422,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$439.60 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "439.60 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/27/22",
@@ -6431,8 +6434,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$238.51 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "238.51 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/1/22",
@@ -6443,8 +6446,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "Closed",
-      claimedAmount: "$171.00 ",
-      paidAmount: "$171.00 ",
+      claimedAmount: "171.00 ",
+      paidAmount: "171.00 ",
       dateClosed: "11/4/22",
       carrier: "GIX LOGISTICS"
     },
@@ -6457,8 +6460,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$90.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "90.00 ",
+      paidAmount: "0.00 ",
       carrier: "K F TRUCKING"
     },
     {
@@ -6470,8 +6473,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$285.77 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "285.77 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/18/22",
@@ -6482,8 +6485,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$15.00 ",
-      paidAmount: "$15.00 ",
+      claimedAmount: "15.00 ",
+      paidAmount: "15.00 ",
       dateClosed: "10/21/22"
     },
     {
@@ -6495,8 +6498,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Invoice Queued",
-      claimedAmount: "$1,000.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,000.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/19/22",
@@ -6507,8 +6510,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$1,203.19 ",
-      paidAmount: "$340.00 ",
+      claimedAmount: "1,203.19 ",
+      paidAmount: "340.00 ",
       dateClosed: "10/27/22"
     },
     {
@@ -6520,8 +6523,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$495.00 ",
-      paidAmount: "$90.00 ",
+      claimedAmount: "495.00 ",
+      paidAmount: "90.00 ",
       dateClosed: "10/20/22"
     },
     {
@@ -6533,8 +6536,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$99.86 ",
-      paidAmount: "$30.00 ",
+      claimedAmount: "99.86 ",
+      paidAmount: "30.00 ",
       dateClosed: "11/2/22",
       carrier: "Johnson Feed Inc"
     },
@@ -6547,8 +6550,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$316.80 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "316.80 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/19/22",
@@ -6559,8 +6562,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed - Denied",
-      claimedAmount: "$1,666.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "1,666.00 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/25/22",
       carrier: "Customer Pick Up"
     },
@@ -6573,8 +6576,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Paid",
-      claimedAmount: "$522.50 ",
-      paidAmount: "$522.50 ",
+      claimedAmount: "522.50 ",
+      paidAmount: "522.50 ",
       carrier: "Amory Transportation"
     },
     {
@@ -6586,8 +6589,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$1,005.84 ",
-      paidAmount: "$198.00 ",
+      claimedAmount: "1,005.84 ",
+      paidAmount: "198.00 ",
       dateClosed: "10/20/22"
     },
     {
@@ -6599,8 +6602,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$85.00 ",
-      paidAmount: "$85.00 ",
+      claimedAmount: "85.00 ",
+      paidAmount: "85.00 ",
       dateClosed: "10/21/22",
       carrier: "NORTHWEST CARRIERS INC"
     },
@@ -6613,8 +6616,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$26,293.88 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "26,293.88 ",
+      paidAmount: "0.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -6626,8 +6629,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$73.61 ",
-      paidAmount: "$28.00 ",
+      claimedAmount: "73.61 ",
+      paidAmount: "28.00 ",
       dateClosed: "11/2/22",
       carrier: "Customer Pickup Delivery"
     },
@@ -6640,8 +6643,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$6,677.00 ",
-      paidAmount: "$6,677.00 ",
+      claimedAmount: "6,677.00 ",
+      paidAmount: "6,677.00 ",
       dateClosed: "11/2/22",
       carrier: "1010 AMERICOLD DRIVE"
     },
@@ -6654,8 +6657,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$199.00 ",
-      paidAmount: "$199.00 ",
+      claimedAmount: "199.00 ",
+      paidAmount: "199.00 ",
       dateClosed: "11/4/22",
       carrier: "3 RIVERS LOGISTICS"
     },
@@ -6668,8 +6671,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "In Progress",
-      claimedAmount: "$27,759.76 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "27,759.76 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/3/22",
@@ -6680,8 +6683,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$876.43 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "876.43 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/3/22",
@@ -6692,8 +6695,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$688.97 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "688.97 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/30/22",
@@ -6704,8 +6707,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$1,495.45 ",
-      paidAmount: "$1,495.45 ",
+      claimedAmount: "1,495.45 ",
+      paidAmount: "1,495.45 ",
       dateClosed: "11/2/22",
       carrier: "KH Generic SCAC"
     },
@@ -6718,8 +6721,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$550.00 ",
-      paidAmount: "$550.00 ",
+      claimedAmount: "550.00 ",
+      paidAmount: "550.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -6731,8 +6734,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$504.84 ",
-      paidAmount: "$90.15 ",
+      claimedAmount: "504.84 ",
+      paidAmount: "90.15 ",
       dateClosed: "10/26/22",
       carrier: "KH Generic SCAC"
     },
@@ -6745,8 +6748,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Approved",
-      claimedAmount: "$504.84 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "504.84 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -6757,8 +6760,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$200.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "200.00 ",
+      paidAmount: "0.00 ",
       carrier: "M&M #!"
     },
     {
@@ -6770,8 +6773,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Approved",
-      claimedAmount: "$337.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "337.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/11/22",
@@ -6782,8 +6785,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$43.50 ",
-      paidAmount: "$43.50 ",
+      claimedAmount: "43.50 ",
+      paidAmount: "43.50 ",
       dateClosed: "10/14/22"
     },
     {
@@ -6795,8 +6798,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Pending Approval",
-      claimedAmount: "$1,572.30 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,572.30 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/14/22",
@@ -6807,8 +6810,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Pending Approval",
-      claimedAmount: "$7,401.98 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "7,401.98 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -6819,8 +6822,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$1,905.12 ",
-      paidAmount: "$1,905.12 ",
+      claimedAmount: "1,905.12 ",
+      paidAmount: "1,905.12 ",
       dateClosed: "10/14/22"
     },
     {
@@ -6832,8 +6835,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$2,443.30 ",
-      paidAmount: "$2,443.30 ",
+      claimedAmount: "2,443.30 ",
+      paidAmount: "2,443.30 ",
       dateClosed: "10/14/22"
     },
     {
@@ -6845,8 +6848,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$57.70 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "57.70 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/21/22",
@@ -6857,8 +6860,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,680.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,680.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/3/22",
@@ -6869,8 +6872,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "In Progress",
-      claimedAmount: "$300.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "300.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/21/22",
@@ -6881,8 +6884,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$56.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "56.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -6893,8 +6896,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage – EUF",
       status: "Closed",
-      claimedAmount: "$5,850.00 ",
-      paidAmount: "$5,850.00 ",
+      claimedAmount: "5,850.00 ",
+      paidAmount: "5,850.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -6906,8 +6909,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$5,070.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "5,070.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -6918,8 +6921,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$1,200.00 ",
-      paidAmount: "$1,200.00 ",
+      claimedAmount: "1,200.00 ",
+      paidAmount: "1,200.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -6931,8 +6934,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$33,500.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "33,500.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/11/22",
@@ -6943,8 +6946,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$2,325.00 ",
-      paidAmount: "$2,325.00 ",
+      claimedAmount: "2,325.00 ",
+      paidAmount: "2,325.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -6956,8 +6959,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$1,500.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,500.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/14/22",
@@ -6968,8 +6971,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$1,112.76 ",
-      paidAmount: "$180.00 ",
+      claimedAmount: "1,112.76 ",
+      paidAmount: "180.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -6981,8 +6984,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$5,055.99 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "5,055.99 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -6993,8 +6996,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$319.44 ",
-      paidAmount: "$60.00 ",
+      claimedAmount: "319.44 ",
+      paidAmount: "60.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -7006,8 +7009,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$194.04 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "194.04 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/27/22",
@@ -7018,8 +7021,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$6,014.29 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "6,014.29 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -7030,8 +7033,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$556.38 ",
-      paidAmount: "$90.00 ",
+      claimedAmount: "556.38 ",
+      paidAmount: "90.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -7043,8 +7046,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$46,250.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "46,250.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -7055,8 +7058,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "In Progress",
-      claimedAmount: "$600.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "600.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/26/22",
@@ -7067,8 +7070,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage – EUF",
       status: "Invoice Queued",
-      claimedAmount: "$27,520.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "27,520.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -7079,8 +7082,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage – EUF",
       status: "Pending Approval",
-      claimedAmount: "$4,840.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "4,840.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -7091,8 +7094,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "In Progress",
-      claimedAmount: "$57,800.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "57,800.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/28/22",
@@ -7103,8 +7106,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$600.00 ",
-      paidAmount: "$600.00 ",
+      claimedAmount: "600.00 ",
+      paidAmount: "600.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -7116,8 +7119,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$300.00 ",
-      paidAmount: "$300.00 ",
+      claimedAmount: "300.00 ",
+      paidAmount: "300.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -7129,8 +7132,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$3,618.65 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "3,618.65 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -7141,8 +7144,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "In Progress",
-      claimedAmount: "$705.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "705.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -7153,8 +7156,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$2,966.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,966.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -7165,8 +7168,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$2,847.10 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,847.10 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -7177,8 +7180,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$705.00 ",
-      paidAmount: "$705.00 ",
+      claimedAmount: "705.00 ",
+      paidAmount: "705.00 ",
       dateClosed: "10/21/22"
     },
     {
@@ -7190,8 +7193,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$87,460.13 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "87,460.13 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -7202,8 +7205,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage – EUF",
       status: "Closed",
-      claimedAmount: "$1,500.00 ",
-      paidAmount: "$1,500.00 ",
+      claimedAmount: "1,500.00 ",
+      paidAmount: "1,500.00 ",
       dateClosed: "10/19/22"
     },
     {
@@ -7215,8 +7218,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$18.00 ",
-      paidAmount: "$18.00 ",
+      claimedAmount: "18.00 ",
+      paidAmount: "18.00 ",
       dateClosed: "11/4/22"
     },
     {
@@ -7228,8 +7231,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$1,313.52 ",
-      paidAmount: "$1,313.52 ",
+      claimedAmount: "1,313.52 ",
+      paidAmount: "1,313.52 ",
       dateClosed: "10/28/22"
     },
     {
@@ -7241,8 +7244,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Pending Approval",
-      claimedAmount: "$2,319.48 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,319.48 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/19/22",
@@ -7253,8 +7256,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$3,334.56 ",
-      paidAmount: "$2,492.34 ",
+      claimedAmount: "3,334.56 ",
+      paidAmount: "2,492.34 ",
       dateClosed: "10/27/22"
     },
     {
@@ -7266,8 +7269,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$92.99 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "92.99 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "CAROLS TRANSPORTATION INC",
       loadNumber: "20704433"
@@ -7281,8 +7284,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$129.60 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "129.60 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/18/22",
       carrier: "LOAD DELIVERED",
       loadNumber: "10502063"
@@ -7296,8 +7299,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$125.00 ",
-      paidAmount: "$125.00 ",
+      claimedAmount: "125.00 ",
+      paidAmount: "125.00 ",
       dateClosed: "10/19/22",
       carrier: "MARTEN TRANS 150-MTEN"
     },
@@ -7310,8 +7313,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Pending Approval",
-      claimedAmount: "$5,359.97 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "5,359.97 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/19/22",
@@ -7322,8 +7325,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Closed",
-      claimedAmount: "$163.76 ",
-      paidAmount: "$163.76 ",
+      claimedAmount: "163.76 ",
+      paidAmount: "163.76 ",
       dateClosed: "10/27/22"
     },
     {
@@ -7335,8 +7338,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Detention",
       status: "Pending Addt’l. Info.",
-      claimedAmount: "$100.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "100.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/3/22",
@@ -7347,8 +7350,8 @@ export class DashboardComponent implements OnInit {
       claimType: "TRANSPORTATION",
       category: "Damage",
       status: "Open",
-      claimedAmount: "$340.56 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "340.56 ",
+      paidAmount: "0.00 ",
       carrier: "VANTAGE LOGISTICS LLC",
       loadNumber: "20805160"
     },
@@ -7361,8 +7364,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Paid",
-      claimedAmount: "$46.20 ",
-      paidAmount: "$6.00 "
+      claimedAmount: "46.20 ",
+      paidAmount: "6.00 "
     },
     {
       date: "11/3/22",
@@ -7373,8 +7376,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$109.80 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "109.80 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/18/22",
@@ -7385,8 +7388,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$32.00 ",
-      paidAmount: "$32.00 ",
+      claimedAmount: "32.00 ",
+      paidAmount: "32.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -7398,8 +7401,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Pending Approval",
-      claimedAmount: "$323,767.32 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "323,767.32 ",
+      paidAmount: "0.00 ",
       carrier: "ASIAPACIFICFOODS-USALTDCO"
     },
     {
@@ -7411,8 +7414,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$1,400.00 ",
-      paidAmount: "$1,400.00 ",
+      claimedAmount: "1,400.00 ",
+      paidAmount: "1,400.00 ",
       dateClosed: "11/2/22",
       carrier: "VFBL"
     },
@@ -7425,8 +7428,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$7,296.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "7,296.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/20/22",
@@ -7437,8 +7440,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$31,042.32 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "31,042.32 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/28/22",
@@ -7449,8 +7452,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$1,329.30 ",
-      paidAmount: "$231.88 ",
+      claimedAmount: "1,329.30 ",
+      paidAmount: "231.88 ",
       dateClosed: "11/2/22"
     },
     {
@@ -7462,8 +7465,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Closed - Denied",
-      claimedAmount: "$16,917.12 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "16,917.12 ",
+      paidAmount: "0.00 ",
       dateClosed: "10/24/22"
     },
     {
@@ -7475,8 +7478,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "In Progress",
-      claimedAmount: "$7,022.40 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "7,022.40 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/24/22",
@@ -7487,8 +7490,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Freight",
       status: "Closed",
-      claimedAmount: "$935.00 ",
-      paidAmount: "$935.00 ",
+      claimedAmount: "935.00 ",
+      paidAmount: "935.00 ",
       dateClosed: "11/2/22",
       carrier: "CH ROBINSON (CORP)"
     },
@@ -7501,8 +7504,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$1,785.00 ",
-      paidAmount: "$1,785.00 ",
+      claimedAmount: "1,785.00 ",
+      paidAmount: "1,785.00 ",
       dateClosed: "10/27/22"
     },
     {
@@ -7514,8 +7517,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$42.60 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "42.60 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -7526,8 +7529,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Paid",
-      claimedAmount: "$1,353.66 ",
-      paidAmount: "$701.68 "
+      claimedAmount: "1,353.66 ",
+      paidAmount: "701.68 "
     },
     {
       date: "10/27/22",
@@ -7538,8 +7541,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$178.74 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "178.74 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -7550,8 +7553,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$72.36 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "72.36 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/1/22",
@@ -7562,8 +7565,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Overage",
       status: "Closed",
-      claimedAmount: "$32.95 ",
-      paidAmount: "$32.93 ",
+      claimedAmount: "32.95 ",
+      paidAmount: "32.93 ",
       dateClosed: "11/4/22",
       carrier: "MOLO"
     },
@@ -7576,8 +7579,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Pending Approval",
-      claimedAmount: "$567.90 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "567.90 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/29/22",
@@ -7588,8 +7591,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Addt’l. Info.",
-      claimedAmount: "$69,194.40 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "69,194.40 ",
+      paidAmount: "0.00 ",
       carrier: "H & N TRANSPORT INC"
     },
     {
@@ -7601,8 +7604,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$150.00 ",
-      paidAmount: "$150.00 ",
+      claimedAmount: "150.00 ",
+      paidAmount: "150.00 ",
       dateClosed: "10/19/22",
       carrier: "LML TRUCKING LLC"
     },
@@ -7615,8 +7618,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Invoice Queued",
-      claimedAmount: "$62.69 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "62.69 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -7627,8 +7630,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$425.00 ",
-      paidAmount: "$425.00 ",
+      claimedAmount: "425.00 ",
+      paidAmount: "425.00 ",
       dateClosed: "10/21/22",
       carrier: "NORTHWEST CARRIERS INC"
     },
@@ -7641,8 +7644,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Shortage",
       status: "Closed",
-      claimedAmount: "$292.20 ",
-      paidAmount: "$75.00 ",
+      claimedAmount: "292.20 ",
+      paidAmount: "75.00 ",
       dateClosed: "11/2/22"
     },
     {
@@ -7654,8 +7657,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$26.97 ",
-      paidAmount: "$17.50 ",
+      claimedAmount: "26.97 ",
+      paidAmount: "17.50 ",
       dateClosed: "11/2/22"
     },
     {
@@ -7667,8 +7670,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Paid",
-      claimedAmount: "$7,195.13 ",
-      paidAmount: "$7,195.13 "
+      claimedAmount: "7,195.13 ",
+      paidAmount: "7,195.13 "
     },
     {
       date: "10/19/22",
@@ -7679,8 +7682,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "In Progress",
-      claimedAmount: "$15,927.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "15,927.00 ",
+      paidAmount: "0.00 ",
       carrier: "1010 AMERICOLD DRIVE"
     },
     {
@@ -7692,8 +7695,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Closed",
-      claimedAmount: "$325.00 ",
-      paidAmount: "$325.00 ",
+      claimedAmount: "325.00 ",
+      paidAmount: "325.00 ",
       dateClosed: "10/26/22",
       carrier: "BROWN TRANSPORTATION SOLUTIONS INC"
     },
@@ -7706,8 +7709,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Detention",
       status: "Pending Approval",
-      claimedAmount: "$125.00 ",
-      paidAmount: "$0.00 ",
+      claimedAmount: "125.00 ",
+      paidAmount: "0.00 ",
       carrier: "FYMI"
     },
     {
@@ -7719,8 +7722,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$547.20 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "547.20 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/13/22",
@@ -7731,8 +7734,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Inventory Adjustment",
       status: "Pending Addt’l. Info.",
-      claimedAmount: "$795.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "795.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -7743,8 +7746,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$105.18 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "105.18 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/1/22",
@@ -7755,8 +7758,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$190.20 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "190.20 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -7767,8 +7770,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$30.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "30.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -7779,8 +7782,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$5.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "5.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -7791,8 +7794,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed - Denied",
-      claimedAmount: "$81.50 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "81.50 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/21/22",
@@ -7803,8 +7806,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$140.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "140.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/27/22",
@@ -7815,8 +7818,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,800.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,800.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/4/22",
@@ -7827,8 +7830,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$672.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "672.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/13/22",
@@ -7839,8 +7842,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$287.50 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "287.50 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/26/22",
@@ -7851,8 +7854,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$1,395.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "1,395.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/14/22",
@@ -7863,8 +7866,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$638.88 ",
-      paidAmount: "$120.00 ",
+      claimedAmount: "638.88 ",
+      paidAmount: "120.00 ",
       dateClosed: "10/30/22"
     },
     {
@@ -7876,8 +7879,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$2,504.04 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,504.04 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -7888,8 +7891,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$194.04 ",
-      paidAmount: "$30.00 ",
+      claimedAmount: "194.04 ",
+      paidAmount: "30.00 ",
       dateClosed: "11/7/22"
     },
     {
@@ -7901,8 +7904,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$3,619.66 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "3,619.66 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/2/22",
@@ -7913,8 +7916,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$4,060.11 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "4,060.11 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/10/22",
@@ -7925,8 +7928,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$5,402.00 ",
-      paidAmount: "$5,402.00 ",
+      claimedAmount: "5,402.00 ",
+      paidAmount: "5,402.00 ",
       dateClosed: "10/21/22"
     },
     {
@@ -7938,8 +7941,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$3,440.00 ",
-      paidAmount: "$3,440.00 ",
+      claimedAmount: "3,440.00 ",
+      paidAmount: "3,440.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -7951,8 +7954,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$600.00 ",
-      paidAmount: "$600.00 ",
+      claimedAmount: "600.00 ",
+      paidAmount: "600.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -7964,8 +7967,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Closed",
-      claimedAmount: "$480.00 ",
-      paidAmount: "$480.00 ",
+      claimedAmount: "480.00 ",
+      paidAmount: "480.00 ",
       dateClosed: "10/14/22"
     },
     {
@@ -7977,8 +7980,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$600.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "600.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/31/22",
@@ -7989,8 +7992,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Paid",
-      claimedAmount: "$200.00 ",
-      paidAmount: "$200.00 "
+      claimedAmount: "200.00 ",
+      paidAmount: "200.00 "
     },
     {
       date: "11/7/22",
@@ -8001,8 +8004,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Demurrage",
       status: "Invoice Queued",
-      claimedAmount: "$200.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "200.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/12/22",
@@ -8013,8 +8016,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$2,760.00 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,760.00 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/26/22",
@@ -8025,8 +8028,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$2,142.87 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,142.87 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/27/22",
@@ -8037,8 +8040,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$153.96 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "153.96 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/27/22",
@@ -8049,8 +8052,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$2,140.50 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "2,140.50 ",
+      paidAmount: "0.00 "
     },
     {
       date: "11/7/22",
@@ -8061,8 +8064,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "In Progress",
-      claimedAmount: "$7,734.73 ",
-      paidAmount: "$0.00 "
+      claimedAmount: "7,734.73 ",
+      paidAmount: "0.00 "
     },
     {
       date: "10/17/22",
@@ -8073,8 +8076,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$4,992.85 ",
-      paidAmount: "$4,992.85 ",
+      claimedAmount: "4,992.85 ",
+      paidAmount: "4,992.85 ",
       dateClosed: "11/2/22"
     },
     {
@@ -8086,22 +8089,22 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$4,992.85 ",
-      paidAmount: "$4,992.85 ",
+      claimedAmount: "4,992.85 ",
+      paidAmount: "4,992.85 ",
       dateClosed: "11/2/22"
     },
     ,
     {
       date: "10/17/21",
       masterAcct: "Atkinson Sheep Ranch",
-      facility: "Lula (JDAWMS2) (GA-LULA-LN)",
+      facility: "Fairmont (HighJump) (MN-FA-M5)",
       account: "-",
       amcClaim: "166622",
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$4,992.85 ",
-      paidAmount: "$4,992.85 ",
+      claimedAmount: "992.85 ",
+      paidAmount: "92.85 ",
       dateClosed: "11/2/22"
     },
     {
@@ -8113,8 +8116,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$4,992.85 ",
-      paidAmount: "$4,992.85 ",
+      claimedAmount: "6,992.85 ",
+      paidAmount: "992.85 ",
       dateClosed: "11/2/22"
     },
     {
@@ -8126,8 +8129,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$4,992.85 ",
-      paidAmount: "$4,992.85 ",
+      claimedAmount: "4,992.85 ",
+      paidAmount: "4,992.85 ",
       dateClosed: "11/2/22"
     },
     {
@@ -8139,8 +8142,8 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$4,992.85 ",
-      paidAmount: "$4,992.85 ",
+      claimedAmount: "4,992.85 ",
+      paidAmount: "4,992.85 ",
       dateClosed: "11/2/22"
     },
     {
@@ -8152,11 +8155,12 @@ export class DashboardComponent implements OnInit {
       claimType: "WAREHOUSE",
       category: "Damage",
       status: "Closed",
-      claimedAmount: "$4,992.85 ",
-      paidAmount: "$4,992.85 ",
+      claimedAmount: "4,992.85 ",
+      paidAmount: "4,992.85 ",
       dateClosed: "11/2/22"
     }
     ];
+    this.tempData = this.claims
     this.initFilter();
 
   }
@@ -8179,6 +8183,22 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
+
+  yearrange(event:any){
+    this.selectedDay = {
+      value: event.value,
+      text: event.source.triggerValue
+    };
+    this.claims = [].concat(this.tempData.filter((x:any) =>{
+      let event12 = new Date(x.date);
+      if (event12.getFullYear() == this.selectedDay.text) {
+        return true;
+      } else {
+        return false;
+      }
+    }))
+    this.notifyObj.valueChanged(this.claims);
+  }
   selectedData(e: any) {
     this.selectedDataItems = e;
     this.navOptions = 'addClaim';    
@@ -8198,11 +8218,11 @@ export class DashboardComponent implements OnInit {
         }
   
       })
-    console.log(this.claims);
-
       this.initFilter();
-
       this.show = true
     }, 0)
   }
+}
+export class Notifier {
+  valueChanged: (data:any) => void = (data:any) => { };    
 }

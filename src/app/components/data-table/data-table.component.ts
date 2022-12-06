@@ -118,7 +118,7 @@ export class DataTableComponent implements OnInit {
 	}
 
 	public onExportToExcel() {
-		const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.filteredRows);
+		const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(this.rows);
 		const wb: XLSX.WorkBook = XLSX.utils.book_new();
 		XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 		XLSX.writeFile(wb, 'claims.xlsx');
@@ -138,7 +138,7 @@ export class DataTableComponent implements OnInit {
 		});
 	}
 	filteredApplied(event:any,props:string){
-		this.filteredRows = this.rows.filter(row=>{
+		this.rows = this.rows.filter(row=>{
 			console.log(event.target.value,props);
 			return row[props].indexOf(event.target.value) > -1;
 		})

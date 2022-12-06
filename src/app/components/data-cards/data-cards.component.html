@@ -1,25 +1,11 @@
 <div fxFlexFill fxLayout="column">
-    <div fxLayout="row" fxLayoutAlign="start center" >
-    <mat-form-field appearance="outline">
-        <mat-select matNativeControl required placeholder="Year" (selectionChange)="yearrange($event)" >
-          <mat-option>None</mat-option>
-            <mat-option value="2022" selected>2022</mat-option>
-            <mat-option value="2021">2021</mat-option>
-            <mat-option value="2020">2020</mat-option>
-            <mat-option value="2019">2019</mat-option>
-            <mat-option value="2018">2018</mat-option>
-        </mat-select>
-        <mat-label>Claim details for Year</mat-label>
-    </mat-form-field>
-    </div>
-
 <div fxFlexFill fxLayoutGap="20px" fxLayout="row">
     <mat-card fxFlex="20%">
         <mat-card-header>
             <div mat-card-avatar>
                 <mat-icon class="facility main-icon">account_tree</mat-icon>
             </div>
-            <mat-card-subtitle>Total Facilities</mat-card-subtitle>
+            <mat-card-subtitle><b>Total Facilities</b></mat-card-subtitle>
             <mat-card-title>{{ facilities.length }}</mat-card-title>
         </mat-card-header>
 <mat-form-field>
@@ -38,7 +24,7 @@
             <div mat-card-avatar>
                 <mat-icon class="customer main-icon">person</mat-icon>
             </div>
-            <mat-card-subtitle>Total Customers</mat-card-subtitle>
+            <mat-card-subtitle><b>Total Customers</b></mat-card-subtitle>
             <mat-card-title *ngIf="this.customers.length && !(this.uniqueChars.length)">{{customers.length }}</mat-card-title>
             <mat-card-title *ngIf="this.uniqueChars.length">{{this.uniqueChars.length }}</mat-card-title>
         </mat-card-header>
@@ -48,7 +34,7 @@
             <div mat-card-avatar>
                 <mat-icon class="claim main-icon">content_copy</mat-icon>
             </div>
-            <mat-card-subtitle>Total Claims</mat-card-subtitle>
+            <mat-card-subtitle><b>Total Claims</b></mat-card-subtitle>
              <mat-card-title *ngIf="this.rowData.length && !(this.masterData.length)">{{rowData.length }}</mat-card-title> 
             <mat-card-title *ngIf="this.masterData.length">{{this.masterData.length }}</mat-card-title>
         </mat-card-header>
@@ -59,7 +45,7 @@
             <div mat-card-avatar>
                 <mat-icon class="claim-amount main-icon">attach_money</mat-icon>
             </div>
-            <mat-card-subtitle>Claim Amount</mat-card-subtitle>
+            <mat-card-subtitle><b>Claim Amount</b></mat-card-subtitle>
             <mat-card-title>${{ claimAmount | number : '1.2-2'}}</mat-card-title>
         </mat-card-header>
 
@@ -69,7 +55,7 @@
             <div mat-card-avatar>
                 <mat-icon class="paid-amount main-icon">paid</mat-icon>
             </div>
-            <mat-card-subtitle>Paid Amount</mat-card-subtitle>
+            <mat-card-subtitle><b>Paid Amount</b></mat-card-subtitle>
             <mat-card-title>${{ paidAmount | number : '1.2-2' }}</mat-card-title>
         </mat-card-header>
     </mat-card>

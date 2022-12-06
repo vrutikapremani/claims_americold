@@ -9,19 +9,28 @@
             <mat-list-item class="headerOption" (click)="navOptions = 'addClaim'">
                 <mat-icon>add</mat-icon> &nbsp; Add Claims
             </mat-list-item>
-            <!-- <mat-list-item> Paprika </mat-list-item> -->
         </mat-list>
     </mat-drawer>
 
     <div class="example-sidenav-content" *ngIf="navOptions == 'home'"  #dashboard>
-       <!-- <button mat-stroked-button color="primary" mat-button style="float: right;">
-            <mat-icon>sorting</mat-icon>
-            <span>Filters</span>
-        </button>
-        <br/> -->
+
+        <div fxLayout="row" fxLayoutAlign="start center" >
+            <mat-form-field appearance="outline">
+                <mat-select matNativeControl required placeholder="Year" (selectionChange)="yearrange($event)" >
+                  <mat-option>None</mat-option>
+                    <mat-option value="2022" selected>2022</mat-option>
+                    <mat-option value="2021">2021</mat-option>
+                    <mat-option value="2020">2020</mat-option>
+                    <mat-option value="2019">2019</mat-option>
+                    <mat-option value="2018">2018</mat-option>
+                </mat-select>
+                <mat-label>Claim details for Year</mat-label>
+            </mat-form-field>
+            </div>
+
         <div fxFlexFill fxLayout="column" fxLayoutGap="20px" fxFlexFill class="dashboard"  *ngIf="show">
             <div>
-                <app-data-cards [rowData]="claims" (year)="getYear($event)"></app-data-cards>
+                <app-data-cards [rowData]="claims" (year)="getYear($event)" [notify]="notifyObj"></app-data-cards>
             </div>
             <div fxFlexFill fxLayoutGap="20px" fxLayout="row">
                 <mat-card fxFlex="50%">
@@ -46,15 +55,13 @@
             </div>
             <div fxFlexFill fxLayoutGap="100%">
                 <mat-card>
-                    <app-data-table [rows]="claims" (newItemEvent)="selectedData($event)" [showActions]="true">
-                    </app-data-table>
+                    <app-data-table [rows]="claims" (newItemEvent)="selectedData($event)" [showActions]="true"></app-data-table>
                 </mat-card>
             </div>
         </div>
     </div>
     <div class="example-sidenav-content" *ngIf="navOptions == 'addClaim'">
         <app-add-claims [selectedDataItems]="selectedDataItems"></app-add-claims>
-
 
     </div>
 </mat-drawer-container>
