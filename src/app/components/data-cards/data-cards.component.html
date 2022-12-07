@@ -1,33 +1,32 @@
 <div fxFlexFill fxLayout="column">
-    <mat-form-field appearance="outline" style="width: 33%;">
-        <select matNativeControl placeholder="Year">
-            <option value="2022" selected>2022</option>
-            <option value="2021">2021</option>
-            <option value="2020">2020</option>
-            <option value="2019">2019</option>
-            <option value="2018">2018</option>
-        </select>
-        <mat-label>Claim details for Year</mat-label>
-    </mat-form-field>
     <div fxFlexFill fxLayoutGap="20px" fxLayout="row">
         <mat-card fxFlex="20%">
             <mat-card-header>
                 <div mat-card-avatar>
                     <mat-icon class="facility main-icon">account_tree</mat-icon>
                 </div>
-                <mat-card-subtitle>Total Facilities</mat-card-subtitle>
+                <mat-card-subtitle><b>Total Facilities</b></mat-card-subtitle>
                 <mat-card-title>{{ facilities.length }}</mat-card-title>
             </mat-card-header>
-            <button mat-button color="primary">More Insights <mat-icon color="primary">keyboard_double_arrow_right
-            </mat-icon></button>
+    <mat-form-field>
+      <mat-label>Select Facility</mat-label>
+      <mat-select (selectionChange)="changeFacility($event)">
+        <mat-option>None</mat-option>
+        <mat-option *ngFor="let Wearhouse of facilities" [value]="Wearhouse"  >
+          {{Wearhouse}}
+        </mat-option>
+       
+      </mat-select>
+    </mat-form-field>
         </mat-card>
         <mat-card fxFlex="20%">
             <mat-card-header>
                 <div mat-card-avatar>
                     <mat-icon class="customer main-icon">person</mat-icon>
                 </div>
-                <mat-card-subtitle>Total Customers</mat-card-subtitle>
-                <mat-card-title>{{ customers.length }}</mat-card-title>
+                <mat-card-subtitle><b>Total Customers</b></mat-card-subtitle>
+                <mat-card-title *ngIf="this.customers.length && !(this.uniqueChars.length)">{{customers.length }}</mat-card-title>
+                <mat-card-title *ngIf="this.uniqueChars.length">{{this.uniqueChars.length }}</mat-card-title>
             </mat-card-header>
         </mat-card>
         <mat-card fxFlex="20%">
@@ -35,30 +34,30 @@
                 <div mat-card-avatar>
                     <mat-icon class="claim main-icon">content_copy</mat-icon>
                 </div>
-                <mat-card-subtitle>Total Claims</mat-card-subtitle>
-                <mat-card-title>{{ rowData.length }}</mat-card-title>
+                <mat-card-subtitle><b>Total Claims</b></mat-card-subtitle>
+                 <mat-card-title *ngIf="this.rowData.length && !(this.masterData.length)">{{rowData.length }}</mat-card-title> 
+                <mat-card-title *ngIf="this.masterData.length">{{this.masterData.length }}</mat-card-title>
             </mat-card-header>
-            <button mat-button color="primary">More Insights <mat-icon color="primary">keyboard_double_arrow_right
-            </mat-icon></button>
+    
         </mat-card>
         <mat-card fxFlex="20%">
             <mat-card-header>
                 <div mat-card-avatar>
                     <mat-icon class="claim-amount main-icon">attach_money</mat-icon>
                 </div>
-                <mat-card-subtitle>Claim Amount</mat-card-subtitle>
+                <mat-card-subtitle><b>Claim Amount</b></mat-card-subtitle>
                 <mat-card-title>${{ claimAmount | number : '1.2-2'}}</mat-card-title>
             </mat-card-header>
-
+    
         </mat-card>
         <mat-card fxFlex="20%">
             <mat-card-header>
                 <div mat-card-avatar>
                     <mat-icon class="paid-amount main-icon">paid</mat-icon>
                 </div>
-                <mat-card-subtitle>Paid Amount</mat-card-subtitle>
+                <mat-card-subtitle><b>Paid Amount</b></mat-card-subtitle>
                 <mat-card-title>${{ paidAmount | number : '1.2-2' }}</mat-card-title>
             </mat-card-header>
         </mat-card>
     </div>
-</div>
+    </div>
